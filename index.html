@@ -1,7 +1,7 @@
 
 <html>
 <head>
-<title></title>
+<title>&mu;sic</title>
 
 <link rel="stylesheet" type="text/css" href="css/music.css"/>
 
@@ -15,7 +15,14 @@
 </head>
 
 <body>
-<input type="file" webkitdirectory directory multiple mozdirectory 
+<h1>&mu;sic</h1>
+
+<div id="inputcontainer">
+<input id="actual_addmusic" name="actual_addmusic" type="file"
+  webkitdirectory directory multiple mozdirectory 
   onchange="loadMusic(this.files)">
+</div>
+
+<span id="addmusic">Add Music</span>
 </body>
 </html>

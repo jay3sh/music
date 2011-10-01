@@ -32,4 +32,8 @@ function loadMusic(files) {
 
 $(document).ready(function () {
   app.db = new app.DB();
+
+  $('#addmusic').click(function () {
+    $('input[name=actual_addmusic]').click();
+  });
 });

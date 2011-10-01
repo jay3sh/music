@@ -1,0 +1,24 @@
+
+body {
+  text-align : center;
+}
+
+#inputcontainer {
+  position : absolute;
+  left : -500px;
+  top : -500px;
+}
+
+#actual_addmusic {
+  display : hide;
+}
+
+#addmusic {
+  background : #eee;
+  padding : 10px;
+  font-size : 120%;
+  width : 200px;
+  height : 50px;
+  line-height : 50px;
+  cursor : pointer;
+}
