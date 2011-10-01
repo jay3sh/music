@@ -9,24 +9,32 @@ function loadMusic(files) {
   });
 
   _(songs).each(function (f) {
-    ID3v2.parseFile(f, function (tags) {
-      $.app.db.put([
-        f.webkitRelativePath,
-        f.fileName,
-        f.fileSize,
-        tags.Title,
-        tags.Artist,
-        tags.Album,
-        tags.Genre
-      ])
+    app.db.getByPath(f.webkitRelativePath, function (tx, r) {
+      if(r.rows.length == 0) {
+        ID3v2.parseFile(f, function (tags) {
+          $.app.db.put([
+            f.webkitRelativePath,
+            f.fileName,
+            f.fileSize,
+            tags.Title,
+            tags.Artist,
+            tags.Album,
+            tags.Genre
+          ])
+        });
+      } else {
+        console.log('Skipping '+f.webkitRelativePath);
+      }
     });
   });
 
+  /*
   setTimeout(function () {
     _(songs).each(function (f) {
       console.log(window.webkitURL.createObjectURL(f));
     });
   }, 3000)
+  */
 
 }
 

@@ -47,6 +47,13 @@ DB.prototype = {
       onSuccess, onError);
     });
   },
+
+  getByPath : function (path, onSuccess) {
+    db.transaction(function(tx) {
+      tx.executeSql('SELECT * FROM MusicFile WHERE path = "'+path+'"', [],
+        onSuccess, onError);
+    });
+  }
 }
 
 $.app.DB = DB;
