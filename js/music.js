@@ -9,7 +9,27 @@ function loadMusic(files) {
   });
 
   _(songs).each(function (f) {
-    $('body').append(f.fileName+'</br>');
+    ID3v2.parseFile(f, function (tags) {
+      $.app.db.put([
+        f.webkitRelativePath,
+        f.fileName,
+        f.fileSize,
+        tags.Title,
+        tags.Artist,
+        tags.Album,
+        tags.Genre
+      ])
+    });
   });
 
+  setTimeout(function () {
+    _(songs).each(function (f) {
+      console.log(window.webkitURL.createObjectURL(f));
+    });
+  }, 3000)
+
 }
+
+$(document).ready(function () {
+  app.db = new app.DB();
+});
