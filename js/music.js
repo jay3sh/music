@@ -5,7 +5,9 @@ function loadMusic(files) {
     var fileName = file.fileName;
     var size = file.fileSize;
     return !/\.$/.test(path) &&
-      (/\.mp3$/.test(path)) || (/\.ogg$/.test(path))
+      (/\.mp3$/.test(path)) || 
+      (/\.ogg$/.test(path)) ||
+      (/\.m4a$/.test(path))
   });
 
   _(songs).each(function (f) {
