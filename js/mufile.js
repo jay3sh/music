@@ -64,6 +64,22 @@ Storage.save = function () {
 };
 
 Storage.search = function (keyword) {
+  var results = [];
+  function searchIndex(index) {
+    for (key in index) {
+      if(key.indexOf(keyword) > 0) {
+        var paths = index[key];
+        console.log(key+' '+paths);
+        _(paths).each(function (path) {
+          results.push(Storage.read(path));
+        });
+      }
+    }
+  }
+  searchIndex(Storage.titleIndex);
+  searchIndex(Storage.artistIndex);
+  searchIndex(Storage.nameIndex);
+  return results;
 };
 
 app.Storage = Storage;

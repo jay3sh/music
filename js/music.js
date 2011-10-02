@@ -42,8 +42,8 @@ function getSongEntryHtml(name, artist) {
 }
 
 function getPrettySongName(muFile) {
-  var name = muFile.fileName.length > muFile.title.length ?
-    muFile.fileName : muFile.title;
+  var name = muFile.name.length > muFile.title.length ?
+    muFile.name : muFile.title;
   return name.replace(/\.\w+$/,'');
 }
 
@@ -55,18 +55,15 @@ $(document).ready(function () {
     $('input[name=actual_addmusic]').click();
   });
 
-  $('input[name=search]').keydown(function () {
+  $('input[name=search]').keyup(function (e) {
     
-    var results = $('#search_results');
-    $.app.db.search($(this).val(), function (tx, r) {
-      if(r.rows.length > 0) {
-        results.empty();
-        _(r.rows.length).times(function (i) {
-          var muFile = r.rows.item(i);
-          results.append(getSongEntryHtml(
-            getPrettySongName(muFile), muFile.artist))
-        });
-      }
-    })
+    var divResults = $('#search_results');
+    var results = $.app.Storage.search($(this).val());
+    console.log('Searching '+$(this).val()+' found '+results.length);
+    divResults.empty();
+    _(results).each(function (muFile) {
+      divResults.append(getSongEntryHtml(
+        getPrettySongName(muFile), muFile.artist))
+    });
   });
 });
