@@ -11,6 +11,7 @@ Storage.nameIndex = {};
 Storage.updateIndex = function (muFile) {
 
   if(muFile.title && muFile.title.length > 0) {
+    var key = muFile.artist.toLowerCase();
     if(Storage.titleIndex[muFile.title]) {
       Storage.titleIndex[muFile.title].push(muFile.path);
     } else {
@@ -19,6 +20,7 @@ Storage.updateIndex = function (muFile) {
   }
 
   if(muFile.artist && muFile.artist.length > 0) {
+    var key = muFile.artist.toLowerCase();
     if(Storage.artistIndex[muFile.artist]) {
       Storage.artistIndex[muFile.artist].push(muFile.path);
     } else {
@@ -27,10 +29,11 @@ Storage.updateIndex = function (muFile) {
   }
 
   if(muFile.name && muFile.name.length > 0) {
-    if(Storage.nameIndex[muFile.name]) {
-      Storage.nameIndex[muFile.name].push(muFile.path);
+    var key = muFile.name.toLowerCase().replace(/\.\w+$/,'');
+    if(Storage.nameIndex[key]) {
+      Storage.nameIndex[key].push(muFile.path);
     } else {
-      Storage.nameIndex[muFile.name] = [muFile.path];
+      Storage.nameIndex[key] = [muFile.path];
     }
   }
 }
@@ -64,12 +67,12 @@ Storage.save = function () {
 };
 
 Storage.search = function (keyword) {
+  keyword = keyword.toLowerCase();
   var results = [];
   function searchIndex(index) {
     for (key in index) {
-      if(key.indexOf(keyword) > 0) {
+      if(key.indexOf(keyword) >= 0) {
         var paths = index[key];
-        console.log(key+' '+paths);
         _(paths).each(function (path) {
           results.push(Storage.read(path));
         });

@@ -12,10 +12,13 @@ function loadMusic(files) {
   });
 
   var total = musicFiles.length, progress = 0;
+  var t1 = new Date().getTime();
   function incProgress() {
-    console.log(++progress);
+    progress++;
+    $('#addmusic').html(progress+' / '+total);
     if(progress == total) {
       $.app.Storage.save();
+      console.log('Done saving '+total+'  '+(new Date().getTime()-t1)+' msec');
     }
   }
   var muFiles = _(musicFiles).map(function (f) {
