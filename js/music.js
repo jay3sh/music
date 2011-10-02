@@ -59,11 +59,14 @@ $(document).ready(function () {
   });
 
   $('input[name=search]').keyup(function (e) {
-    
+
     var divResults = $('#search_results');
-    var results = $.app.Storage.search($(this).val());
-    console.log('Searching '+$(this).val()+' found '+results.length);
     divResults.empty();
+    var text = $(this).val();
+
+    if(!text || (text && text.length < 4)) { return; }
+
+    var results = $.app.Storage.search($(this).val());
     _(results).each(function (muFile) {
       divResults.append(getSongEntryHtml(
         getPrettySongName(muFile), muFile.artist))
