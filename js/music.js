@@ -30,14 +30,12 @@ function loadMusic(files) {
     });
   });
 
-  /*
   setTimeout(function () {
-    _(songs).each(function (f) {
-      console.log(window.webkitURL.createObjectURL(f));
-    });
-  }, 3000)
-  */
-
+    var song = _(songs).first();
+    var url = window.webkitURL.createObjectURL(song);
+    $("#player").get(0).src = url;
+    $("#player").get(0).play();
+  }, 300)
 }
 
 $(document).ready(function () {
