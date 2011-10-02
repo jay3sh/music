@@ -12,19 +12,19 @@ Storage.updateIndex = function (muFile) {
 
   if(muFile.title && muFile.title.length > 0) {
     var key = muFile.artist.toLowerCase();
-    if(Storage.titleIndex[muFile.title]) {
-      Storage.titleIndex[muFile.title].push(muFile.path);
+    if(Storage.titleIndex[key]) {
+      Storage.titleIndex[key].push(muFile.path);
     } else {
-      Storage.titleIndex[muFile.title] = [muFile.path];
+      Storage.titleIndex[key] = [muFile.path];
     }
   }
 
   if(muFile.artist && muFile.artist.length > 0) {
     var key = muFile.artist.toLowerCase();
-    if(Storage.artistIndex[muFile.artist]) {
-      Storage.artistIndex[muFile.artist].push(muFile.path);
+    if(Storage.artistIndex[key]) {
+      Storage.artistIndex[key].push(muFile.path);
     } else {
-      Storage.artistIndex[muFile.artist] = [muFile.path];
+      Storage.artistIndex[key] = [muFile.path];
     }
   }
 
