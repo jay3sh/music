@@ -8,7 +8,7 @@ var db;
 
 function createNew(tx) {
   tx.executeSql('CREATE TABLE IF NOT EXISTS '+
-    'MusicFile ('+
+    'MuFile ('+
     'id INTEGER PRIMARY KEY ASC, '+
 
     'path TEXT, '+
@@ -39,9 +39,9 @@ function DB() {
 }
 
 DB.prototype = {
-  put : function (musicFile, successCb) {
+  put : function (musicFile, onSuccess) {
     db.transaction(function (tx) {
-      tx.executeSql('INSERT INTO MusicFile'+
+      tx.executeSql('INSERT INTO MuFile'+
       '(path, fileName, size, title, artist, album, genre) '+
       'VALUES (?, ?, ?, ?, ?, ?, ?)', musicFile,
       onSuccess, onError);
@@ -50,15 +50,15 @@ DB.prototype = {
 
   getByPath : function (path, onSuccess) {
     db.transaction(function(tx) {
-      tx.executeSql('SELECT * FROM MusicFile WHERE path = "'+path+'"', [],
-        onSuccess, onError);
+      tx.executeSql('SELECT * FROM MuFile WHERE path like "%'+path+'%"',
+        [], onSuccess, onError);
     });
   },
 
   search : function (keyword, onSuccess) {
     db.transaction(function(tx) {
       tx.executeSql(
-        'SELECT * from MusicFile '+
+        'SELECT * from MuFile '+
         'WHERE fileName like "%'+keyword+'%" or '+
         'title like "%'+keyword+'%" or '+
         'artist like "%'+keyword+'%" or '+
