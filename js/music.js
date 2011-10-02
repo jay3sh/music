@@ -11,12 +11,15 @@ function loadMusic(files) {
       (/\.m4a$/.test(path))
   });
 
-  var total = muFiles.length, progress = 0;
+  var total = musicFiles.length, progress = 0;
   function incProgress() {
     console.log(++progress);
+    if(progress == total) {
+      $.app.Storage.save();
+    }
   }
   var muFiles = _(musicFiles).map(function (f) {
-    return new app.MuFile(f, incProgress);
+    return new $.app.MuFile(f, incProgress);
   });
 
   setTimeout(function () {
@@ -39,13 +42,14 @@ function getSongEntryHtml(name, artist) {
 }
 
 function getPrettySongName(muFile) {
-  var name = muFile.fileName.length > muFile.title ?
+  var name = muFile.fileName.length > muFile.title.length ?
     muFile.fileName : muFile.title;
   return name.replace(/\.\w+$/,'');
 }
 
 $(document).ready(function () {
-  app.db = new app.DB();
+
+  $.app.Storage.load();
 
   $('#addmusic').click(function () {
     $('input[name=actual_addmusic]').click();
