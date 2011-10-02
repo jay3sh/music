@@ -23,6 +23,19 @@ body {
   cursor : pointer;
 }
 
+#search_results .entry .song_name {
+  font-weight : bold;
+}
+#search_results .entry .artist_name {
+  font-size : 60%;
+  color : #666;
+}
+#search_results .entry .add_song {
+  font-weight : bold;
+  font-size : 120%;
+  color : #666;
+}
+
 audio {
   width: 100%;
 }

@@ -18,10 +18,10 @@ function loadMusic(files) {
             f.webkitRelativePath,
             f.fileName,
             f.fileSize,
-            tags.Title,
-            tags.Artist,
-            tags.Album,
-            tags.Genre
+            tags.Title || '',
+            tags.Artist || '',
+            tags.Album || '',
+            tags.Genre || ''
           ])
         });
       } else {
@@ -38,10 +38,40 @@ function loadMusic(files) {
   }, 300)
 }
 
+function getSongEntryHtml(name, artist) {
+  return '<div class="entry">'+
+    '<span class="song_name">'+name+'</span>'+
+    '&nbsp;&nbsp;'+
+    '<span class="artist_name">'+artist+'</span>'+
+    '<span class="add_song">+</span>'+
+  '</div>';
+}
+
+function getPrettySongName(muFile) {
+  var name = muFile.fileName.length > muFile.title ?
+    muFile.fileName : muFile.title;
+  return name.replace(/\.\w+$/,'');
+}
+
 $(document).ready(function () {
   app.db = new app.DB();
 
   $('#addmusic').click(function () {
     $('input[name=actual_addmusic]').click();
+  });
+
+  $('input[name=search]').keydown(function () {
+    
+    var results = $('#search_results');
+    $.app.db.search($(this).val(), function (tx, r) {
+      if(r.rows.length > 0) {
+        results.empty();
+        _(r.rows.length).times(function (i) {
+          var muFile = r.rows.item(i);
+          results.append(getSongEntryHtml(
+            getPrettySongName(muFile), muFile.artist))
+        });
+      }
+    })
   });
 });

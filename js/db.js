@@ -53,7 +53,20 @@ DB.prototype = {
       tx.executeSql('SELECT * FROM MusicFile WHERE path = "'+path+'"', [],
         onSuccess, onError);
     });
+  },
+
+  search : function (keyword, onSuccess) {
+    db.transaction(function(tx) {
+      tx.executeSql(
+        'SELECT * from MusicFile '+
+        'WHERE fileName like "%'+keyword+'%" or '+
+        'title like "%'+keyword+'%" or '+
+        'artist like "%'+keyword+'%" or '+
+        'path like "%'+keyword+'%"', [],
+        onSuccess, onError);
+    });
   }
+
 }
 
 $.app.DB = DB;

@@ -16,6 +16,18 @@
 
 <body>
 <h1>&mu;sic</h1>
+<input name="search"></input>
+<br/>
+
+<span id="addmusic">Add Music</span>
+
+<div id="search_results">
+</div>
+
+
+<div id="footer">
+  <audio onended="" controls id="player">
+</div>
 
 <div id="inputcontainer">
 <input id="actual_addmusic" name="actual_addmusic" type="file"
@@ -23,9 +35,5 @@
   onchange="loadMusic(this.files)">
 </div>
 
-<span id="addmusic">Add Music</span>
-<div id="footer">
-  <audio onended="" controls id="player">
-</div>
 </body>
 </html>
