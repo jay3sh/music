@@ -76,9 +76,11 @@ function getSongEntryHtml(muFile, asSearchResult) {
     '&nbsp;&nbsp;'+
     '<span class="artist_name">'+muFile.artist+'</span>'+
     '&nbsp;&nbsp;'+
-    '<span class="entry_action">'+
-    (asSearchResult ? '+' : '|>')+
-    '</span>'+
+    (asSearchResult ? '':
+      '<span class="remove_action">-</span>')+
+    (asSearchResult ? 
+      '<span class="entry_action">+</span>' :
+      '<span class="entry_action">&gt;</span>')+
     '&nbsp;&nbsp;'+
     '<a target="_blank" href="'+getYoutubeSearchURL(muFile)+'"><img src="/images/youtube.ico"/></a>'+
     '&nbsp;&nbsp;'+
@@ -118,7 +120,7 @@ function searchImage(query, callback) {
 
 var currentPlaying = null;
 $.app.nextSong = function () {
-  currentPlaying.css('backgroundColor','#fff');
+  currentPlaying.parent().children().css('backgroundColor','#fff');
   var nextDiv = currentPlaying.next();
   if(nextDiv.length == 0) {
     nextDiv = currentPlaying.parent().children().first();
@@ -167,8 +169,11 @@ $(document).ready(function () {
       var muFile = $(this).data('muFile');
       var player_entry = getSongEntryHtml(muFile, false);
       player_entry.find('.entry_action').click(function () {
-        //var muFile = $(this).data('muFile');
+        $(this).parent().parent().children().css('backgroundColor','#fff');
         play($(this).parent());
+      });
+      player_entry.find('.remove_action').click(function () {
+        play($(this).parent().remove());
       });
       $('#player_column #playlist').append(player_entry);
     });
