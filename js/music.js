@@ -1,4 +1,5 @@
 
+google.load('search', '1');
 
 function loadMusic(files) {
   var musicFiles = _(files).select(function (file) {
@@ -54,7 +55,7 @@ function getLyricsSearchURL(muFile) {
   var name = getPrettySongName(muFile);
   return 'http://www.google.com/search?q='+
     name.split(/\s+/).join('+')+'+'+
-    muFile.artist.split(/\s+/).join('+');
+    muFile.artist.split(/\s+/).join('+')+'+lyrics';
 }
 
 function getArtistWikipediaURL(muFile) {
@@ -71,10 +72,12 @@ function getSongEntryHtml(muFile, asSearchResult) {
   var entryHTML = '<div class="entry">'+
     '<span class="song_name">'+getPrettySongName(muFile)+'</span>'+
     '&nbsp;&nbsp;'+
+    '<span class="album_name">'+muFile.album+'</span>'+
+    '&nbsp;&nbsp;'+
     '<span class="artist_name">'+muFile.artist+'</span>'+
     '&nbsp;&nbsp;'+
     '<span class="entry_action">'+
-    (asSearchResult ? '+' : '>')+
+    (asSearchResult ? '+' : '|>')+
     '</span>'+
     '&nbsp;&nbsp;'+
     '<a target="_blank" href="'+getYoutubeSearchURL(muFile)+'"><img src="/images/youtube.ico"/></a>'+
@@ -97,6 +100,20 @@ function getObjectURL(path) {
   } else {
     return null;
   }
+}
+
+function searchImage(query, callback) {
+  function onComplete() {
+    if (imageSearch.results && imageSearch.results.length > 0) {
+      var results = imageSearch.results;
+      callback(results[0].tbUrl);
+    }
+  }
+
+  var imageSearch = new google.search.ImageSearch();
+  imageSearch.setSearchCompleteCallback(this, onComplete, null);
+  imageSearch.execute(query);
+  google.search.Search.getBranding('google_branding');
 }
 
 $(document).ready(function () {
@@ -129,6 +146,10 @@ $(document).ready(function () {
         if(url) {
           $('#player').get(0).src = url;
           $('#player').get(0).play();
+          $(this).html('|&nbsp;|')
+          searchImage(muFile.album,function (tbUrl) {
+            $('#player_wrapper #album_artwork').attr('src',tbUrl);
+          });
         } else {
           alert('Add music again');
         }
@@ -138,3 +159,5 @@ $(document).ready(function () {
 
   });
 });
+
+

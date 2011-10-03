@@ -26,6 +26,10 @@ body {
 .entry_list .entry .song_name {
   font-weight : bold;
 }
+.entry_list .entry .album_name {
+  font-size : 60%;
+  color : #600;
+}
 .entry_list .entry .artist_name {
   font-size : 60%;
   color : #666;
@@ -46,4 +50,7 @@ audio {
   bottom: -3px;
   width: 100%;
   background: #858585;
+}
+
+#player_wrapper {
 }
