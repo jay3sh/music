@@ -116,6 +116,29 @@ function searchImage(query, callback) {
   google.search.Search.getBranding('google_branding');
 }
 
+var currentPlaying = null;
+$.app.nextSong = function () {
+  currentPlaying.css('backgroundColor','#fff');
+  var nextDiv = currentPlaying.next();
+  play(nextDiv);
+}
+
+function play(div) {
+  var muFile = div.find('.entry_action').data('muFile');
+  div.css('backgroundColor','#fee');
+  var url = getObjectURL(muFile.path);
+  if(url) {
+    $('#player').get(0).src = url;
+    $('#player').get(0).play();
+    currentPlaying = div;
+    searchImage(muFile.album,function (tbUrl) {
+      $('#player_wrapper #album_artwork').attr('src',tbUrl);
+    });
+  } else {
+    alert('Add music again');
+  }
+}
+
 $(document).ready(function () {
 
   $.app.Storage.load();
@@ -141,18 +164,8 @@ $(document).ready(function () {
       var muFile = $(this).data('muFile');
       var player_entry = getSongEntryHtml(muFile, false);
       player_entry.find('.entry_action').click(function () {
-        var muFile = $(this).data('muFile');
-        var url = getObjectURL(muFile.path);
-        if(url) {
-          $('#player').get(0).src = url;
-          $('#player').get(0).play();
-          $(this).html('|&nbsp;|')
-          searchImage(muFile.album,function (tbUrl) {
-            $('#player_wrapper #album_artwork').attr('src',tbUrl);
-          });
-        } else {
-          alert('Add music again');
-        }
+        //var muFile = $(this).data('muFile');
+        play($(this).parent());
       });
       $('#player_column #playlist').append(player_entry);
     });
