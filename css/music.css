@@ -23,17 +23,18 @@ body {
   cursor : pointer;
 }
 
-#search_results .entry .song_name {
+.entry_list .entry .song_name {
   font-weight : bold;
 }
-#search_results .entry .artist_name {
+.entry_list .entry .artist_name {
   font-size : 60%;
   color : #666;
 }
-#search_results .entry .add_song {
+.entry_list .entry .entry_action {
   font-weight : bold;
   font-size : 120%;
   color : #666;
+  cursor : pointer;
 }
 
 audio {

@@ -21,8 +21,10 @@ function loadMusic(files) {
       console.log('Done saving '+total+'  '+(new Date().getTime()-t1)+' msec');
     }
   }
-  var muFiles = _(musicFiles).map(function (f) {
-    return new $.app.MuFile(f, incProgress);
+  $.app.liveFiles = {};
+  _(musicFiles).each(function (f) {
+    var muFile = new $.app.MuFile(f, incProgress);
+    $.app.liveFiles[muFile.path] = f;
   });
 
   setTimeout(function () {
@@ -35,19 +37,30 @@ function loadMusic(files) {
   }, 300)
 }
 
-function getSongEntryHtml(name, artist) {
-  return '<div class="entry">'+
-    '<span class="song_name">'+name+'</span>'+
-    '&nbsp;&nbsp;'+
-    '<span class="artist_name">'+artist+'</span>'+
-    '<span class="add_song">+</span>'+
-  '</div>';
-}
-
 function getPrettySongName(muFile) {
   var name = muFile.name.length > muFile.title.length ?
     muFile.name : muFile.title;
   return name.replace(/\.\w+$/,'');
+}
+
+function getSongEntryHtml(muFile, asSearchResult) {
+  var name = getPrettySongName(muFile);
+  var entryHTML = '<div class="entry">'+
+    '<span class="song_name">'+getPrettySongName(muFile)+'</span>'+
+    '&nbsp;&nbsp;'+
+    '<span class="artist_name">'+muFile.artist+'</span>'+
+    '<span class="entry_action">'+
+    (asSearchResult ? '+' : '>')+
+    '</span>'+
+  '</div>';
+  var entry = $(entryHTML);
+  entry.find('.entry_action').data('muFile',muFile);
+  return entry;
+}
+
+function getObjectURL(path) {
+  var liveFile = $.app.liveFiles[path];
+  return liveFile ? window.webkitURL.createObjectURL(liveFile) : null;
 }
 
 $(document).ready(function () {
@@ -68,8 +81,24 @@ $(document).ready(function () {
 
     var results = $.app.Storage.search($(this).val());
     _(results).each(function (muFile) {
-      divResults.append(getSongEntryHtml(
-        getPrettySongName(muFile), muFile.artist))
+      divResults.append(getSongEntryHtml(muFile, true));
     });
+
+    divResults.find('.entry_action').click(function () {
+      var muFile = $(this).data('muFile');
+      var player_entry = getSongEntryHtml(muFile, false);
+      player_entry.find('.entry_action').click(function () {
+        var muFile = $(this).data('muFile');
+        var url = getObjectURL(muFile.path);
+        if(url) {
+          $('#player').get(0).src = url;
+          $('#player').get(0).play();
+        } else {
+          alert('Add music again');
+        }
+      });
+      $('#player_column #playlist').append(player_entry);
+    });
+
   });
 });

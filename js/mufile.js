@@ -9,7 +9,6 @@ Storage.artistIndex = {};
 Storage.nameIndex = {};
 
 Storage.updateIndex = function (muFile) {
-
   if(muFile.title && muFile.title.length > 0) {
     var key = muFile.artist.toLowerCase();
     if(Storage.titleIndex[key]) {
@@ -184,8 +183,6 @@ function MuFile(file, doneCallback) {
 }
 
 MuFile.prototype = {
-  getObjectURL : function () {
-  }
 };
 
 app.MuFile = MuFile;
