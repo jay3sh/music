@@ -120,6 +120,9 @@ var currentPlaying = null;
 $.app.nextSong = function () {
   currentPlaying.css('backgroundColor','#fff');
   var nextDiv = currentPlaying.next();
+  if(nextDiv.length == 0) {
+    nextDiv = currentPlaying.parent().children().first();
+  }
   play(nextDiv);
 }
 
@@ -131,7 +134,7 @@ function play(div) {
     $('#player').get(0).src = url;
     $('#player').get(0).play();
     currentPlaying = div;
-    searchImage(muFile.album,function (tbUrl) {
+    searchImage(muFile.album+' '+muFile.artist,function (tbUrl) {
       $('#player_wrapper #album_artwork').attr('src',tbUrl);
     });
   } else {
