@@ -108,12 +108,14 @@ function getSubPaths(path) {
     path = path.substr(path.indexOf('/')+1);
   }
   subpaths.push(path);
+  return subpaths;
 }
 
 function getSize(file) {
   return file.fileSize;
 }
 
+/*
 function findInDatabase(subpaths, onFound, onNotFound) {
   var count = 0;
 
@@ -134,18 +136,27 @@ function findInDatabase(subpaths, onFound, onNotFound) {
 
   find();
 }
+*/
 
 function MuFile(file, doneCallback) {
   var thisref = this;
 
   this.fileObject = file;
 
+  function findInStorage(subpaths) {
+    for(var i=0, l=subpaths.length; i<l; i++) {
+      var subpath = subpaths[i];
+      var pMuFile = app.Storage.read(subpath);
+      if(pMuFile) { return pMuFile; }
+    }
+  }
+
   this.path = getPath(file);
   this.subpaths = getSubPaths(this.path);
   this.name = getName(file);
   this.size = getSize(file);
 
-  if(pMuFile = app.Storage.read(this.subpaths)) {
+  if(pMuFile = findInStorage(this.subpaths)) {
     thisref.title = pMuFile.title;
     thisref.artist = pMuFile.artist;
     thisref.album = pMuFile.album;
