@@ -43,15 +43,47 @@ function getPrettySongName(muFile) {
   return name.replace(/\.\w+$/,'');
 }
 
+function getYoutubeSearchURL(muFile) {
+  var name = getPrettySongName(muFile);
+  return 'http://www.youtube.com/results?search_query='+
+    name.split(/\s+/).join('+')+'+'+
+    muFile.artist.split(/\s+/).join('+');
+}
+
+function getLyricsSearchURL(muFile) {
+  var name = getPrettySongName(muFile);
+  return 'http://www.google.com/search?q='+
+    name.split(/\s+/).join('+')+'+'+
+    muFile.artist.split(/\s+/).join('+');
+}
+
+function getArtistWikipediaURL(muFile) {
+  return 'http://en.wikipedia.org/w/index.php?search='+
+          muFile.artist.split(/\s+/).join('+');
+}
+
+function getAmazonLink(muFile) {
+  return 'http://www.amazon.com/s?ie=UTF8&x=0&ref_=nb_sb_noss&y=0&field-keywords='+encodeURI(muFile.artist)+'&url=search-alias%3Ddigital-music&_encoding=UTF8&tag=myfreq-20&linkCode=ur2&camp=1789&creative=390957'
+}
+
 function getSongEntryHtml(muFile, asSearchResult) {
   var name = getPrettySongName(muFile);
   var entryHTML = '<div class="entry">'+
     '<span class="song_name">'+getPrettySongName(muFile)+'</span>'+
     '&nbsp;&nbsp;'+
     '<span class="artist_name">'+muFile.artist+'</span>'+
+    '&nbsp;&nbsp;'+
     '<span class="entry_action">'+
     (asSearchResult ? '+' : '>')+
     '</span>'+
+    '&nbsp;&nbsp;'+
+    '<a target="_blank" href="'+getYoutubeSearchURL(muFile)+'"><img src="/images/youtube.ico"/></a>'+
+    '&nbsp;&nbsp;'+
+    '<a target="_blank" href="'+getLyricsSearchURL(muFile)+'">L</a>'+
+    '&nbsp;&nbsp;'+
+    '<a target="_blank" href="'+getArtistWikipediaURL(muFile)+'"><img src="/images/wikipedia.ico"/></a>'+
+    '&nbsp;&nbsp;'+
+    '<a target="_blank" href="'+getAmazonLink(muFile)+'"><img src="/images/amazon.png"/></a>'+
   '</div>';
   var entry = $(entryHTML);
   entry.find('.entry_action').data('muFile',muFile);
@@ -59,8 +91,12 @@ function getSongEntryHtml(muFile, asSearchResult) {
 }
 
 function getObjectURL(path) {
-  var liveFile = $.app.liveFiles[path];
-  return liveFile ? window.webkitURL.createObjectURL(liveFile) : null;
+  if($.app.liveFiles) {
+    var liveFile = $.app.liveFiles[path];
+    return liveFile ? window.webkitURL.createObjectURL(liveFile) : null;
+  } else {
+    return null;
+  }
 }
 
 $(document).ready(function () {
