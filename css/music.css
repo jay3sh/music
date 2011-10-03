@@ -34,7 +34,8 @@ body {
   font-size : 60%;
   color : #666;
 }
-.entry_list .entry .entry_action {
+.entry_list .entry .entry_action,
+.entry_list .entry .remove_action {
   font-weight : bold;
   font-size : 120%;
   color : #666;
