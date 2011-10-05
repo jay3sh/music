@@ -33,23 +33,6 @@ function loadMusic(files) {
   }
 
   newMuFile(musicFiles[progress]);
-
-  /*
-  _(musicFiles).each(function (f) {
-    var muFile = new $.app.MuFile(f, incProgress);
-    $.app.liveFiles[muFile.path] = f;
-  });
-
-
-  setTimeout(function () {
-    /*
-    var song = _(songs).first();
-    var url = window.webkitURL.createObjectURL(song);
-    $("#player").get(0).src = url;
-    $("#player").get(0).play();
-    * /
-  }, 300)
-  */
 }
 
 function getPrettySongName(muFile) {
