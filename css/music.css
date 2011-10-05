@@ -25,6 +25,7 @@ body {
 }
 
 .entry_list .entry .song_name {
+  font-size : 13px;
   font-weight : bold;
 }
 .entry_list .entry .album_name {
