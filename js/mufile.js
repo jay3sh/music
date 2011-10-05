@@ -162,23 +162,31 @@ function MuFile(file, doneCallback) {
     thisref.genre = pMuFile.genre;
     doneCallback();
   } else {
-    ID3v2.parseFile(file, function (tags) {
-      thisref.title = tags.Title ? tags.Title : '';
-      thisref.artist = tags.Artist ? tags.Artist : '';
-      thisref.album = tags.Album ? tags.Album : '';
-      thisref.genre = tags.Genre ? tags.Genre : '';
+    if(/\.mp3$/.test(this.path.toLowerCase())) {
+      ID3v2.parseFile(file, function (tags) {
+        thisref.title = tags.Title ? tags.Title : '';
+        thisref.artist = tags.Artist ? tags.Artist : '';
+        thisref.album = tags.Album ? tags.Album : '';
+        thisref.genre = tags.Genre ? tags.Genre : '';
 
-      app.Storage.write({
-        path : thisref.path,
-        name : thisref.name,
-        size : thisref.size,
-        title : thisref.title,
-        artist : thisref.artist,
-        album : thisref.album,
-        genre : thisref.genre
+        app.Storage.write({
+          path : thisref.path,
+          name : thisref.name,
+          size : thisref.size,
+          title : thisref.title,
+          artist : thisref.artist,
+          album : thisref.album,
+          genre : thisref.genre
+        });
+        doneCallback();
       });
+    } else {
+      thisref.title = thisref.name;
+      thisref.artist = '';
+      thisref.album = '';
+      thisref.genre = '';
       doneCallback();
-    });
+    }
   }
 }
 

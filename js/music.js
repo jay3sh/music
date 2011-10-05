@@ -6,27 +6,40 @@ function loadMusic(files) {
     var path = file.webkitRelativePath || file.mozFullPath;
     var fileName = file.fileName;
     var size = file.fileSize;
-    return !/\.$/.test(path) &&
-      (/\.mp3$/.test(path)) || 
-      (/\.ogg$/.test(path)) ||
-      (/\.m4a$/.test(path))
+    var lpath = path.toLowerCase();
+    return !/\.$/.test(lpath) &&
+      (/\.mp3$/.test(lpath)) || 
+      (/\.ogg$/.test(lpath)) ||
+      (/\.m4a$/.test(lpath))
   });
 
   var total = musicFiles.length, progress = 0;
-  var t1 = new Date().getTime();
+
   function incProgress() {
     progress++;
     $('#addmusic').html(progress+' / '+total);
     if(progress == total) {
       $.app.Storage.save();
-      console.log('Done saving '+total+'  '+(new Date().getTime()-t1)+' msec');
+    } else {
+      newMuFile(musicFiles[progress]);
     }
   }
+
   $.app.liveFiles = {};
+
+  function newMuFile(f) {
+    $.app.liveFiles[f.webkitRelativePath] = f;
+    var muFile = new $.app.MuFile(f, incProgress);
+  }
+
+  newMuFile(musicFiles[progress]);
+
+  /*
   _(musicFiles).each(function (f) {
     var muFile = new $.app.MuFile(f, incProgress);
     $.app.liveFiles[muFile.path] = f;
   });
+
 
   setTimeout(function () {
     /*
@@ -34,8 +47,9 @@ function loadMusic(files) {
     var url = window.webkitURL.createObjectURL(song);
     $("#player").get(0).src = url;
     $("#player").get(0).play();
-    */
+    * /
   }, 300)
+  */
 }
 
 function getPrettySongName(muFile) {
