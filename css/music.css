@@ -1,6 +1,7 @@
 
 body {
   text-align : center;
+  margin : auto;
 }
 
 #inputcontainer {
@@ -43,7 +44,6 @@ body {
 }
 
 audio {
-  width: 100%;
 }
 
 #footer {
@@ -53,5 +53,29 @@ audio {
   background: #858585;
 }
 
-#player_wrapper {
+#player_column {
+  float : left;  
+  display : table-cell;
+  width : 47%;
+  margin : 0px 0px 0px 20px;
+  border : 1px solid;
+}
+
+#player_column > * {
+  display : table-cell;
+  padding : 10px;
+}
+#playlist_wrapper {
+  width : 47%;
+  margin : 0px 10px 10px 10px;
+  border : 1px solid;
+  display : table-cell;
+  float : right;
+  height : 82.5%;
+}
+#search_column {
+  width : 47%;
+  margin : 185px 0px 10px 20px;
+  border: 1px solid;
+  height : 60%;
 }

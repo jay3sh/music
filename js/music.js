@@ -132,6 +132,7 @@ function play(div) {
   var muFile = div.find('.entry_action').data('muFile');
   div.css('backgroundColor','#fee');
   var url = getObjectURL(muFile.path);
+  console.log(url);
   if(url) {
     $('#player').get(0).src = url;
     $('#player').get(0).play();
@@ -175,7 +176,7 @@ $(document).ready(function () {
       player_entry.find('.remove_action').click(function () {
         play($(this).parent().remove());
       });
-      $('#player_column #playlist').append(player_entry);
+      $('#playlist_wrapper #playlist').append(player_entry);
     });
 
   });

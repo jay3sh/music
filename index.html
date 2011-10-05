@@ -21,7 +21,6 @@ $.app = {};
 <body>
 <h1>&mu;sic</h1>
 
-<span id="addmusic">Add Music</span>
 
 <div id="player_column">
 
@@ -30,22 +29,24 @@ $.app = {};
     <span id="google_branding"></span>
   </div>
 
-  <div class="entry_list" id="playlist">
+  <div id="player_controls">
+    <audio onended="$.app.nextSong()" controls id="player">
   </div>
 
 </div>
 
+<div id="playlist_wrapper">
+  <div class="entry_list" id="playlist"></div>
+</div>
+
 <div id="search_column">
+  <span id="addmusic">Add Music</span>
   <input name="search"></input>
   <br/>
   <div class="entry_list" id="search_results">
   </div>
 </div>
 
-
-<div id="footer">
-  <audio onended="$.app.nextSong()" controls id="player">
-</div>
 
 <div id="inputcontainer">
 <input id="actual_addmusic" name="actual_addmusic" type="file"
