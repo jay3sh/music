@@ -56,8 +56,9 @@ audio {
 #player_column {
   float : left;  
   display : table-cell;
-  width : 47%;
+  width : 45%;
   margin : 0px 0px 0px 20px;
+  padding : 10px;
   border : 1px solid;
 }
 
@@ -66,16 +67,20 @@ audio {
   padding : 10px;
 }
 #playlist_wrapper {
-  width : 47%;
+  width : 45%;
   margin : 0px 10px 10px 10px;
   border : 1px solid;
   display : table-cell;
   float : right;
-  height : 82.5%;
+  height : 80%;
+  text-align : left;
+  padding : 12px;
 }
 #search_column {
-  width : 47%;
-  margin : 185px 0px 10px 20px;
+  width : 45%;
+  margin : 200px 0px 10px 20px;
   border: 1px solid;
-  height : 60%;
+  height : 55%;
+  text-align : left;
+  padding : 10px;
 }
