@@ -576,41 +576,74 @@ parseURL: function(url, onComplete){
 	xhr.send(null);
 	return [xhr, ID3v2.parseStream(read, onComplete)];
 },
+
 parseFile: function(file, onComplete){
 
-	var reader = new FileReader();
+  function id3v1(f, onSuccess, onFailure) {
+    var reader = new FileReader();
 
-	var pos = 0, 
-			bits_required = 0, 
-			handle = function(){},
-			maxdata = Infinity;
+    reader.onload = function(e) {
+      var dv = new jDataView(this.result);
 
-	function read(bytes, callback, newmax){
-		bits_required = bytes;
-		handle = callback;
-		maxdata = newmax;
-		if(bytes == 0) callback('',[]);
-	}
-	var responseText = '';
-	reader.onload = function(){
-		responseText = reader.result;
-	};
+      // "TAG" starts at byte -128 from EOF.
+      // See http://en.wikipedia.org/wiki/ID3
+      if (dv.getString(3, dv.length - 128) == 'TAG') {
+        var title = dv.getString(30, dv.tell());
+        var artist = dv.getString(30, dv.tell());
+        var album = dv.getString(30, dv.tell());
+        var year = dv.getString(4, dv.tell());
+        console.log('Found ID3v1');
+        onSuccess({
+          Title : title,
+          Artist : artist,
+          Album : album,
+          Genre : null
+        });
+      } else {
+        onFailure();
+      }
+    };
 
-	(function(){
-	
-		if(responseText.length > pos + bits_required && bits_required){
-			var data = responseText.substr(pos, bits_required);
-			var arrdata = data.split('').map(function(e){return e.charCodeAt(0) & 0xff});
-			pos += bits_required;
-			bits_required = 0;
-			if(handle(data, arrdata) === false){
-				return;
-			}
-		}
-		setTimeout(arguments.callee, 0);
-	})()
-	reader.readAsBinaryString(fileSlice(file, 0, 128 * 1024));
-	return [reader, ID3v2.parseStream(read, onComplete)];
+    reader.readAsArrayBuffer(f);
+
+  }
+
+  id3v1(file, onComplete, function () {
+
+    var reader = new FileReader();
+
+    var pos = 0, 
+        bits_required = 0, 
+        handle = function(){},
+        maxdata = Infinity;
+
+    function read(bytes, callback, newmax){
+      bits_required = bytes;
+      handle = callback;
+      maxdata = newmax;
+      if(bytes == 0) callback('',[]);
+    }
+    var responseText = '';
+    reader.onload = function(){
+      responseText = reader.result;
+    };
+
+    (function(){
+    
+      if(responseText.length > pos + bits_required && bits_required){
+        var data = responseText.substr(pos, bits_required);
+        var arrdata = data.split('').map(function(e){return e.charCodeAt(0) & 0xff});
+        pos += bits_required;
+        bits_required = 0;
+        if(handle(data, arrdata) === false){
+          return;
+        }
+      }
+      setTimeout(arguments.callee, 0);
+    })()
+    reader.readAsBinaryString(fileSlice(file, 0, 128 * 1024));
+    return [reader, ID3v2.parseStream(read, onComplete)];
+  });
 }
 }
 
