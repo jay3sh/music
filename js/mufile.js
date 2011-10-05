@@ -185,6 +185,16 @@ function MuFile(file, doneCallback) {
       thisref.artist = '';
       thisref.album = '';
       thisref.genre = '';
+
+      app.Storage.write({
+        path : thisref.path,
+        name : thisref.name,
+        size : thisref.size,
+        title : thisref.title,
+        artist : thisref.artist,
+        album : thisref.album,
+        genre : thisref.genre
+      });
       doneCallback();
     }
   }
