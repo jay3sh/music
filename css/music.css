@@ -24,6 +24,11 @@ body {
   cursor : pointer;
 }
 
+.entry_list {
+  overflow-x : hidden;
+  overflow-y : auto;
+  height : 90%;
+}
 .entry_list .entry .song_name {
   font-size : 13px;
   font-weight : bold;
