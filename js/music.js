@@ -146,7 +146,8 @@ function play(div) {
 }
 
 $(document).ready(function () {
-
+  var width = (($(document).width())>1280? 1280: 1280);
+  $('body').css('width', width);
   $.app.Storage.load();
 
   $('#addmusic').click(function () {
