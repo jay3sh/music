@@ -1,0 +1,86 @@
+@width : 45%;
+
+.leftColumn(@float, @padding){
+  float : @float;  
+  display : table-cell;
+  width : @width;
+  margin : 0px 0px 0px 20px;
+  border : 1px solid;
+  padding : @padding;
+}
+
+body {
+  text-align : center;
+  margin : auto;
+}
+
+#player_column {
+  .leftColumn(left, 10px);
+
+  > * {
+    display : table-cell;
+    padding : 10px;
+  }
+}
+
+#search_column {
+  .leftColumn(right, 12px);
+  height : 80%;
+  text-align : left;
+
+  #addmusic {
+    background : #eee;
+    padding : 10px;
+    font-size : 120%;
+    width : 200px;
+    height : 50px;
+    line-height : 50px;
+    cursor : pointer;
+  }
+}
+
+#playlist_wrapper {
+  width : @width;
+  margin : 200px 0px 10px 20px;
+  border: 1px solid;
+  height : 55%;
+  text-align : left;
+  padding : 10px;
+}
+
+.entry_list {
+  overflow-x : hidden;
+  overflow-y : auto;
+  height : 90%;
+
+  .entry {
+    .song_name {
+      font-size : 13px;
+      font-weight : bold;
+    }
+    .album_name {
+      font-size : 60%;
+      color : #600;
+    }
+    .artist_name {
+      font-size : 60%;
+      color : #666;
+    }
+    .entry_action, .remove_action {
+      font-weight : bold;
+      font-size : 120%;
+      color : #666;
+      cursor : pointer;
+    }
+  }
+}
+
+#inputcontainer {
+  position : absolute;
+  left : -500px;
+  top : -500px;
+}
+
+#actual_addmusic {
+  display : hide;
+}
