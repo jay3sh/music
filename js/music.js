@@ -122,6 +122,13 @@ function searchImage(query, callback) {
   google.search.Search.getBranding('google_branding');
 }
 
+function updateSongInfo(muFile){
+  var songInfo = $('#player_column #player_controls #song_info');
+  $('#title', songInfo).text(muFile.title);
+  $('#artist', songInfo).text(muFile.artist);
+  $('#album', songInfo).text(muFile.album);
+}
+
 var currentPlaying = null;
 $.app.nextSong = function () {
   currentPlaying.parent().children().css('backgroundColor','#fff');
@@ -143,6 +150,7 @@ function play(div) {
     searchImage(muFile.album+' '+muFile.artist,function (tbUrl) {
       $('#player_wrapper #album_artwork').attr('src',tbUrl);
     });
+    updateSongInfo(muFile);
   } else {
     alert('Add music again');
   }

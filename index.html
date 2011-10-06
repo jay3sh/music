@@ -32,7 +32,14 @@ $.app = {};
   </div>
 
   <div id="player_controls">
-    <audio onended="$.app.nextSong()" controls id="player">
+    <div id="song_info">
+      <div id="title">Title</div>
+      <div id="artist">Artist</div>
+      <div id="album">Album</div>
+    </div>
+    <div id="player_skin">
+      <audio onended="$.app.nextSong()" controls id="player">
+    </div>
   </div>
 
 </div>

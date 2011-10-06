@@ -15,19 +15,27 @@ body {
 }
 
 #player_column {
-  .leftColumn(left, 10px, 150px, 45%);
+  .leftColumn(left, 0px, 150px, 45%);
 
-  #player_wrapper {
-    width : 150px;
-    height : 135px;
-    
-    * { text-align : center; }
-  }
-  
   > * {
     display : table-cell;
     padding : 10px;
+    vertical-align : middle;
   }
+
+  #player_wrapper {
+    width : 150px;
+    height : 150px;
+    
+    * { text-align : center; }
+  }
+
+  #player_controls { 
+    text-align : left; 
+    font-size : 13px;
+    > * { padding : 5px; }
+  } 
+
 }
 
 #search_column {
