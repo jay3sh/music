@@ -1,6 +1,13 @@
 
 google.load('search', '1');
 
+function player_init(){
+  var width = (($(document).width())>1280? 1280: 1280);
+  $('body').css('width', width);
+
+  $('#player_wrapper #album_artwork').attr('src', '/images/nothumb.png');
+}
+
 function loadMusic(files) {
   var musicFiles = _(files).select(function (file) {
     var path = file.webkitRelativePath || file.mozFullPath;
@@ -129,7 +136,6 @@ function play(div) {
   var muFile = div.find('.entry_action').data('muFile');
   div.css('backgroundColor','#fee');
   var url = getObjectURL(muFile.path);
-  console.log(url);
   if(url) {
     $('#player').get(0).src = url;
     $('#player').get(0).play();
@@ -143,8 +149,8 @@ function play(div) {
 }
 
 $(document).ready(function () {
-  var width = (($(document).width())>1280? 1280: 1280);
-  $('body').css('width', width);
+  player_init();
+
   $.app.Storage.load();
 
   $('#addmusic').click(function () {
