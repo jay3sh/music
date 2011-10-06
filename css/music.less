@@ -1,9 +1,9 @@
-@width : 45%;
 
-.leftColumn(@float, @padding){
+.leftColumn(@float, @padding, @height:0, @width:0){
   float : @float;  
   display : table-cell;
   width : @width;
+  height : @height;
   margin : 0px 0px 0px 20px;
   border : 1px solid;
   padding : @padding;
@@ -15,7 +15,7 @@ body {
 }
 
 #player_column {
-  .leftColumn(left, 10px);
+  .leftColumn(left, 10px, 150px, 45%);
 
   > * {
     display : table-cell;
@@ -24,8 +24,7 @@ body {
 }
 
 #search_column {
-  .leftColumn(right, 12px);
-  height : 80%;
+  .leftColumn(right, 12px, 80%, 45%);
   text-align : left;
 
   #addmusic {
@@ -40,7 +39,7 @@ body {
 }
 
 #playlist_wrapper {
-  width : @width;
+  width : 45%;
   margin : 200px 0px 10px 20px;
   border: 1px solid;
   height : 55%;
