@@ -6,6 +6,7 @@ function player_init(){
   $('body').css('width', width);
 
   $('#player_wrapper #album_artwork').attr('src', '/images/nothumb.png');
+  google.search.Search.getBranding('google_branding');
 }
 
 function loadMusic(files) {
@@ -112,7 +113,6 @@ function searchImage(query, callback) {
   var imageSearch = new google.search.ImageSearch();
   imageSearch.setSearchCompleteCallback(this, onComplete, null);
   imageSearch.execute(query);
-  google.search.Search.getBranding('google_branding');
 }
 
 function updateSongInfo(muFile){
