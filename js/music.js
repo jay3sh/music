@@ -197,7 +197,7 @@ $(document).ready(function () {
   })
   .focusout(function (e){
     if($(this).val() == ''){
-      $(this).val('Seach...');
+      $(this).val('Search...');
     }
   });
   
