@@ -176,22 +176,33 @@ input[type="text"]{
   
   .entry {
     padding : 2px 10px;
+    border-radius : 2px;
+    cursor : default;
     .song_name {
       font-size : 12px;
+      font-weight : bold;
     }
     .album_name {
       font-size : 60%;
-      color : #999;
+      color : #ccc;
     }
     .artist_name {
       font-size : 60%;
-      color : #777;
+      color : #aaa;
     }
     .entry_action, .remove_action {
       font-weight : bold;
       font-size : 120%;
-      color : #999;
+      color : #ccc;
       cursor : pointer;
+    }
+    &:hover{
+      background-image: linear-gradient(bottom, rgb(18,107,246) 0%,
+        rgb(72,168,255) 100%);
+      background-image: -moz-linear-gradient(bottom, rgb(18,107,246) 0%,
+        rgb(72,168,255) 100%);
+      background-image: -webkit-linear-gradient(bottom, rgb(18,107,246) 0%,
+        rgb(72,168,255) 100%);
     }
   }
 }
