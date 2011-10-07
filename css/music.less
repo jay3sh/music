@@ -8,6 +8,12 @@
   padding : @padding;
 }
 
+.boxShadow(@x, @y, @blur, @color){
+  -webkit-box-shadow : @arguments;
+  -moz-box-shadow : @arguments;
+  box-shadow : @arguments;
+}
+
 .skin(){
   background: rgb(66,66,66);
   background: 
@@ -24,9 +30,7 @@
     color-stop( 100%,rgba(33,33,33,1 )) 
   );
   color : #fdfdfd;
-  -webkit-shadow : 0px 3px 8px #444;
-  -moz-shadow : 0px 3px 8px #444;
-  box-shadow : 0px 3px 8px #444;
+  .boxShadow(0px, 3px, 8px, #444);
   border-radius : 10px;
 }
 
@@ -60,18 +64,16 @@ body {
 input[type="text"]{
   border-radius : 5px;
   border : none;
-  box-shadow: inset 0 0 5px #666;
-  -moz-box-shadow: inset 0 0 5px #666;
-  -webkit-box-shadow: inset 0 0 5px #666;
   height : 2em;
   font-size : 14px;
   padding : 5px;
+  box-shadow : inset 0 0 5px #666;
+  -moz-box-shadow : inset 0 0 5px #666;
+  -webkit-box-shadow : inset 0 0 5px #666;
 
   &:focus{
     outline-style : none;  
-    box-shadow:0 0 5px #aaa;
-    -moz-box-shadow:0 0 5px #aaa;
-    -webkit-box-shadow:0 0 5px #aaa;
+    .boxShadow(0, 0, 5px, #aaa);
   }
 }
 
@@ -91,9 +93,7 @@ input[type="text"]{
     
     img {
       border-radius : 5px;
-      -webkit-shadow : 0px 0px 8px #888;
-      -moz-shadow : 0px 0px 8px #888;
-      box-shadow : 0px 0px 8px #888;
+      .boxShadow(0px, 0px, 8px, #888);
     }
 
     * { text-align : center; }
@@ -123,9 +123,9 @@ input[type="text"]{
     line-height : 22px;
     cursor : pointer;
 
-    -moz-box-shadow : inset 0px 1px 0px 0px #ffffff;
-    -webkit-box-shadow : inset 0px 1px 0px 0px #ffffff;
-    box-shadow:inset 0px 1px 0px 0px #ffffff;
+    -moz-box-shadow : inset 0px 1px 0px 0px #fff;
+    -webkit-box-shadow : inset 0px 1px 0px 0px #fff;
+    box-shadow:inset 0px 1px 0px 0px #fff;
 
     background : 
       -webkit-gradient( linear, left top, left bottom,
