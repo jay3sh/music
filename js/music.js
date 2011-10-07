@@ -85,14 +85,7 @@ function getSongEntryHtml(muFile, asSearchResult) {
     (asSearchResult ? 
       '<span class="entry_action">+</span>' :
       '<span class="entry_action">&gt;</span>')+
-    '&nbsp;&nbsp;'+
-    '<a target="_blank" href="'+getYoutubeSearchURL(muFile)+'"><img src="/images/youtube.ico"/></a>'+
-    '&nbsp;&nbsp;'+
-    '<a target="_blank" href="'+getLyricsSearchURL(muFile)+'">L</a>'+
-    '&nbsp;&nbsp;'+
-    '<a target="_blank" href="'+getArtistWikipediaURL(muFile)+'"><img src="/images/wikipedia.ico"/></a>'+
-    '&nbsp;&nbsp;'+
-    '<a target="_blank" href="'+getAmazonLink(muFile)+'"><img src="/images/amazon.png"/></a>'+
+    '&nbsp;&nbsp;'
   '</div>';
   var entry = $(entryHTML);
   entry.find('.entry_action').data('muFile',muFile);
