@@ -191,7 +191,16 @@ $(document).ready(function () {
       $('#playlist_wrapper #playlist').append(player_entry);
     });
 
+  })
+  .focus(function (e){
+    $(this).val('');
+  })
+  .focusout(function (e){
+    if($(this).val() == ''){
+      $(this).val('Seach...');
+    }
   });
+  
 });
 
 
