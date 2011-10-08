@@ -164,6 +164,10 @@ $(document).ready(function () {
     $('input[name=actual_addmusic]').click();
   });
 
+  $('#play', '#player_column').hover(
+    function () { $('img', this).attr('src', '/images/play_hover.png'); },
+    function () { $('img', this).attr('src', '/images/play.png'); }
+  );
   $('input[name=search]').keyup(function (e) {
 
     var divResults = $('#search_results');
