@@ -36,9 +36,29 @@ function parseError(e) {
   return msg;
 }
 
-var filesystem = null;
-
 function loadMusic(files) {
+  var file = _(files).chain().select(function (f) {
+    return /\.mp3$/.test(f.webkitRelativePath.toLowerCase());
+  }).first().value();
+
+  var reader = new FileReader();
+  reader.onload = function (e) {
+    var view = new jDataView(this.result);
+    console.log(view.getString(3,0));
+    console.log('version',view.getInt8(3));
+    console.log('revision',view.getInt8(4));
+    console.log('flags',view.getInt8(5));
+    console.log('size',view.getUint32(6, littleEndian=false));
+    console.log('First frame header',view.getString(4,10));
+    var frameSize = view.getUint32(14, littleEndian=false);
+    console.log('First frame size', frameSize);
+    console.log('First frame flags',view.getUint16(18, littleEndian=false));
+    console.log('First frame content', view.getString(frameSize,20));
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function loadMusicForCaching(files) {
 
   var file = _(files).chain().select(function (f) {
     return /\.mp3$/.test(f.webkitRelativePath.toLowerCase());
