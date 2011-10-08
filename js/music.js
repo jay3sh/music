@@ -130,7 +130,6 @@ function updateSongInfo(muFile){
 
 var currentPlaying = null;
 $.app.nextSong = function () {
-  currentPlaying.removeClass('active_entry');
   var nextDiv = currentPlaying.next();
   if(nextDiv.length == 0) {
     nextDiv = currentPlaying.parent().children().first();
@@ -140,12 +139,12 @@ $.app.nextSong = function () {
 
 function play(div) {
   var muFile = div.find('.entry_action').data('muFile');
-  console.log(div);
   var url = getObjectURL(muFile.path);
   if(url) {
     $('#player').get(0).src = url;
     $('#player').get(0).play();
     currentPlaying = div;
+    currentPlaying.parent().children().removeClass('active_entry');
     currentPlaying.addClass('active_entry');
     searchImage(muFile.album+' '+muFile.artist,function (tbUrl) {
       $('#player_wrapper #album_artwork').attr('src',tbUrl);
