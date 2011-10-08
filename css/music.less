@@ -196,15 +196,16 @@ input[type="text"]{
       color : #ccc;
       cursor : pointer;
     }
-    &:hover{
-      background-image: linear-gradient(bottom, rgb(18,107,246) 0%,
-        rgb(72,168,255) 100%);
-      background-image: -moz-linear-gradient(bottom, rgb(18,107,246) 0%,
-        rgb(72,168,255) 100%);
-      background-image: -webkit-linear-gradient(bottom, rgb(18,107,246) 0%,
-        rgb(72,168,255) 100%);
-    }
   }
+}
+
+.active_entry, .focused_entry{
+  background-image: linear-gradient(bottom, rgb(18,107,246) 0%,
+    rgb(72,168,255) 100%);
+  background-image: -moz-linear-gradient(bottom, rgb(18,107,246) 0%,
+    rgb(72,168,255) 100%);
+  background-image: -webkit-linear-gradient(bottom, rgb(18,107,246) 0%,
+    rgb(72,168,255) 100%);
 }
 
 #inputcontainer {

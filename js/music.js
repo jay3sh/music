@@ -75,21 +75,27 @@ function getAmazonLink(muFile) {
 function getSongEntryHtml(muFile, asSearchResult) {
   var name = getPrettySongName(muFile);
   var entryHTML = '<div class="entry">'+
+    '&nbsp;&nbsp;'+
     '<span class="song_name">'+getPrettySongName(muFile)+'</span>'+
     '&nbsp;&nbsp;'+
     '<span class="album_name">'+muFile.album+'</span>'+
     '&nbsp;&nbsp;'+
     '<span class="artist_name">'+muFile.artist+'</span>'+
     '&nbsp;&nbsp;'+
-    (asSearchResult ? '':
-      '<span class="remove_action">-</span>')+
-    (asSearchResult ? 
+    (asSearchResult ?
       '<span class="entry_action">+</span>' :
+      '<span class="remove_action">-</span>'+
       '<span class="entry_action">&gt;</span>')+
-    '&nbsp;&nbsp;'
   '</div>';
   var entry = $(entryHTML);
-  entry.find('.entry_action').data('muFile',muFile);
+  
+  entry
+    .hover(
+      function () { $(this).addClass('focused_entry'); },
+      function () { $(this).removeClass('focused_entry'); }
+    )
+    .find('.entry_action').data('muFile',muFile);
+
   return entry;
 }
 
@@ -124,7 +130,7 @@ function updateSongInfo(muFile){
 
 var currentPlaying = null;
 $.app.nextSong = function () {
-  currentPlaying.parent().children().css('backgroundColor','#fff');
+  currentPlaying.removeClass('active_entry');
   var nextDiv = currentPlaying.next();
   if(nextDiv.length == 0) {
     nextDiv = currentPlaying.parent().children().first();
@@ -134,12 +140,13 @@ $.app.nextSong = function () {
 
 function play(div) {
   var muFile = div.find('.entry_action').data('muFile');
-  div.css('backgroundColor','#fee');
+  console.log(div);
   var url = getObjectURL(muFile.path);
   if(url) {
     $('#player').get(0).src = url;
     $('#player').get(0).play();
     currentPlaying = div;
+    currentPlaying.addClass('active_entry');
     searchImage(muFile.album+' '+muFile.artist,function (tbUrl) {
       $('#player_wrapper #album_artwork').attr('src',tbUrl);
     });
@@ -171,18 +178,18 @@ $(document).ready(function () {
       divResults.append(getSongEntryHtml(muFile, true));
     });
 
-    divResults.find('.entry_action').click(function () {
-      var muFile = $(this).data('muFile');
-      var player_entry = getSongEntryHtml(muFile, false);
-      player_entry.find('.entry_action').click(function () {
-        $(this).parent().parent().children().css('backgroundColor','#fff');
-        play($(this).parent());
+    divResults.find('.entry_action')
+      .click(function () {
+        var muFile = $(this).data('muFile');
+        var player_entry = getSongEntryHtml(muFile, false);
+        player_entry.find('.entry_action').click(function () {
+          play($(this).parent());
+        });
+        player_entry.find('.remove_action').click(function () {
+          play($(this).parent().remove());
+        });
+        $('#playlist_wrapper #playlist').append(player_entry);
       });
-      player_entry.find('.remove_action').click(function () {
-        play($(this).parent().remove());
-      });
-      $('#playlist_wrapper #playlist').append(player_entry);
-    });
 
   })
   .focus(function (e){
@@ -192,8 +199,7 @@ $(document).ready(function () {
     if($(this).val() == ''){
       $(this).val('Search...');
     }
-  });
-  
+  }); 
 });
 
 
