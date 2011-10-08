@@ -55,6 +55,13 @@
   }
 }
 
+.controls(@width, @height, @radius, @color) {
+  width : @width;
+  height : @height;
+  border-radius : @radius;
+  background-color : @color;
+}
+
 body {
   text-align : center;
   margin : auto;
@@ -125,15 +132,20 @@ input[type="text"]{
       display : table-cell;
     }
 
-    #song_info {
-      width : 225px;
-    }
+    #song_info { width : 150px; }
 
     #player_skin {
       position : relative; 
       vertical-align : middle;
+      text-align : center;
 
-      * { display : inline; }
+      * { 
+        display : inline-block; 
+        vertical-align : middle;
+      }
+      #play { .controls(100px, 100px, 50px, #666); }
+      #prev { .controls(50px, 50px, 25px, #666); }
+      #next { .controls(50px, 50px, 25px, #666); }
       audio { display : none; }
     }
   } 
