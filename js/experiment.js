@@ -44,16 +44,23 @@ function loadMusic(files) {
   var reader = new FileReader();
   reader.onload = function (e) {
     var view = new jDataView(this.result);
-    console.log(view.getString(3,0));
-    console.log('version',view.getInt8(3));
-    console.log('revision',view.getInt8(4));
-    console.log('flags',view.getInt8(5));
-    console.log('size',view.getUint32(6, littleEndian=false));
-    console.log('First frame header',view.getString(4,10));
-    var frameSize = view.getUint32(14, littleEndian=false);
-    console.log('First frame size', frameSize);
-    console.log('First frame flags',view.getUint16(18, littleEndian=false));
-    console.log('First frame content', view.getString(frameSize,20));
+    //console.log(view.getString(3,0));
+    //console.log('version',view.getInt8(3));
+    //console.log('revision',view.getInt8(4));
+    //console.log('flags',view.getInt8(5));
+    var tagSize = view.getUint32(6, littleEndian=false);
+    console.log('tag size', tagSize);
+    var cursor = 10;
+
+    while(cursor < tagSize) {
+      var header = view.getString(4, cursor);
+      var frameSize = view.getUint32(cursor+4, littleEndian=false);
+      var flags = view.getUint16(cursor+8, littleEndian=false);
+      var content = view.getString(frameSize, cursor+10);
+      cursor += (10+frameSize);
+      console.log(header,frameSize,' = ',content);
+    }
+
   };
   reader.readAsArrayBuffer(file);
 }
