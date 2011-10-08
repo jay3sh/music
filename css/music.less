@@ -61,6 +61,18 @@ body {
   background-image : url('/images/bg.jpg');
 }
 
+.focused_entry{
+  background-image: -webkit-linear-gradient(bottom, #666 0%, #888 100%);
+  background-image: linear-gradient(bottom, #666 0%, #888 100%);
+  background-image: -moz-linear-gradient(bottom, #666 0%, #888 100%);
+}
+
+.active_entry,{
+  background-image: linear-gradient(bottom, #126BF6 0%,#40A8FF 100%);
+  background-image: -moz-linear-gradient(bottom, #126BF6 0%,#40A8FF 100%);
+  background-image: -webkit-linear-gradient(bottom, #126BF6 0%, #40A8FF 100%);
+}
+
 input[type="text"]{
   border-radius : 5px;
   border : none;
@@ -109,6 +121,9 @@ input[type="text"]{
     > * { 
       padding : 5px; 
       text-shadow : 0px 1px 0px #111;
+    }
+    audio{
+      display : none;
     }
   } 
 
@@ -200,18 +215,6 @@ input[type="text"]{
       cursor : pointer;
     }
   }
-}
-
-.focused_entry{
-  background-image: -webkit-linear-gradient(bottom, #666 0%, #888 100%);
-  background-image: linear-gradient(bottom, #666 0%, #888 100%);
-  background-image: -moz-linear-gradient(bottom, #666 0%, #888 100%);
-}
-
-.active_entry,{
-  background-image: linear-gradient(bottom, #126BF6 0%,#40A8FF 100%);
-  background-image: -moz-linear-gradient(bottom, #126BF6 0%,#40A8FF 100%);
-  background-image: -webkit-linear-gradient(bottom, #126BF6 0%, #40A8FF 100%);
 }
 
 #inputcontainer {
