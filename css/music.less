@@ -199,13 +199,16 @@ input[type="text"]{
   }
 }
 
-.active_entry, .focused_entry{
-  background-image: linear-gradient(bottom, rgb(18,107,246) 0%,
-    rgb(72,168,255) 100%);
-  background-image: -moz-linear-gradient(bottom, rgb(18,107,246) 0%,
-    rgb(72,168,255) 100%);
-  background-image: -webkit-linear-gradient(bottom, rgb(18,107,246) 0%,
-    rgb(72,168,255) 100%);
+.focused_entry{
+  background-image: -webkit-linear-gradient(bottom, #666 0%, #888 100%);
+  background-image: linear-gradient(bottom, #666 0%, #888 100%);
+  background-image: -moz-linear-gradient(bottom, #666 0%, #888 100%);
+}
+
+.active_entry,{
+  background-image: linear-gradient(bottom, #126BF6 0%,#40A8FF 100%);
+  background-image: -moz-linear-gradient(bottom, #126BF6 0%,#40A8FF 100%);
+  background-image: -webkit-linear-gradient(bottom, #126BF6 0%, #40A8FF 100%);
 }
 
 #inputcontainer {
