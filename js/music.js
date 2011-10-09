@@ -145,17 +145,21 @@ function pause() {
 
 function play(div, resumeFlag) {
   if(!div){
-    alert('No selction made.');
-    return;
+    if($('#playlist', '#playlist_wrapper').is(':empty')){
+      alert('No selction made.');
+      return;
+    } else { 
+      div = $('#playlist', '#playlist_wrapper').first();
+    }
   }
   var muFile = div.find('.entry_action').data('muFile');
   var url = getObjectURL(muFile.path);
-  $.app.playerAction = 'pause';
   
   if(url) {
     if(!resumeFlag) { $('#player').get(0).src = url; }
 
     $('#player').get(0).play();
+    $.app.playerAction = 'pause';
     $('img', '#play').attr('src', '/images/pause.png');
     currentPlaying = div;
     currentPlaying.parent().children().removeClass('active_entry');
