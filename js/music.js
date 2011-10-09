@@ -2,7 +2,6 @@
 google.load('search', '1');
 var i = 0;
 var canvas = $('#seeker').get(0);
-
 function player_init(){
   var width = (($(document).width())>1280? 1280: $(document).width());
   canvas = $('#seeker').get(0);
@@ -144,7 +143,6 @@ $.app.nextSong = function () {
 
 function pause() {
   $('#player').get(0).pause();
-  $.app.playerAction = 'play';
 }
 
 function animateSeeker() {
@@ -184,8 +182,6 @@ function play(div, resumeFlag) {
     if(!resumeFlag) { $('#player').get(0).src = url; }
 
     $('#player').get(0).play();
-    $.app.playerAction = 'pause';
-    $('img', '#play').attr('src', '/images/pause.png');
     currentPlaying = div;
     currentPlaying.parent().children().removeClass('active_entry');
     currentPlaying.addClass('active_entry');
@@ -206,22 +202,35 @@ $(document).ready(function () {
     $('input[name=actual_addmusic]').click();
   });
 
-  $('#play', '#player_column').hover(
-    function () {
-      $('img', '#play').attr('src', '/images/'+$.app.playerAction+'_hover.png');
-    },
-    function () {       
-      $('img', '#play').attr('src', '/images/'+$.app.playerAction+'.png');
-    }
-  )
-  .click(function () {
-    if($.app.playerAction == 'play'){
-      play(currentPlaying, true);
-    } else {
-      pause();
-    } 
-    $('img', '#play').attr('src', '/images/'+$.app.playerAction+'_hover.png');
-  });
+  $('#play', '#player_column')
+    .hover(
+      function () {
+        $('img', this)
+          .attr('src', '/images/'+$.app.playerAction+'_hover.png');
+      },
+      function () {       
+        $('img', this)
+          .attr('src', '/images/'+$.app.playerAction+'.png');
+      }
+    )
+    .click(function () {
+      if($.app.playerAction == 'play'){
+        play(currentPlaying, true);
+      } else {
+        pause();
+      } 
+    });
+
+  $('#player', '#player_column')
+    .bind('play', function () {
+      $.app.playerAction = 'pause';
+      $('img', '#play').attr('src', '/images/pause.png');
+    })
+    .bind('pause', function () {
+      $.app.playerAction = 'play';
+      $('img', '#play').attr('src', '/images/play.png');
+    });
+
   $('input[name=search]').keyup(function (e) {
 
     var divResults = $('#search_results');
@@ -241,7 +250,6 @@ $(document).ready(function () {
         var player_entry = getSongEntryHtml(muFile, false);
         player_entry.find('.entry_action').click(function () {
           play($(this).parent());
-          $.app.playerAction = 'pause';
         });
         player_entry.find('.remove_action').click(function () {
           play($(this).parent().remove());
