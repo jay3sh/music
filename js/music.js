@@ -4,6 +4,7 @@ google.load('search', '1');
 function player_init(){
   var width = (($(document).width())>1280? 1280: $(document).width());
   $('body').css('width', width);
+  $.app.playerAction = 'play';
 
   $('#player_wrapper #album_artwork').attr('src', '/images/nothumb.png');
   google.search.Search.getBranding('google_branding');
@@ -137,12 +138,19 @@ $.app.nextSong = function () {
   play(nextDiv);
 }
 
-function play(div) {
+function pause() {
+  $('#player').get(0).pause();
+}
+
+function play(div, resumeFlag) {
   var muFile = div.find('.entry_action').data('muFile');
   var url = getObjectURL(muFile.path);
+
   if(url) {
-    $('#player').get(0).src = url;
+    if(!resumeFlag) { $('#player').get(0).src = url; }
+
     $('#player').get(0).play();
+    $('img', '#play').attr('src', '/images/pause.png');
     currentPlaying = div;
     currentPlaying.parent().children().removeClass('active_entry');
     currentPlaying.addClass('active_entry');
@@ -165,9 +173,23 @@ $(document).ready(function () {
   });
 
   $('#play', '#player_column').hover(
-    function () { $('img', this).attr('src', '/images/play_hover.png'); },
-    function () { $('img', this).attr('src', '/images/play.png'); }
-  );
+    function () {
+      $('img', '#play').attr('src', '/images/'+$.app.playerAction+'_hover.png');
+    },
+    function () {       
+      $('img', '#play').attr('src', '/images/'+$.app.playerAction+'.png');
+    }
+  )
+  .click(function () {
+    if($.app.playerAction == 'play'){
+      play(currentPlaying, true);
+      $.app.playerAction = 'pause';
+    } else {
+      pause();
+      $.app.playerAction = 'play';
+    } 
+    $('img', '#play').attr('src', '/images/'+$.app.playerAction+'_hover.png');
+  });
   $('input[name=search]').keyup(function (e) {
 
     var divResults = $('#search_results');
@@ -187,6 +209,7 @@ $(document).ready(function () {
         var player_entry = getSongEntryHtml(muFile, false);
         player_entry.find('.entry_action').click(function () {
           play($(this).parent());
+          $.app.playerAction = 'pause';
         });
         player_entry.find('.remove_action').click(function () {
           play($(this).parent().remove());
