@@ -173,7 +173,8 @@ function play(div, resumeFlag) {
       alert('No selction made.');
       return;
     } else { 
-      div = $('#playlist', '#playlist_wrapper').first();
+      div = $('.entry', '#playlist').first();
+      resumeFlag = false;
     }
   }
   var muFile = div.find('.entry_action').data('muFile');
