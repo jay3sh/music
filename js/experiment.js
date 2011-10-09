@@ -180,6 +180,7 @@ function cleanText(str){
     /[^A-Za-z0-9\(\)\{\}\[\]\!\@\#\$\%\^\&\* \/\"\'\;\>\<\?\,\~\`\.\n\t]/g,'');
 }
 
+var ITER_LIMIT = 100;
 function parseID3v2(view) {
   var tags = { version:2, other:[] }
   try {
@@ -189,7 +190,8 @@ function parseID3v2(view) {
     var cursor = 10;
 
     if(tags.revision < 3) {
-      while(cursor < tagSize) {
+      var iter = 0;
+      while(cursor < tagSize && iter < ITER_LIMIT) {
         var header = view.getString(3, cursor);
         var sbytes = [view.getInt8(4),view.getInt8(5),view.getInt8(6)]
         var frameSize = sbytes[0] << 16 + sbytes[1] << 8 + sbytes[2];
@@ -218,10 +220,12 @@ function parseID3v2(view) {
           break;
         }
         cursor += (6+frameSize);
+        iter++;
       }
       return tags;
     } else {
-      while(cursor < tagSize) {
+      var iter = 0;
+      while(cursor < tagSize && iter < ITER_LIMIT) {
         var header = view.getString(4, cursor);
         var frameSize = view.getUint32(cursor+4, littleEndian=false);
         var flags = view.getUint16(cursor+8, littleEndian=false);
@@ -250,6 +254,7 @@ function parseID3v2(view) {
           break;
         }
         cursor += (10+frameSize);
+        iter++;
       }
     }
     return tags;
