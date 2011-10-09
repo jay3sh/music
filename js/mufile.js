@@ -32,7 +32,7 @@ function MuFile(file, doneCallback) {
   function findInStorage(subpaths) {
     for(var i=0, l=subpaths.length; i<l; i++) {
       var subpath = subpaths[i];
-      var pMuFile = app.Storage.read(subpath);
+      var pMuFile = app.Storage.read($.MD5(subpath));
       if(pMuFile) { return pMuFile; }
     }
   }

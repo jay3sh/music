@@ -9,30 +9,31 @@ Storage.artistIndex = {};
 Storage.nameIndex = {};
 
 Storage.updateIndex = function (muFile) {
+  var hash = $.MD5(muFile.path);
   if(muFile.title && muFile.title.length > 0) {
     var key = muFile.artist.toLowerCase();
     if(Storage.titleIndex[key]) {
-      Storage.titleIndex[key].push(muFile.path);
+      Storage.titleIndex[key].push(hash);
     } else {
-      Storage.titleIndex[key] = [muFile.path];
+      Storage.titleIndex[key] = [hash];
     }
   }
 
   if(muFile.artist && muFile.artist.length > 0) {
     var key = muFile.artist.toLowerCase();
     if(Storage.artistIndex[key]) {
-      Storage.artistIndex[key].push(muFile.path);
+      Storage.artistIndex[key].push(hash);
     } else {
-      Storage.artistIndex[key] = [muFile.path];
+      Storage.artistIndex[key] = [hash];
     }
   }
 
   if(muFile.name && muFile.name.length > 0) {
     var key = muFile.name.toLowerCase().replace(/\.\w+$/,'');
     if(Storage.nameIndex[key]) {
-      Storage.nameIndex[key].push(muFile.path);
+      Storage.nameIndex[key].push(hash);
     } else {
-      Storage.nameIndex[key] = [muFile.path];
+      Storage.nameIndex[key] = [hash];
     }
   }
 }
@@ -46,13 +47,14 @@ Storage.load = function () {
   Storage.nameIndex = s ? JSON.parse(s) : {};
 }
 
-Storage.read = function (path) {
-  var s = window.localStorage.getItem(path);
+Storage.read = function (hash) {
+  var s = window.localStorage.getItem(hash);
   return s ? JSON.parse(s) : null;
 };
 
 Storage.write = function (muFile) {
-  window.localStorage.setItem(muFile.path, JSON.stringify(muFile));
+  var hash = $.MD5(muFile.path);
+  window.localStorage.setItem(hash, JSON.stringify(muFile));
   Storage.updateIndex(muFile);
 };
 
@@ -71,17 +73,15 @@ Storage.search = function (keyword) {
   function searchIndex(index) {
     for (key in index) {
       if(key.indexOf(keyword) >= 0) {
-        var paths = index[key];
-        _(paths).each(function (path) {
-          results.push(Storage.read(path));
-        });
+        var hashes = index[key];
+        results = results.concat(hashes);
       }
     }
   }
   searchIndex(Storage.titleIndex);
   searchIndex(Storage.artistIndex);
   searchIndex(Storage.nameIndex);
-  return results;
+  return _(results).chain().uniq().map(Storage.read).value();
 };
 
 app.Storage = Storage;
