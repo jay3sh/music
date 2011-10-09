@@ -165,6 +165,12 @@ function parseError(e) {
   return msg;
 }
 
+function fileSlice(file, start, length){
+  if(file.mozSlice) return file.mozSlice(start, start + length);
+  if(file.webkitSlice) return file.webkitSlice(start, start + length);
+  if(file.slice) return file.slice(start, length);
+}
+
 function cleanText(str){
   if(str.indexOf('http://') != 0){
     var TextEncoding = str.charCodeAt(0);
@@ -245,7 +251,7 @@ function loadMusic(files) {
       }
       console.log(tags);
     };
-    reader.readAsArrayBuffer(file);
+    reader.readAsArrayBuffer(fileSlice(file, 0, 128*1024));
   });
 }
 
