@@ -1,11 +1,10 @@
-
-google.load('search', '1');
 var i = 0;
-var canvas = $('#seeker').get(0);
+google.load('search', '1');
+
 function player_init(){
   var width = (($(document).width())>1280? 1280: $(document).width());
-  canvas = $('#seeker').get(0);
-  $.app.ctx = canvas.getContext('2d');
+  $.app.canvas = $('#seeker').get(0);
+  $.app.ctx = $.app.canvas.getContext('2d');
   $('body').css('width', width);
   $.app.playerAction = 'play';
 
@@ -142,12 +141,15 @@ $.app.nextSong = function () {
 }
 
 function animateSeeker() {
-  if(i<360){
+    var player = $('#player').get(0);
+
+    var degree = (player.currentTime/player.duration)*360;
+
     $.app.ctx.beginPath();  
-    $.app.ctx.clearRect(0,0,canvas.width, canvas.height);
+    $.app.ctx.clearRect(0,0,$.app.canvas.width,$.app.canvas.height);
     $.app.ctx.strokeStyle = 'rgba(00, 194, 256, 0.9)';
     $.app.ctx.lineWidth = 15;
-    $.app.ctx.arc(76,75,65,Math.PI*(270/180),Math.PI*(++i+270)/180);
+    $.app.ctx.arc(76,75,65,Math.PI*(270/180),Math.PI*(degree+270)/180);
     $.app.ctx.shadowOffsetX = 0;
     $.app.ctx.shadowOffsetY = 0;
     $.app.ctx.shadowBlur = 5;
@@ -156,9 +158,6 @@ function animateSeeker() {
 
     $.app.ctx.closePath();
     window.webkitRequestAnimationFrame(animateSeeker);
-  } else {
-    window.webkitCancelRequestAnimationFrame(animateSeeker);
-  }
 }
 
 function pauseMedia() {
@@ -225,6 +224,7 @@ $(document).ready(function () {
     .bind('play', function () {
       $.app.playerAction = 'pause';
       $('img', '#play').attr('src', '/images/pause.png');
+      animateSeeker();
     })
     .bind('pause', function () {
       $.app.playerAction = 'play';
