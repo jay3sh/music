@@ -32,7 +32,7 @@ function MuFile(file, doneCallback) {
   function findInStorage(subpaths) {
     for(var i=0, l=subpaths.length; i<l; i++) {
       var subpath = subpaths[i];
-      var pMuFile = app.Storage.read(subpath);
+      var pMuFile = app.Storage.read($.MD5(subpath));
       if(pMuFile) { return pMuFile; }
     }
   }
@@ -50,11 +50,11 @@ function MuFile(file, doneCallback) {
     doneCallback();
   } else {
     if(/\.mp3$/.test(this.path.toLowerCase())) {
-      ID3v2.parseFile(file, function (tags) {
-        thisref.title = tags.Title ? tags.Title : '';
-        thisref.artist = tags.Artist ? tags.Artist : '';
-        thisref.album = tags.Album ? tags.Album : '';
-        thisref.genre = tags.Genre ? tags.Genre : '';
+      app.parseTags(file, function (tags) {
+        thisref.title = tags.title ? tags.title : '';
+        thisref.artist = tags.artist ? tags.artist : '';
+        thisref.album = tags.album ? tags.album : '';
+        thisref.genre = tags.genre ? tags.genre : '';
 
         app.Storage.write({
           path : thisref.path,
