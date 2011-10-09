@@ -189,6 +189,37 @@ function parseID3v2(view) {
     var cursor = 10;
 
     if(tags.revision < 3) {
+      while(cursor < tagSize) {
+        var header = view.getString(3, cursor);
+        var sbytes = [view.getInt8(4),view.getInt8(5),view.getInt8(6)]
+        var frameSize = sbytes[0] << 16 + sbytes[1] << 8 + sbytes[2];
+        var content = view.getString(frameSize, cursor+6);
+        switch(header) {
+        case 'TT2':
+          tags.title = cleanText(content); break;
+        case 'TAL':
+          tags.album = cleanText(content); break;
+        case 'TP1':
+          tags.artist = cleanText(content); break;
+        case 'TYE':
+          tags.year = cleanText(content); break;
+        case 'TCO':
+          s = cleanText(content);
+          if(/\([0-9]+\)/.test(s)) {
+            tags.genre = ID3_2_GENRES[parseInt(s.replace(/[\(\)]/g,''), 10)];
+          } else {
+            tags.genre = s;
+          }
+          break;
+        default:
+          if(header && header.trim().length > 0) {
+            tags.other.push({ header:header, content:cleanText(content) });
+          }
+          break;
+        }
+        cursor += (6+frameSize);
+      }
+      return tags;
     } else {
       while(cursor < tagSize) {
         var header = view.getString(4, cursor);
@@ -211,10 +242,12 @@ function parseID3v2(view) {
           } else {
             tags.genre = s;
           }
+          break;
         default:
           if(header && header.trim().length > 0) {
             tags.other.push({ header:header, content:cleanText(content) });
           }
+          break;
         }
         cursor += (10+frameSize);
       }
