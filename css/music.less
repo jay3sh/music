@@ -146,7 +146,7 @@ input[type="text"]{
       display : table-cell;
     }
 
-    #song_info { width : 200px; }
+    #song_info { width : 180px; }
 
     #player_skin {
       position : relative; 
@@ -161,18 +161,28 @@ input[type="text"]{
         .controls(100px, 100px, 50px, #666); 
         .radialGradient;
         .boxShadow(0, 0, 7px, #aaa);
-
+        position : relative;
+        z-index : 50;
         img{ margin : 20px 0px 0px 12px; }
+      }
+      #seeker {
+        width : 260px;
+        height : 130px;
+        position : absolute;
+        margin-left : -120px;
+        margin-top : -15px;
       }
       #prev { 
         .controls(50px, 50px, 25px, #666); 
         .radialGradient;
         .boxShadow(0, 0, 5px, #aaa);
+        margin-right : 15px;
       }
       #next { 
         .controls(50px, 50px, 25px, #666); 
         .radialGradient;
         .boxShadow(0, 0, 5px, #aaa);
+        margin-left : 15px;
       }
       audio { display : none; }
     }
