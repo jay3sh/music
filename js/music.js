@@ -138,11 +138,7 @@ $.app.nextSong = function () {
   if(nextDiv.length == 0) {
     nextDiv = currentPlaying.parent().children().first();
   }
-  play(nextDiv);
-}
-
-function pause() {
-  $('#player').get(0).pause();
+  playMedia(nextDiv);
 }
 
 function animateSeeker() {
@@ -165,7 +161,11 @@ function animateSeeker() {
   }
 }
 
-function play(div, resumeFlag) {
+function pauseMedia() {
+  $('#player').get(0).pause();
+}
+
+function playMedia(div, resumeFlag) {
   if(!div){
     if($('#playlist', '#playlist_wrapper').is(':empty')){
       alert('No selction made.');
@@ -215,9 +215,9 @@ $(document).ready(function () {
     )
     .click(function () {
       if($.app.playerAction == 'play'){
-        play(currentPlaying, true);
+        playMedia(currentPlaying, true);
       } else {
-        pause();
+        pauseMedia();
       } 
     });
 
@@ -249,10 +249,10 @@ $(document).ready(function () {
         var muFile = $(this).data('muFile');
         var player_entry = getSongEntryHtml(muFile, false);
         player_entry.find('.entry_action').click(function () {
-          play($(this).parent());
+          playMedia($(this).parent());
         });
         player_entry.find('.remove_action').click(function () {
-          play($(this).parent().remove());
+          playMedia($(this).parent().remove());
         });
         $('#playlist_wrapper #playlist').append(player_entry);
       });
