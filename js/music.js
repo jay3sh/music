@@ -1,8 +1,12 @@
 
 google.load('search', '1');
+var i = 0;
+var canvas = $('#seeker').get(0);
 
 function player_init(){
   var width = (($(document).width())>1280? 1280: $(document).width());
+  canvas = $('#seeker').get(0);
+  $.app.ctx = canvas.getContext('2d');
   $('body').css('width', width);
   $.app.playerAction = 'play';
 
@@ -144,25 +148,23 @@ function pause() {
 }
 
 function animateSeeker() {
-  var canvas = $('#seeker').get(0);
-  var ctx = canvas.getContext('2d');
-  var lin_grad = ctx.createLinearGradient(200,125,200,250); 
-  lin_grad.addColorStop(0, '#fff');
-  lin_grad.addColorStop(1, '#444');
+  if(i<360){
+    $.app.ctx.beginPath();  
+    $.app.ctx.clearRect(0,0,canvas.width, canvas.height);
+    $.app.ctx.strokeStyle = 'rgba(00, 194, 256, 0.9)';
+    $.app.ctx.lineWidth = 15;
+    $.app.ctx.arc(76,75,65,Math.PI*(270/180),Math.PI*(++i+270)/180);
+    $.app.ctx.shadowOffsetX = 0;
+    $.app.ctx.shadowOffsetY = 0;
+    $.app.ctx.shadowBlur = 5;
+    $.app.ctx.shadowColor = 'rgba(170,170,170,0.7)';
+    $.app.ctx.stroke();
 
-  ctx.beginPath();  
-  ctx.clearRect(0,0,canvas.width, canvas.height);
-  ctx.strokeStyle = 'rgba(00, 170, 256, 0.7)';
-  ctx.lineCap = "round";
-  ctx.lineWidth = 15;
-  ctx.arc(76,75,65,0,(Math.PI*2));
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 0;
-  ctx.shadowBlur = 5;
-  ctx.shadowColor = 'rgba(170,170,170,0.7)';
-  ctx.stroke();
-
-  ctx.closePath();
+    $.app.ctx.closePath();
+    window.webkitRequestAnimationFrame(animateSeeker);
+  } else {
+    window.webkitCancelRequestAnimationFrame(animateSeeker);
+  }
 }
 
 function play(div, resumeFlag) {
@@ -197,7 +199,6 @@ function play(div, resumeFlag) {
 
 $(document).ready(function () {
   player_init();
-  animateSeeker();
   $.app.Storage.load();
 
   $('#addmusic').click(function () {
