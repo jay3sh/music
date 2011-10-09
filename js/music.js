@@ -140,12 +140,18 @@ $.app.nextSong = function () {
 
 function pause() {
   $('#player').get(0).pause();
+  $.app.playerAction = 'play';
 }
 
 function play(div, resumeFlag) {
+  if(!div){
+    alert('No selction made.');
+    return;
+  }
   var muFile = div.find('.entry_action').data('muFile');
   var url = getObjectURL(muFile.path);
-
+  $.app.playerAction = 'pause';
+  
   if(url) {
     if(!resumeFlag) { $('#player').get(0).src = url; }
 
@@ -183,10 +189,8 @@ $(document).ready(function () {
   .click(function () {
     if($.app.playerAction == 'play'){
       play(currentPlaying, true);
-      $.app.playerAction = 'pause';
     } else {
       pause();
-      $.app.playerAction = 'play';
     } 
     $('img', '#play').attr('src', '/images/'+$.app.playerAction+'_hover.png');
   });
