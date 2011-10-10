@@ -157,7 +157,8 @@ function animateSeeker() {
     $.app.ctx.stroke();
 
     $.app.ctx.closePath();
-    window.webkitRequestAnimationFrame(animateSeeker);
+
+    setTimeout(animateSeeker, 1000);
 }
 
 function pauseMedia() {
