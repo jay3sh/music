@@ -3,6 +3,7 @@
 <head>
 <title>&mu;sic</title>
 
+<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.16.custom.css"/>
 <link rel="stylesheet/less" type="text/css" href="css/music.less"/>
 
 <script type="text/javascript" src="js/ext/less-1.1.3.min.js"></script>
@@ -11,6 +12,7 @@
 <script type="text/javascript" src="js/ext/underscore.js"></script>
 <script type="text/javascript" src="js/ext/jdataview.js"></script>
 <script type="text/javascript" src="js/ext/md5.js"></script>
+<script type="text/javascript" src="js/ext/jquery-ui-1.8.16.custom.min.js"></script>
 
 <script type="text/javascript">
 $.app = {};
@@ -45,6 +47,7 @@ $.app = {};
       <span id="next"></span>
       <audio onended="$.app.nextSong()" controls id="player">
     </div>
+    <div id="player_volume"></div>
   </div>
 
 </div>

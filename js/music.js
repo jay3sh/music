@@ -6,6 +6,7 @@ function player_init(){
   $.app.canvas = $('#seeker').get(0);
   $.app.ctx = $.app.canvas.getContext('2d');
   $('body').css('width', width);
+  $('#player').get(0).volume = 0.1;
   $.app.playerAction = 'play';
 
   $('#player_wrapper #album_artwork').attr('src', '/images/nothumb.png');
@@ -232,6 +233,15 @@ $(document).ready(function () {
       $('img', '#play').attr('src', '/images/play.png');
     });
 
+  $('#player_volume').slider({
+    'range' : 'min',
+    'value' : 10,
+    'min' : 0.0,
+    'max' : 100,
+    'slide' : function (e, ui){
+      $('#player').get(0).volume = (ui.value)/100;
+    }
+  });
   $('input[name=search]').keyup(function (e) {
 
     var divResults = $('#search_results');
