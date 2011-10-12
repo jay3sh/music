@@ -99,7 +99,7 @@ function getSongEntryHtml(muFile, asSearchResult) {
     (asSearchResult ?
       '<div class="entry_action">+</div>' :
       '<div class="remove_action">-</div>'+
-      '<div class="entry_action">&gt;</div>')+
+      '<div class="entry_action" style="font-size:14px;">&nbsp;&nbsp;&#9654;</div>')+
   '</div>';
   var entry = $(entryHTML);
   
