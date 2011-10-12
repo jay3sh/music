@@ -222,6 +222,32 @@ $(document).ready(function () {
       } 
     });
 
+  $('#prev', '#player_column')
+    .hover(
+      function (){
+        $('img', this).attr('src', '/images/previous_hover.png');
+      }, 
+      function (){
+        $('img', this).attr('src', '/images/previous.png');
+      }
+    )
+    .click(function (){
+      
+    });
+
+  $('#next', '#player_column')
+    .hover(
+      function (){
+        $('img', this).attr('src', '/images/next_hover.png');
+      }, 
+      function (){
+        $('img', this).attr('src', '/images/next.png');
+      }
+    )
+    .click(function (){
+      
+    });
+
   $('#player', '#player_column')
     .bind('play', function () {
       $.app.playerAction = 'pause';
