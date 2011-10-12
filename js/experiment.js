@@ -273,23 +273,71 @@ function parseID3v1(view) {
   }
 }
 
+
+function parseMpeg4(view) {
+  if(view.getString(4,4) == 'ftyp') {
+
+    var cursor = 0;
+    var depth = 0;
+    var pattern = ['moov','udta','meta','ilst']
+    function findTagAtoms() {
+      console.log('findTagAtoms');
+    }
+
+    function findAtomPattern() {
+      var atomSize = view.getUint32(cursor, littleEndian=false);
+      var atomName = view.getString(4, cursor+4);
+      console.log(atomName,atomSize);
+      if(atomName == pattern[depth]) {
+        depth++;
+        if(depth == pattern.length) {
+          findTagAtoms()
+        } else {
+          cursor += 8;
+          findAtomPattern()
+        }
+      } else {
+        cursor += atomSize;
+        findAtomPattern()
+      }
+    }
+
+    findAtomPattern();
+
+    /*
+    while(cursor < view.length) {
+      var atomSize = view.getUint32(cursor, littleEndian=false);
+      var atomName = view.getString(4, cursor+4);
+      if(atomName == 'moov') {
+      }
+      cursor += atomSize;
+    }
+    */
+  }
+}
+
 function loadMusic(files) {
   var files = _(files).chain().select(function (f) {
-    return /\.mp3$/.test(f.webkitRelativePath.toLowerCase());
-  }).first(100).value();
+    return /\.m4a$/.test(f.webkitRelativePath.toLowerCase());
+  }).first(4).value();
 
   _(files).each(function (file) {
+    console.log(file.webkitRelativePath);
     var reader = new FileReader();
     reader.onload = function (e) {
       var view = new jDataView(this.result);
+      parseMpeg4(view);
+      /*
       if(view.getString(3,0) == 'ID3') {
         tags = parseID3v2(view);
       } else if (view.getString(3,view.length-128) == 'TAG') {
         tags = parseID3v1(view);
       }
       console.log(tags);
+      */
     };
-    reader.readAsArrayBuffer(fileSlice(file, 0, 128*1024));
+    //reader.readAsArrayBuffer(fileSlice(file, 0, 512*1024));
+    reader.readAsArrayBuffer(file);
   });
 }
 
