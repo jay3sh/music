@@ -76,6 +76,13 @@ function getAmazonLink(muFile) {
   return 'http://www.amazon.com/s?ie=UTF8&x=0&ref_=nb_sb_noss&y=0&field-keywords='+encodeURI(muFile.artist)+'&url=search-alias%3Ddigital-music&_encoding=UTF8&tag=myfreq-20&linkCode=ur2&camp=1789&creative=390957'
 }
 
+function getMetroLyricsURL(muFile){
+  var name = getPrettySongName(muFile).split(' ').join('-');
+  var artist = muFile.artist.split(' ').join('-');
+  
+  return ('http://www.metrolyrics.com/'+name+'-lyrics-'+artist+'.html');
+}
+
 function getSongEntryHtml(muFile, asSearchResult) {
   var name = getPrettySongName(muFile);
   var entryHTML = '<div class="entry">'+
