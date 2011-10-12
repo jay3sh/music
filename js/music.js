@@ -133,6 +133,14 @@ function updateSongInfo(muFile){
 }
 
 var currentPlaying = null;
+$.app.prevSong = function () {
+  var prevDiv = currentPlaying.prev();
+  if(prevDiv.length == 0) {
+    prevDiv = currentPlaying.parent().children().last();
+  }
+  playMedia(prevDiv);
+}
+
 $.app.nextSong = function () {
   var nextDiv = currentPlaying.next();
   if(nextDiv.length == 0) {
@@ -232,7 +240,7 @@ $(document).ready(function () {
       }
     )
     .click(function (){
-      
+      $.app.prevSong(); 
     });
 
   $('#next', '#player_column')
@@ -245,7 +253,7 @@ $(document).ready(function () {
       }
     )
     .click(function (){
-      
+      $.app.nextSong(); 
     });
 
   $('#player', '#player_column')
