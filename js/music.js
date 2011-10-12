@@ -127,9 +127,9 @@ function searchImage(query, callback) {
 
 function updateSongInfo(muFile){
   var songInfo = $('#player_column #player_controls #song_info');
-  $('#title', songInfo).text(muFile.title);
-  $('#artist', songInfo).text(muFile.artist);
-  $('#album', songInfo).text(muFile.album);
+  $('#title', songInfo).text(muFile.title).attr('title', muFile.title);
+  $('#artist', songInfo).text(muFile.artist).attr('title', muFile.artist);
+  $('#album', songInfo).text(muFile.album).attr('title', muFile.album);
 }
 
 var currentPlaying = null;

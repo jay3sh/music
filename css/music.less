@@ -146,7 +146,15 @@ input[type="text"]{
       display : table-cell;
     }
 
-    #song_info { width : 180px; }
+    #song_info { 
+      width : 180px;
+
+      * {
+        width : 180px;
+        white-space : nowrap;
+        overflow : hidden;
+      }
+    }
 
     #player_skin {
       position : relative; 
