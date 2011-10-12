@@ -85,18 +85,21 @@ function getMetroLyricsURL(muFile){
 
 function getSongEntryHtml(muFile, asSearchResult) {
   var name = getPrettySongName(muFile);
+  var album = muFile.album;
+  var artist = muFile.artist;
+
   var entryHTML = '<div class="entry">'+
     '&nbsp;&nbsp;'+
-    '<span class="song_name">'+getPrettySongName(muFile)+'</span>'+
+    '<div class="song_name" title="'+name+'">'+name+'</div>'+
     '&nbsp;&nbsp;'+
-    '<span class="album_name">'+muFile.album+'</span>'+
+    '<div class="album_name" title="'+album+'">'+album+'</div>'+
     '&nbsp;&nbsp;'+
-    '<span class="artist_name">'+muFile.artist+'</span>'+
+    '<div class="artist_name" title="'+artist+'">'+artist+'</div>'+
     '&nbsp;&nbsp;'+
     (asSearchResult ?
-      '<span class="entry_action">+</span>' :
-      '<span class="remove_action">-</span>'+
-      '<span class="entry_action">&gt;</span>')+
+      '<div class="entry_action">+</div>' :
+      '<div class="remove_action">-</div>'+
+      '<div class="entry_action">&gt;</div>')+
   '</div>';
   var entry = $(entryHTML);
   
