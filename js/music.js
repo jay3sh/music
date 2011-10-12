@@ -190,12 +190,33 @@ function playMedia(div, resumeFlag) {
   if(url) {
     if(!resumeFlag) { $('#player').get(0).src = url; }
 
+    var wrapper_height = $('#player_wrapper').height()-30;
+    var wrapper_width = $('#player_wrapper').width()-30;
+
     $('#player').get(0).play();
     currentPlaying = div;
     currentPlaying.parent().children().removeClass('active_entry');
     currentPlaying.addClass('active_entry');
     searchImage(muFile.album+' '+muFile.artist,function (tbUrl) {
       $('#player_wrapper #album_artwork').attr('src',tbUrl);
+      var height = $('#player_wrapper #album_artwork').height();
+      var width = $('#player_wrapper #album_artwork').width();
+
+      if(height > wrapper_height || width > wrapper_width){
+        var ratio, new_height, new_width;
+        if(height > wrapper_height){
+          ratio = width/height;
+          new_height = wrapper_height;
+          new_width = ratio*new_height;
+        } else {
+          ratio = height/width;
+          new_width = wrapper_width;
+          new_height = ratio*new_width;
+        } 
+        $('#player_wrapper img').css('height', new_height);
+        $('#player_wrapper img').css('width', new_width);
+      }
+
     });
     updateSongInfo(muFile);
   } else {
