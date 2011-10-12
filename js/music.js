@@ -134,10 +134,10 @@ function searchImage(query, callback) {
 
 function updateSongInfo(muFile){
   var songInfo = $('#player_column #player_controls #song_info');
-  var yt = '<a href='+getYoutubeSearchURL(muFile)+'><img src="/images/youtube.ico" /></a>';
-  var wiki = '<a href='+getArtistWikipediaURL(muFile)+'><img src="/images/wikipedia.ico" /></a>';
-  var amzn = '<a href='+getAmazonLink(muFile)+'><img src="/images/amazon.png" /></a>';
-  var lyrics = '<a href='+getLyricsSearchURL(muFile)+'>Lyrics<a/>';
+  var yt = '<a href='+getYoutubeSearchURL(muFile)+' target="blank"><img src="/images/youtube.ico" /></a>';
+  var wiki = '<a href='+getArtistWikipediaURL(muFile)+' target="blank"><img src="/images/wikipedia.ico" /></a>';
+  var amzn = '<a href='+getAmazonLink(muFile)+' target="blank"><img src="/images/amazon.png" /></a>';
+  var lyrics = '<a href='+getMetroLyricsURL(muFile)+' target="blank"><img src="/images/metro.png" /><a/>';
   $('#title', songInfo).text(muFile.title).attr('title', muFile.title);
   $('#artist', songInfo).text(muFile.artist).attr('title', muFile.artist);
   $('#album', songInfo).text(muFile.album).attr('title', muFile.album);
