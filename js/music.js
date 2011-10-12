@@ -77,7 +77,7 @@ function getAmazonLink(muFile) {
 }
 
 function getMetroLyricsURL(muFile){
-  var name = getPrettySongName(muFile).split(' ').join('-');
+  var name = muFile.title.split(' ').join('-');
   var artist = muFile.artist.split(' ').join('-');
   
   return ('http://www.metrolyrics.com/'+name+'-lyrics-'+artist+'.html');
