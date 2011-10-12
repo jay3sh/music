@@ -158,7 +158,7 @@ function animateSeeker() {
     $.app.ctx.clearRect(0,0,$.app.canvas.width,$.app.canvas.height);
     $.app.ctx.strokeStyle = 'rgba(00, 194, 256, 0.9)';
     $.app.ctx.lineWidth = 14;
-    $.app.ctx.arc(76,75,65,Math.PI*(270/180),Math.PI*(degree+270)/180);
+    $.app.ctx.arc(75,75,65,Math.PI*(270/180),Math.PI*(degree+270)/180);
     $.app.ctx.shadowOffsetX = 0;
     $.app.ctx.shadowOffsetY = 0;
     $.app.ctx.shadowBlur = 5;
