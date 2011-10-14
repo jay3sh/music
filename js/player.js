@@ -58,6 +58,8 @@ player.pauseMedia = function () {
 }
 
 player.playMedia = function (div, resumeFlag) {
+  var thisref = this;
+
   if(!div){
     if($('#playlist', '#playlist_wrapper').is(':empty')){
       alert('No selction made.');
@@ -96,8 +98,8 @@ player.playMedia = function (div, resumeFlag) {
           new_width = wrapper_width;
           new_height = ratio*new_width;
         } 
-        $('#player_wrapper img').css('height', new_height);
-        $('#player_wrapper img').css('width', new_width);
+        $('#player_wrapper img', thisref.jqelem)
+          .css({ 'height': new_height,'width': new_width });
       }
 
     });
