@@ -12,7 +12,15 @@
     }); 
     window.localStorage.setItem('__playlist__', JSON.stringify(playlist_entries));
   };
- 
+  
+  Playlist.add = function (entry) {
+    $('#playlist_wrapper #playlist').append(entry);
+  }
+
+  Playlist.remove = function (entry) {
+    entry.remove();
+  }
+
  app.Playlist = Playlist;
 })(jQuery);
 

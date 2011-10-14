@@ -164,9 +164,9 @@ $(document).ready(function () {
           $.app.player.playMedia($(this).parent());
         });
         player_entry.find('.remove_action').click(function () {
-          $(this).parent().remove();
+          $.app.Playlist.remove($(this).parent());
         });
-        $('#playlist_wrapper #playlist').append(player_entry);
+        $.app.Playlist.add(player_entry)
       });
 
   })
