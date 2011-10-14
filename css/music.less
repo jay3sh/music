@@ -77,6 +77,7 @@
 }
 
 body {
+  font-family : 'Chivo', sans-serif;
   text-align : center;
   margin : auto;
   background-image : url('/images/bg.jpg');
@@ -130,6 +131,8 @@ input[type="text"]{
     
     img {
       border-radius : 5px;
+      width : 120px;
+      height : 120px;
       .boxShadow(0px, 0px, 8px, #888);
     }
 
@@ -146,7 +149,24 @@ input[type="text"]{
       display : table-cell;
     }
 
-    #song_info { width : 180px; }
+    #song_info { 
+      width : 180px;
+
+      * {
+        width : 180px;
+        white-space : nowrap;
+        overflow : hidden;
+      }
+      #extern {
+        margin-top : 10px;
+        a { margin: 5px; }
+        img {
+          height : 16px;
+          width : 16px;
+          border-radius : 2px;
+        }
+      }
+    }
 
     #player_skin {
       position : relative; 
@@ -166,25 +186,39 @@ input[type="text"]{
         img{ margin : 20px 0px 0px 12px; }
       }
       #seeker {
-        width : 260px;
-        height : 130px;
+        width : 272px;
+        height : 136px;
         position : absolute;
-        margin-left : -120px;
-        margin-top : -15px;
+        margin-left : -121px;
+        margin-top : -18px;
       }
       #prev { 
         .controls(50px, 50px, 25px, #666); 
         .radialGradient;
         .boxShadow(0, 0, 5px, #aaa);
         margin-right : 15px;
+        position : relative;
+        z-index : 50;
+
+        img { margin-top : 10px; }
       }
       #next { 
         .controls(50px, 50px, 25px, #666); 
         .radialGradient;
         .boxShadow(0, 0, 5px, #aaa);
         margin-left : 15px;
+        position : relative;
+        z-index : 50;
+
+        img { margin-top : 10px; }
       }
       audio { display : none; }
+    }
+
+    #player_volume {
+      width : 150px;
+      display : inline-block;
+      height : 0px;
     }
   } 
 
@@ -257,17 +291,29 @@ input[type="text"]{
     padding : 2px 10px;
     border-radius : 2px;
     cursor : default;
+
+    *{ 
+      display : inline-block; 
+      white-space : nowrap;
+      overflow : hidden;
+    }
+
     .song_name {
       font-size : 12px;
-      font-weight : bold;
+      //font-weight : bold;
+      width : 240px;
     }
+    
     .album_name {
       font-size : 60%;
       color : #ccc;
+      width : 120px;
     }
+
     .artist_name {
       font-size : 60%;
       color : #aaa;
+      width : 80px;
     }
     .entry_action, .remove_action {
       font-weight : bold;
