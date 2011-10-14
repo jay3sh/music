@@ -136,7 +136,7 @@ function searchImage(query, callback) {
 
 $(document).ready(function () {
   skin_init();
-  $.app.player.init();
+  $.app.player.init($('#player_column'));
   $.app.Storage.load();
 
   $('#addmusic').click(function () {

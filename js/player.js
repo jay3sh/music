@@ -76,14 +76,14 @@ player.playMedia = function (div, resumeFlag) {
     var wrapper_height = $('#player_wrapper').height()-30;
     var wrapper_width = $('#player_wrapper').width()-30;
 
-    $('#player').get(0).play();
+    $('#player', thisref.jqelem).get(0).play();
     this.currentPlaying = div;
     this.currentPlaying.parent().children().removeClass('active_entry');
     this.currentPlaying.addClass('active_entry');
     searchImage(muFile.album+' '+muFile.artist,function (tbUrl) {
-      $('#player_wrapper #album_artwork').attr('src',tbUrl);
-      var height = $('#player_wrapper #album_artwork').height();
-      var width = $('#player_wrapper #album_artwork').width();
+      $('#album_artwork', thisref.jqelem).attr('src',tbUrl);
+      var height = $('#album_artwork', thisref.jqelem).height();
+      var width = $('#album_artwork', thisref.jqelem).width();
 
       if(height > wrapper_height || width > wrapper_width){
         var ratio, new_height, new_width;
@@ -107,14 +107,15 @@ player.playMedia = function (div, resumeFlag) {
   }
 }
 
-player.init = function () {
+player.init = function (jqelem) {
   var thisref = this;
+  thisref.jqelem = jqelem;
   thisref.action = 'play';
   thisref.currentPlaying = null;
-  $('#player').get(0).volume = 0.1;
-  $('#player_wrapper #album_artwork').attr('src', '/images/nothumb.png');
+  $('#player', thisref.jqelem).get(0).volume = 0.1;
+  $('#album_artwork', thisref.jqelem).attr('src', '/images/nothumb.png');
 
-  $('#play', '#player_column')
+  $('#play', thisref.jqelem)
     .hover(
       function () {
         $('img', this)
@@ -133,7 +134,7 @@ player.init = function () {
       } 
     });
 
-  $('#prev', '#player_column')
+  $('#prev', thisref.jqelem)
     .hover(
       function (){
         $('img', this).attr('src', '/images/previous_hover.png');
@@ -146,7 +147,7 @@ player.init = function () {
       thisref.prevSong(); 
     });
 
-  $('#next', '#player_column')
+  $('#next', thisref.jqelem)
     .hover(
       function (){
         $('img', this).attr('src', '/images/next_hover.png');
@@ -159,7 +160,7 @@ player.init = function () {
       thisref.nextSong(); 
     });
 
-  $('#player', '#player_column')
+  $('#player', thisref.jqelem)
     .bind('play', function () {
       player.action = 'pause';
       $('img', '#play').attr('src', '/images/pause.png');
@@ -170,16 +171,17 @@ player.init = function () {
       $('img', '#play').attr('src', '/images/play.png');
     });
 
-  $('#player_volume').slider({
+  $('#player_volume', thisref.jqelem).slider({
     'range' : 'min',
     'value' : 10,
     'min' : 0.0,
     'max' : 100,
     'slide' : function (e, ui){
-      $('#player').get(0).volume = (ui.value)/100;
+      $('#player', thisref.jqelem).get(0).volume = (ui.value)/100;
     }
   });
 };
 
 app.player = player;  
+
 })(jQuery)
