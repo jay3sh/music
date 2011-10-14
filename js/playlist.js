@@ -14,7 +14,7 @@
   };
   
   Playlist.add = function (entry) {
-    $('#playlist_wrapper #playlist').append(entry);
+    $('#playlist', '#playlist_wrapper').append(entry);
   }
 
   Playlist.remove = function (entry) {
