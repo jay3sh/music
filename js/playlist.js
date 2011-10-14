@@ -20,7 +20,12 @@
   Playlist.remove = function (entry) {
     entry.remove();
   }
-
+  
+  Playlist.loadPlaylist = function () {
+    var playlist = window.localStorage.getItem('__playlist__');
+    window.localStorage.removeItem('__playlist__');
+    console.log(playlist);
+  }
  app.Playlist = Playlist;
 })(jQuery);
 
