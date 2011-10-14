@@ -6,10 +6,10 @@ function player () {}
 
 function updateSongInfo(muFile){
   var songInfo = $('#player_column #player_controls #song_info');
-  var yt = '<a href='+getYoutubeSearchURL(muFile)+' target="blank"><img src="/images/youtube.ico" /></a>';
-  var wiki = '<a href='+getArtistWikipediaURL(muFile)+' target="blank"><img src="/images/wikipedia.ico" /></a>';
-  var amzn = '<a href='+getAmazonLink(muFile)+' target="blank"><img src="/images/amazon.png" /></a>';
-  var lyrics = '<a href='+getMetroLyricsURL(muFile)+' target="blank"><img src="/images/metro.png" /><a/>';
+  var yt = '<a href='+app.utils.getYoutubeSearchURL(muFile)+' target="blank"><img src="/images/youtube.ico" /></a>';
+  var wiki = '<a href='+app.utils.getArtistWikipediaURL(muFile)+' target="blank"><img src="/images/wikipedia.ico" /></a>';
+  var amzn = '<a href='+app.utils.getAmazonLink(muFile)+' target="blank"><img src="/images/amazon.png" /></a>';
+  var lyrics = '<a href='+app.utils.getMetroLyricsURL(muFile)+' target="blank"><img src="/images/metro.png" /><a/>';
   $('#title', songInfo).text(muFile.title).attr('title', muFile.title);
   $('#artist', songInfo).text(muFile.artist).attr('title', muFile.artist);
   $('#album', songInfo).text(muFile.album).attr('title', muFile.album);
@@ -75,7 +75,7 @@ player.playMedia = function (div, resumeFlag) {
     }
   }
   var muFile = div.find('.entry_action').data('muFile');
-  var url = getObjectURL(muFile.path);
+  var url = app.utils.getObjectURL(muFile.path);
   
   if(url) {
     if(!resumeFlag) { $('#player').get(0).src = url; }
@@ -87,7 +87,7 @@ player.playMedia = function (div, resumeFlag) {
     this.currentPlaying = div;
     this.currentPlaying.parent().children().removeClass('active_entry');
     this.currentPlaying.addClass('active_entry');
-    searchImage(muFile.album+' '+muFile.artist,function (tbUrl) {
+    app.utils.searchImage(muFile.album+' '+muFile.artist,function (tbUrl) {
       $('#album_artwork', thisref.jqelem).attr('src',tbUrl);
       var height = $('#album_artwork', thisref.jqelem).height();
       var width = $('#album_artwork', thisref.jqelem).width();

@@ -45,60 +45,6 @@ function loadMusic(files) {
 }
 
 
-function getYoutubeSearchURL(muFile) {
-  var name = getPrettySongName(muFile);
-  return 'http://www.youtube.com/results?search_query='+
-    name.split(/\s+/).join('+')+'+'+
-    muFile.artist.split(/\s+/).join('+');
-}
-
-function getLyricsSearchURL(muFile) {
-  var name = getPrettySongName(muFile);
-  return 'http://www.google.com/search?q='+
-    name.split(/\s+/).join('+')+'+'+
-    muFile.artist.split(/\s+/).join('+')+'+lyrics';
-}
-
-function getArtistWikipediaURL(muFile) {
-  return 'http://en.wikipedia.org/w/index.php?search='+
-          muFile.artist.split(/\s+/).join('+');
-}
-
-function getAmazonLink(muFile) {
-  return 'http://www.amazon.com/s?ie=UTF8&x=0&ref_=nb_sb_noss&y=0&field-keywords='+encodeURI(muFile.artist)+'&url=search-alias%3Ddigital-music&_encoding=UTF8&tag=myfreq-20&linkCode=ur2&camp=1789&creative=390957'
-}
-
-function getMetroLyricsURL(muFile){
-  var name = muFile.title.split(' ').join('-');
-  var artist = muFile.artist.split(' ').join('-');
-  
-  return ('http://www.metrolyrics.com/'+name+'-lyrics-'+artist+'.html');
-}
-
-function getObjectURL(path) {
-  if($.app.liveFiles) {
-    var liveFile = $.app.liveFiles[path];
-    return liveFile ? window.webkitURL.createObjectURL(liveFile) : null;
-  } else {
-    return null;
-  }
-}
-
-function searchImage(query, callback) {
-  function onComplete() {
-    if (imageSearch.results && imageSearch.results.length > 0) {
-      var results = imageSearch.results;
-      callback(results[0].tbUrl);
-    }
-  }
-
-  var imageSearch = new google.search.ImageSearch();
-  imageSearch.setSearchCompleteCallback(this, onComplete, null);
-  imageSearch.execute(query);
-}
-
-
-
 $(document).ready(function () {
   skin_init();
   $.app.player.init($('#player_column'));
