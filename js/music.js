@@ -49,6 +49,7 @@ $(document).ready(function () {
   skin_init();
   $.app.player.init($('#player_column'));
   $.app.Storage.load();
+  $.app.Playlist.loadPlaylist();
 
   $('#addmusic').click(function () {
     $('input[name=actual_addmusic]').click();
@@ -86,4 +87,7 @@ $(document).ready(function () {
   }); 
 });
 
+window.onbeforeunload =  function () {
+  $.app.Playlist.storePlaylist();
+}
 
