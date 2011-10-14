@@ -159,8 +159,12 @@ function parseID3v2(view, callback) {
       var iter = 0;
       while(cursor < tagSize && iter < ITER_LIMIT) {
         var header = view.getString(3, cursor);
-        var sbytes = [view.getInt8(4),view.getInt8(5),view.getInt8(6)]
-        var frameSize = sbytes[0] << 16 + sbytes[1] << 8 + sbytes[2];
+        var sbytes = [
+          view.getUint8(cursor+3),
+          view.getUint8(cursor+4),
+          view.getUint8(cursor+5)
+        ];
+        var frameSize = (sbytes[0] << 16) + (sbytes[1] << 8) + sbytes[2];
         var content = view.getString(frameSize, cursor+6);
         switch(header) {
         case 'TT2':
