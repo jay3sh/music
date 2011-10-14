@@ -8,30 +8,30 @@
     return 'http://www.youtube.com/results?search_query='+
       name.split(/\s+/).join('+')+'+'+
       muFile.artist.split(/\s+/).join('+');
-  }
+  };
 
   utils.getLyricsSearchURL = function (muFile) {
     var name = this.getPrettySongName(muFile);
     return 'http://www.google.com/search?q='+
       name.split(/\s+/).join('+')+'+'+
       muFile.artist.split(/\s+/).join('+')+'+lyrics';
-  }
+  };
 
   utils.getArtistWikipediaURL = function (muFile) {
     return 'http://en.wikipedia.org/w/index.php?search='+
             muFile.artist.split(/\s+/).join('+');
-  }
+  };
 
   utils.getAmazonLink = function (muFile) {
     return 'http://www.amazon.com/s?ie=UTF8&x=0&ref_=nb_sb_noss&y=0&field-keywords='+encodeURI(muFile.artist)+'&url=search-alias%3Ddigital-music&_encoding=UTF8&tag=myfreq-20&linkCode=ur2&camp=1789&creative=390957'
-  }
+  };
 
   utils.getMetroLyricsURL = function (muFile){
     var name = muFile.title.split(' ').join('-');
     var artist = muFile.artist.split(' ').join('-');
     
     return ('http://www.metrolyrics.com/'+name+'-lyrics-'+artist+'.html');
-  }
+  };
 
   utils.getObjectURL = function (path) {
     if($.app.liveFiles) {
@@ -40,7 +40,7 @@
     } else {
       return null;
     }
-  }
+  };
 
   utils.searchImage = function (query, callback) {
     function onComplete() {
@@ -53,7 +53,7 @@
     var imageSearch = new google.search.ImageSearch();
     imageSearch.setSearchCompleteCallback(this, onComplete, null);
     imageSearch.execute(query);
-  }
+  };
 
   utils.getPrettySongName = function (muFile) {
     var name = muFile.name.length > muFile.title.length ?
