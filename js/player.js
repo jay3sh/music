@@ -1,5 +1,6 @@
 (function ($){
 var app = $.app;
+var prevDegree = 0;
 
 function player () {}
 
@@ -21,24 +22,27 @@ function animateSeeker() {
 
   var degree = (player.currentTime/player.duration)*360;
 
-  $.app.ctx.beginPath();  
-  $.app.ctx.clearRect(0,0,$.app.canvas.width,$.app.canvas.height);
-  $.app.ctx.strokeStyle = 'rgba(00, 194, 256, 0.9)';
-  $.app.ctx.lineWidth = 14;
-  $.app.ctx.arc(75,75,65,Math.PI*(270/180),Math.PI*(degree+270)/180);
-  $.app.ctx.shadowOffsetX = 0;
-  $.app.ctx.shadowOffsetY = 0;
-  $.app.ctx.shadowBlur = 5;
-  $.app.ctx.shadowColor = 'rgba(170,170,170,0.7)';
-  $.app.ctx.stroke();
+  if((degree-prevDegree)>1){
+    $.app.ctx.beginPath();  
+    $.app.ctx.clearRect(0,0,$.app.canvas.width,$.app.canvas.height);
+    $.app.ctx.strokeStyle = 'rgba(00, 194, 256, 0.9)';
+    $.app.ctx.lineWidth = 14;
+    $.app.ctx.arc(75,75,65,Math.PI*(270/180),Math.PI*(degree+270)/180);
+    $.app.ctx.shadowOffsetX = 0;
+    $.app.ctx.shadowOffsetY = 0;
+    $.app.ctx.shadowBlur = 5;
+    $.app.ctx.shadowColor = 'rgba(170,170,170,0.7)';
+    $.app.ctx.stroke();
 
-  $.app.ctx.closePath();
-
-  setTimeout(animateSeeker, 1000);
+    $.app.ctx.closePath();
+    prevDegree = degree;
+  }
+  window.webkitRequestAnimationFrame(animateSeeker);
 }
 
 player.prevSong = function () {
   var prevDiv = this.currentPlaying.prev();
+  prevDegree = 0;
   if(prevDiv.length == 0) {
     prevDiv = this.currentPlaying.parent().children().last();
   }
@@ -47,6 +51,7 @@ player.prevSong = function () {
 
 player.nextSong = function () {
   var nextDiv = this.currentPlaying.next();
+  prevDegree = 0;
   if(nextDiv.length == 0) {
     nextDiv = this.currentPlaying.parent().children().first();
   }
