@@ -24,15 +24,26 @@
   Playlist.loadPlaylist = function () {
     var playlist = JSON.parse(window.localStorage.getItem('__playlist__'));
     var muFile, player_entry;
-
+    var thisref = this;
     window.localStorage.removeItem('__playlist__');
 
     _.each(playlist, function (hash){
       muFile = JSON.parse(window.localStorage.getItem(hash));
       player_entry = app.utils.getSongEntryHTML(muFile);
+      thisref.attachEntryControls(player_entry); 
       app.Playlist.add(player_entry);
     });
   }
+
+  Playlist.attachEntryControls = function (entry) {
+    entry.find('.entry_action').click(function () {
+      $.app.player.playMedia($(this).parent());
+    });
+    entry.find('.remove_action').click(function () {
+      $.app.Playlist.remove($(this).parent());
+    }); 
+  }
+ 
  app.Playlist = Playlist;
 })(jQuery);
 

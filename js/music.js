@@ -71,12 +71,7 @@ $(document).ready(function () {
       .click(function () {
         var muFile = $(this).data('muFile');
         var player_entry = $.app.utils.getSongEntryHTML(muFile, false);
-        player_entry.find('.entry_action').click(function () {
-          $.app.player.playMedia($(this).parent());
-        });
-        player_entry.find('.remove_action').click(function () {
-          $.app.Playlist.remove($(this).parent());
-        });
+        $.app.Playlist.attachEntryControls(player_entry);
         $.app.Playlist.add(player_entry)
       });
 
