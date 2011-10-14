@@ -296,6 +296,7 @@ function parseMpeg4(view) {
         if(depth == pattern.length) {
           findTagAtoms()
         } else {
+          if(depth == 3) { cursor += 4; }
           cursor += 8;
           findAtomPattern()
         }
