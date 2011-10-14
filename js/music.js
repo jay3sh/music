@@ -6,10 +6,7 @@ function skin_init(){
   $.app.canvas = $('#seeker').get(0);
   $.app.ctx = $.app.canvas.getContext('2d');
   $('body').css('width', width);
-  $('#player').get(0).volume = 0.1;
-  $.app.player.action = 'play';
 
-  $('#player_wrapper #album_artwork').attr('src', '/images/nothumb.png');
   google.search.Search.getBranding('google_branding');
 }
 

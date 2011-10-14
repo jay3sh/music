@@ -109,7 +109,10 @@ player.playMedia = function (div, resumeFlag) {
 
 player.init = function () {
   var thisref = this;
+  thisref.action = 'play';
   thisref.currentPlaying = null;
+  $('#player').get(0).volume = 0.1;
+  $('#player_wrapper #album_artwork').attr('src', '/images/nothumb.png');
 
   $('#play', '#player_column')
     .hover(
