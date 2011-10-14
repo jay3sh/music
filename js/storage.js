@@ -11,7 +11,7 @@ Storage.nameIndex = {};
 Storage.updateIndex = function (muFile) {
   var hash = $.MD5(muFile.path);
   if(muFile.title && muFile.title.length > 0) {
-    var key = muFile.artist.toLowerCase();
+    var key = muFile.title.toLowerCase();
     if(Storage.titleIndex[key]) {
       Storage.titleIndex[key].push(hash);
     } else {
