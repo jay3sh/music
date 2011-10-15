@@ -41,8 +41,14 @@ Cache.getPlayableURL = function (hash, callback) {
           dirEntry.getFile(hash, { create:false },
           function success(file) { callback(file.toURL()); },
           function failure(e) { callback(null); });
-      }, function (e) { console.log('getDir: '+parseError(e)); });
-    }, function (e) { console.log('reqfs: '+parseError(e)); });
+      }, function (e) {
+        console.error('getDir: '+parseError(e));
+        callback(null);
+      });
+    }, function (e) {
+      console.error('reqfs: '+parseError(e)); 
+      callback(null);
+    });
 };
 
 Cache.add = function (hash, f) {
