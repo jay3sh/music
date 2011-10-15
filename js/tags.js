@@ -1,4 +1,18 @@
 
+/*
+ * Tag parsing library for music files. It supports ID3 (mp3 files)
+ * and MPEG4 (m4a files) tags
+ *
+ * It is based on the information found in specification documents and
+ * other libraries that can be found at following links:
+ *
+ * http://atomicparsley.sourceforge.net/mpeg-4files.html
+ * Source code of AtomicParsley
+ * https://github.com/antimatter15/player/blob/master/id3v2.js
+ * http://www.tumblr.com/tagged/filereader
+ * http://code.google.com/p/mutagen/source/browse/trunk/mutagen/
+ */
+
 (function ($) {
 var app = $.app;
 
@@ -138,10 +152,6 @@ function fileSlice(file, start, length){
 }
 
 function cleanText(str){
-  if(str.indexOf('http://') != 0){
-    var TextEncoding = str.charCodeAt(0);
-    str = str.substr(1);
-  }
   return str.replace(
     /[^A-Za-z0-9\(\)\{\}\[\]\!\@\#\$\%\^\&\* \/\"\'\;\>\<\?\,\~\`\.\n\t]/g,'');
 }
@@ -235,27 +245,125 @@ function parseID3v2(view, callback) {
 function parseID3v1(view, callback) {
   callback({
     version : 1,
-    title : view.getString(30, view.tell()),
-    artist : view.getString(30, view.tell()),
-    album : view.getString(30, view.tell()),
-    year : view.getString(4, view.tell())
+    title : cleanText(view.getString(30, view.tell())),
+    artist : cleanText(view.getString(30, view.tell())),
+    album : cleanText(view.getString(30, view.tell())),
+    year : cleanText(view.getString(4, view.tell()))
   });
 }
 
+function parseMpeg4(view, callback) {
+
+  var cursor = 0;
+  var depth = 0;
+  var pattern = ['moov','udta','meta','ilst']
+  var endpos = view.length;
+  var tags = {};
+
+  function processTagAtom(name, size) {
+    var localcursor = cursor+8;
+    var dataSize = view.getUint32(localcursor, littleEndian=false);
+    var data = view.getString(dataSize-8, localcursor+8);
+    if(name.indexOf('alb') > 0) {
+      tags.album = data;
+    } else if(name.indexOf('art') > 0) {
+      tags.artist = data;
+    } else if(name.indexOf('ART') > 0) {
+      if(!tags.artist) { tags.artist = data; }
+    } else if(name.indexOf('wrt') > 0) {
+      if(!tags.artist) { tags.artist = data; }
+    } else if(name.indexOf('gen') > 0 || name.indexOf('gnre') == 0) {
+      tags.genre = data;
+    } else if(name.indexOf('nam') > 0) {
+      tags.title = data;
+    } else if(name.indexOf('day') > 0) {
+      tags.year = data;
+    }
+  }
+
+  function findAtomPattern() {
+    if(cursor >= endpos) { return tags; }
+
+    var atomSize = view.getUint32(cursor, littleEndian=false);
+    var atomName = view.getString(4, cursor+4);
+    if(atomName == pattern[depth]) {
+      depth++;
+      if(atomName == 'ilst') { endpos = cursor + atomSize; }
+      if(depth == 3) { cursor += 4; }
+      cursor += 8;
+      return findAtomPattern();
+    } else {
+      if(depth == pattern.length) {
+        processTagAtom(atomName, atomSize);
+      }
+      cursor += atomSize;
+      return findAtomPattern();
+    }
+  }
+
+  callback(findAtomPattern());
+}
+
+var id3v1Count = 0;
+var id3v2Count = 0;
+var m4aCount = 0;
+var unknownTagCount = 0;
+
 app.parseTags = function (file, callback) {
   var reader = new FileReader();
-  reader.onload = function (e) {
-    var view = new jDataView(this.result);
-    if(view.getString(3,0) == 'ID3') {
-      parseID3v2(view, callback);
-    } else if (view.getString(3,view.length-128) == 'TAG') {
-      parseID3v1(view, callback);
-    } else {
-      callback({});
-    }
-  };
-  reader.readAsArrayBuffer(fileSlice(file, 0, 128*1024));
+  if(/\.mp3$/.test(file.webkitRelativePath.toLowerCase())) {
+
+    reader.onload = function (e) {
+      var view = new jDataView(this.result);
+      if(view.getString(3,0) == 'ID3') {
+        parseID3v2(view, callback);
+        id3v2Count++;
+      } else {
+
+        reader = new FileReader();
+        reader.onload = function (e) {
+          var view = new jDataView(this.result);
+          if (view.getString(3,0) == 'TAG') {
+            parseID3v1(view, callback);
+            id3v1Count++;
+          } else {
+            callback({});
+            console.log('Unknown tags: '+file.webkitRelativePath.toLowerCase());
+            unknownTagCount++;
+          }
+        }
+        reader.readAsArrayBuffer(fileSlice(file, file.fileSize-128, 128));
+      }
+    };
+    reader.readAsArrayBuffer(fileSlice(file, 0, 128*1024));
+
+  } else if(/\.m4a$/.test(file.webkitRelativePath.toLowerCase())) {
+    reader.onload = function (e) {
+      var view = new jDataView(this.result);
+      if(view.getString(4,4) == 'ftyp') {
+        parseMpeg4(view, callback);
+        m4aCount++;
+      } else {
+        console.log('Unknown Tags: '+file.webkitRelativePath.toLowerCase());
+        callback({});
+        unknownTagCount++;
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  } else {
+    console.log(file.webkitRelativePath.toLowerCase());
+    unknownTagCount++;
+  }
 };
+
+app.printParseReport = function () {
+  console.log('Tag parsing report');
+  console.log('------------------');
+  console.log('ID3v1 '+id3v1Count);
+  console.log('ID3v2 '+id3v2Count);
+  console.log('M4A '+m4aCount);
+  console.log('Unknown '+unknownTagCount);
+}
 
 })(jQuery);
 

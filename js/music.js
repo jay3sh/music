@@ -33,6 +33,7 @@ function loadMusic(files) {
     $('#addmusic').html(progress+' / '+total);
     if(progress == total) {
       $.app.Storage.save();
+      $.app.printParseReport();
     } else {
       newMuFile(musicFiles[progress]);
     }
@@ -54,6 +55,7 @@ $(document).ready(function () {
   $.app.player.init($('#player_column'));
   $.app.Storage.load();
   $.app.Playlist.loadPlaylist();
+  $.app.Cache.init();
 
   $('#addmusic').click(function () {
     $('input[name=actual_addmusic]').click();
