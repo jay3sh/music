@@ -152,10 +152,6 @@ function fileSlice(file, start, length){
 }
 
 function cleanText(str){
-  if(str.indexOf('http://') != 0){
-    var TextEncoding = str.charCodeAt(0);
-    str = str.substr(1);
-  }
   return str.replace(
     /[^A-Za-z0-9\(\)\{\}\[\]\!\@\#\$\%\^\&\* \/\"\'\;\>\<\?\,\~\`\.\n\t]/g,'');
 }
@@ -249,10 +245,10 @@ function parseID3v2(view, callback) {
 function parseID3v1(view, callback) {
   callback({
     version : 1,
-    title : view.getString(30, view.tell()),
-    artist : view.getString(30, view.tell()),
-    album : view.getString(30, view.tell()),
-    year : view.getString(4, view.tell())
+    title : cleanText(view.getString(30, view.tell())),
+    artist : cleanText(view.getString(30, view.tell())),
+    album : cleanText(view.getString(30, view.tell())),
+    year : cleanText(view.getString(4, view.tell()))
   });
 }
 
