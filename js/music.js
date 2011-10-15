@@ -29,6 +29,7 @@ function loadMusic(files) {
     $('#addmusic').html(progress+' / '+total);
     if(progress == total) {
       $.app.Storage.save();
+      $.app.printParseReport();
     } else {
       newMuFile(musicFiles[progress]);
     }

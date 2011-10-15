@@ -306,24 +306,33 @@ app.parseTags = function (file, callback) {
       if(view.getString(3,0) == 'ID3') {
         parseID3v2(view, callback);
         id3v2Count++;
-      } else if (view.getString(3,view.length-128) == 'TAG') {
-        parseID3v1(view, callback);
-        id3v1Count++;
       } else {
-        callback({});
-        unknownTagCount++;
+
+        reader = new FileReader();
+        reader.onload = function (e) {
+          var view = new jDataView(this.result);
+          if (view.getString(3,0) == 'TAG') {
+            parseID3v1(view, callback);
+            id3v1Count++;
+          } else {
+            callback({});
+            console.log('Unknown tags: '+file.webkitRelativePath.toLowerCase());
+            unknownTagCount++;
+          }
+        }
+        reader.readAsArrayBuffer(fileSlice(file, file.fileSize-128, 128));
       }
     };
     reader.readAsArrayBuffer(fileSlice(file, 0, 128*1024));
 
   } else if(/\.m4a$/.test(file.webkitRelativePath.toLowerCase())) {
-    console.log(file.webkitRelativePath.toLowerCase());
     reader.onload = function (e) {
       var view = new jDataView(this.result);
       if(view.getString(4,4) == 'ftyp') {
         parseMpeg4(view, callback);
         m4aCount++;
       } else {
+        console.log('Unknown Tags: '+file.webkitRelativePath.toLowerCase());
         callback({});
         unknownTagCount++;
       }
@@ -336,10 +345,12 @@ app.parseTags = function (file, callback) {
 };
 
 app.printParseReport = function () {
+  console.log('Tag parsing report');
+  console.log('------------------');
   console.log('ID3v1 '+id3v1Count);
   console.log('ID3v2 '+id3v2Count);
-  console.log('m4a '+m4aCount);
-  console.log('unknown '+unknownTagCount);
+  console.log('M4A '+m4aCount);
+  console.log('Unknown '+unknownTagCount);
 }
 
 })(jQuery);
