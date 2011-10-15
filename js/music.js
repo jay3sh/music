@@ -9,6 +9,9 @@ function skin_init(){
     $('#search_column').height() - $('#player_wrapper').height();
   $('#playlist_wrapper').css('height', playlistHeight);
 
+  var playerColumnWidth = $('#player_column').width()/4;
+  $('#song_info').children().css('width', playerColumnWidth);
+
   $.app.canvas = $('#seeker').get(0);
   $.app.ctx = $.app.canvas.getContext('2d');
   google.search.Search.getBranding('google_branding');
