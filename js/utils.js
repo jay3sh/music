@@ -33,13 +33,22 @@
     return ('http://www.metrolyrics.com/'+name+'-lyrics-'+artist+'.html');
   };
 
-  utils.getObjectURL = function (path) {
-    if($.app.liveFiles) {
-      var liveFile = $.app.liveFiles[path];
-      return liveFile ? window.webkitURL.createObjectURL(liveFile) : null;
-    } else {
-      return null;
-    }
+  utils.getPlayableURL = function (path, callback) {
+    var hash = $.MD5(path);
+    app.Cache.getPlayableURL(hash, function (url) {
+      if(url) {
+        console.log(url);
+        callback(url);
+      } else {
+        if(app.liveFiles && app.liveFiles[path]) {
+          console.log('Adding to cache',hash,path);
+          app.Cache.add(hash, app.liveFiles[path]);
+          callback(window.webkitURL.createObjectURL(app.liveFiles[path]));
+        } else {
+          callback(null);
+        }
+      }
+    });
   };
 
   utils.searchImage = function (query, callback) {

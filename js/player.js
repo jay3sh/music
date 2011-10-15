@@ -74,43 +74,44 @@ player.playMedia = function (div, resumeFlag) {
     }
   }
   var muFile = div.find('.entry_action').data('muFile');
-  var url = app.utils.getObjectURL(muFile.path);
+  app.utils.getPlayableURL(muFile.path, function (url) {
+    if(url) {
+      if(!resumeFlag) { $('#player').get(0).src = url; }
+
+      var wrapper_height = $('#player_wrapper').height()-30;
+      var wrapper_width = $('#player_wrapper').width()-30;
+
+      $('#player', thisref.jqelem).get(0).play();
+      thisref.currentPlaying = div;
+      thisref.currentPlaying.parent().children().removeClass('active_entry');
+      thisref.currentPlaying.addClass('active_entry');
+      app.utils.searchImage(muFile.album+' '+muFile.artist,function (tbUrl) {
+        $('#album_artwork', thisref.jqelem).attr('src',tbUrl);
+        var height = $('#album_artwork', thisref.jqelem).height();
+        var width = $('#album_artwork', thisref.jqelem).width();
+
+        if(height > wrapper_height || width > wrapper_width){
+          var ratio, new_height, new_width;
+          if(height > wrapper_height){
+            ratio = width/height;
+            new_height = wrapper_height;
+            new_width = ratio*new_height;
+          } else {
+            ratio = height/width;
+            new_width = wrapper_width;
+            new_height = ratio*new_width;
+          } 
+          $('#player_wrapper img', thisref.jqelem)
+            .css({ 'height': new_height,'width': new_width });
+        }
+
+      });
+      updateSongInfo(muFile);
+    } else {
+      alert('Add music again');
+    }
+  });
   
-  if(url) {
-    if(!resumeFlag) { $('#player').get(0).src = url; }
-
-    var wrapper_height = $('#player_wrapper').height()-30;
-    var wrapper_width = $('#player_wrapper').width()-30;
-
-    $('#player', thisref.jqelem).get(0).play();
-    this.currentPlaying = div;
-    this.currentPlaying.parent().children().removeClass('active_entry');
-    this.currentPlaying.addClass('active_entry');
-    app.utils.searchImage(muFile.album+' '+muFile.artist,function (tbUrl) {
-      $('#album_artwork', thisref.jqelem).attr('src',tbUrl);
-      var height = $('#album_artwork', thisref.jqelem).height();
-      var width = $('#album_artwork', thisref.jqelem).width();
-
-      if(height > wrapper_height || width > wrapper_width){
-        var ratio, new_height, new_width;
-        if(height > wrapper_height){
-          ratio = width/height;
-          new_height = wrapper_height;
-          new_width = ratio*new_height;
-        } else {
-          ratio = height/width;
-          new_width = wrapper_width;
-          new_height = ratio*new_width;
-        } 
-        $('#player_wrapper img', thisref.jqelem)
-          .css({ 'height': new_height,'width': new_width });
-      }
-
-    });
-    updateSongInfo(muFile);
-  } else {
-    alert('Add music again');
-  }
 }
 
 player.init = function (jqelem) {

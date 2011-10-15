@@ -51,6 +51,7 @@ $(document).ready(function () {
   $.app.player.init($('#player_column'));
   $.app.Storage.load();
   $.app.Playlist.loadPlaylist();
+  $.app.Cache.init();
 
   $('#addmusic').click(function () {
     $('input[name=actual_addmusic]').click();
