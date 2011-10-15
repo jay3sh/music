@@ -283,40 +283,56 @@ function parseMpeg4(view) {
     var cursor = 0;
     var depth = 0;
     var pattern = ['moov','udta','meta','ilst']
-    function findTagAtoms() {
-      console.log('findTagAtoms');
+    var endpos = view.length;
+
+    function processTagAtom(name, size) {
+      var localcursor = cursor+8;
+      var dataSize = view.getUint32(localcursor, littleEndian=false);
+      switch(true) {
+      case name.indexOf('alb') > 0:
+        var album = view.getString(dataSize-8, localcursor+8);
+        console.log('Album',album);
+        break;
+      case name.indexOf('art') > 0 || name.indexOf('ART') > 0 ||
+        name.indexOf('wrt') > 0:
+        var artist = view.getString(dataSize-8, localcursor+8);
+        console.log('Artist',artist);
+        break;
+      case name.indexOf('gen') > 0 || name.indexOf('gnre') == 0:
+        var genre = view.getString(dataSize-8, localcursor+8);
+        console.log('Genre', genre);
+        break;
+      case name.indexOf('nam') > 0:
+        var title = view.getString(dataSize-8, localcursor+8);
+        console.log('Title',title);
+        break;
+      default:
+        console.log('Unknown', name);
+        break;
+      }
     }
 
     function findAtomPattern() {
+      if(cursor >= endpos) { return; }
+
       var atomSize = view.getUint32(cursor, littleEndian=false);
       var atomName = view.getString(4, cursor+4);
-      console.log(atomName,atomSize);
       if(atomName == pattern[depth]) {
         depth++;
-        if(depth == pattern.length) {
-          findTagAtoms()
-        } else {
-          if(depth == 3) { cursor += 4; }
-          cursor += 8;
-          findAtomPattern()
-        }
+        if(atomName == 'ilst') { endpos = cursor + atomSize; }
+        if(depth == 3) { cursor += 4; }
+        cursor += 8;
+        findAtomPattern()
       } else {
+        if(depth == pattern.length) {
+          processTagAtom(atomName, atomSize);
+        }
         cursor += atomSize;
         findAtomPattern()
       }
     }
 
     findAtomPattern();
-
-    /*
-    while(cursor < view.length) {
-      var atomSize = view.getUint32(cursor, littleEndian=false);
-      var atomName = view.getString(4, cursor+4);
-      if(atomName == 'moov') {
-      }
-      cursor += atomSize;
-    }
-    */
   }
 }
 
