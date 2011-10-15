@@ -49,29 +49,11 @@ function MuFile(file, doneCallback) {
     thisref.genre = pMuFile.genre;
     doneCallback();
   } else {
-    if(/\.mp3$/.test(this.path.toLowerCase())) {
-      app.parseTags(file, function (tags) {
-        thisref.title = tags.title ? tags.title : '';
-        thisref.artist = tags.artist ? tags.artist : '';
-        thisref.album = tags.album ? tags.album : '';
-        thisref.genre = tags.genre ? tags.genre : '';
-
-        app.Storage.write({
-          path : thisref.path,
-          name : thisref.name,
-          size : thisref.size,
-          title : thisref.title,
-          artist : thisref.artist,
-          album : thisref.album,
-          genre : thisref.genre
-        });
-        doneCallback();
-      });
-    } else {
-      thisref.title = thisref.name;
-      thisref.artist = '';
-      thisref.album = '';
-      thisref.genre = '';
+    app.parseTags(file, function (tags) {
+      thisref.title = tags.title ? tags.title : '';
+      thisref.artist = tags.artist ? tags.artist : '';
+      thisref.album = tags.album ? tags.album : '';
+      thisref.genre = tags.genre ? tags.genre : '';
 
       app.Storage.write({
         path : thisref.path,
@@ -83,7 +65,7 @@ function MuFile(file, doneCallback) {
         genre : thisref.genre
       });
       doneCallback();
-    }
+    });
   }
 }
 
