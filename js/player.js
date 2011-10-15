@@ -9,12 +9,11 @@ function updateSongInfo(muFile){
   var yt = '<a href='+app.utils.getYoutubeSearchURL(muFile)+' target="blank"><img src="/images/youtube.ico" /></a>';
   var wiki = '<a href='+app.utils.getArtistWikipediaURL(muFile)+' target="blank"><img src="/images/wikipedia.ico" /></a>';
   var amzn = '<a href='+app.utils.getAmazonLink(muFile)+' target="blank"><img src="/images/amazon.png" /></a>';
-  var lyrics = '<a href='+app.utils.getMetroLyricsURL(muFile)+' target="blank"><img src="/images/metro.png" /><a/>';
+  var lyrics = '<a href='+app.utils.getLyricsSearchURL(muFile)+' target="blank"><img src="/images/metro.png" /><a/>';
   $('#title', songInfo).text(muFile.title).attr('title', muFile.title);
   $('#artist', songInfo).text(muFile.artist).attr('title', muFile.artist);
   $('#album', songInfo).text(muFile.album).attr('title', muFile.album);
   $('#extern', songInfo).html(yt+wiki+amzn+lyrics);
-  
 }
 
 function animateSeeker() {
