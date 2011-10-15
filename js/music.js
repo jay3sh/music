@@ -2,7 +2,7 @@
 google.load('search', '1');
 
 function skin_init(){
-  var width = (($(document).width())>1280? 1280: $(document).width());
+  var width = ($(document).width()>1280 ? $(document).width() : 1280);
   $.app.canvas = $('#seeker').get(0);
   $.app.ctx = $.app.canvas.getContext('2d');
   $('body').css('width', width);
