@@ -3,10 +3,14 @@ google.load('search', '1');
 
 function skin_init(){
   var width = ($(document).width()>1280 ? $(document).width() : 1280);
-  $.app.canvas = $('#seeker').get(0);
-  $.app.ctx = $.app.canvas.getContext('2d');
   $('body').css('width', width);
 
+  var playlistHeight = 
+    $('#search_column').height() - $('#player_wrapper').height();
+  $('#playlist_wrapper').css('height', playlistHeight);
+
+  $.app.canvas = $('#seeker').get(0);
+  $.app.ctx = $.app.canvas.getContext('2d');
   google.search.Search.getBranding('google_branding');
 }
 
