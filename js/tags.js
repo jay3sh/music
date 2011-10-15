@@ -276,6 +276,8 @@ function parseMpeg4(view, callback) {
       tags.genre = data;
     } else if(name.indexOf('nam') > 0) {
       tags.title = data;
+    } else if(name.indexOf('day') > 0) {
+      tags.year = data;
     }
   }
 
