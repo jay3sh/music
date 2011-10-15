@@ -1,4 +1,18 @@
 
+/*
+ * Tag parsing library for music files. It supports ID3 (mp3 files)
+ * and MPEG4 (m4a files) tags
+ *
+ * It is based on the information found in specification documents and
+ * other libraries that can be found at following links:
+ *
+ * http://atomicparsley.sourceforge.net/mpeg-4files.html
+ * Source code of AtomicParsley
+ * https://github.com/antimatter15/player/blob/master/id3v2.js
+ * http://www.tumblr.com/tagged/filereader
+ * http://code.google.com/p/mutagen/source/browse/trunk/mutagen/
+ */
+
 (function ($) {
 var app = $.app;
 
