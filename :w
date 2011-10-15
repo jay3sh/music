@@ -29,7 +29,11 @@ $.app = {};
 </head>
 
 <body>
+<h1>&mu;sic</h1>
+
+
 <div id="player_column">
+
   <div id="player_wrapper">
     <img id="album_artwork"/><br/>
   </div>
@@ -46,7 +50,7 @@ $.app = {};
       <span id="play"><img src="/images/play.png" /></span>
       <canvas id="seeker"></canvas>
       <span id="next"><img src="/images/next.png" /></span>
-      <audio onended="$.app.player.nextSong()" controls id="player">
+      <audio onended="$.app.nextSong()" controls id="player">
     </div>
     <div id="player_volume"></div>
   </div>
@@ -73,12 +77,13 @@ $.app = {};
   onchange="loadMusic(this.files)">
 </div>
 
-<div id="footer">
-  <span id="sponsor">Sponsored by 
-    <a href="http://www.3dtin.com"><img src="/images/3DTin.png" /></a>
-  </span>
-  <span id="google_branding"></span>
-</div>
+<span id="sponsor">Sponsored by 
+  <a href="http://www.3dtin.com"><img src="/images/3DTin.png" /></a>
+</span>
+<a id="html5" href="http://www.w3.org/html/logo/">
+  <img src="http://www.w3.org/html/logo/badge/html5-badge-h-solo.png" width="40" height="40" alt="HTML5 Powered" title="HTML5 Powered">
+</a>
+<span id="google_branding"></span>
 
 </body>
 </html>
