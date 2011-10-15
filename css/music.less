@@ -1,5 +1,5 @@
 
-.leftColumn(@float, @padding, @height:0, @width:0){
+.mainColumn(@float, @padding, @height:0, @width:0){
   float : @float;  
   display : table-cell;
   width : @width;
@@ -116,7 +116,7 @@ input[type="text"]{
 }
 
 #player_column {
-  .leftColumn(left, 0px, 150px, 47%);
+  .mainColumn(left, 0px, 150px, 48%);
   .skin;
 
   > * {
@@ -225,7 +225,7 @@ input[type="text"]{
 }
 
 #search_column {
-  .leftColumn(right, 12px, 80%, 43.5%);
+  .mainColumn(right, 12px, 85%, 45%);
   .skin;
   text-align : left;
 
