@@ -47,7 +47,7 @@ player.prevSong = function () {
   if(prevDiv.length == 0) {
     prevDiv = currentPlaying.parent().children().last();
   }
-  this.playMedia(prevDiv);
+  player.playMedia(prevDiv);
 }
 
 player.nextSong = function () {
@@ -55,7 +55,7 @@ player.nextSong = function () {
   if(nextDiv.length == 0) {
     nextDiv = currentPlaying.parent().children().first();
   }
-  this.playMedia(nextDiv);
+  player.playMedia(nextDiv);
 }
 
 player.pauseMedia = function () {
@@ -63,7 +63,6 @@ player.pauseMedia = function () {
 }
 
 player.playMedia = function (div, resumeFlag) {
-  var thisref = this;
 
   if(!div){
     if($('#playlist', '#playlist_wrapper').is(':empty')){
@@ -82,14 +81,14 @@ player.playMedia = function (div, resumeFlag) {
       var wrapper_height = $('#player_wrapper').height()-30;
       var wrapper_width = $('#player_wrapper').width()-30;
 
-      $('#player', thisref.jqelem).get(0).play();
+      $('#player', player.jqelem).get(0).play();
       currentPlaying = div;
       currentPlaying.parent().children().removeClass('active_entry');
       currentPlaying.addClass('active_entry');
       app.utils.searchImage(muFile.album+' '+muFile.artist,function (tbUrl) {
-        $('#album_artwork', thisref.jqelem).attr('src',tbUrl);
-        var height = $('#album_artwork', thisref.jqelem).height();
-        var width = $('#album_artwork', thisref.jqelem).width();
+        $('#album_artwork', player.jqelem).attr('src',tbUrl);
+        var height = $('#album_artwork', player.jqelem).height();
+        var width = $('#album_artwork', player.jqelem).width();
 
         if(height > wrapper_height || width > wrapper_width){
           var ratio, new_height, new_width;
@@ -102,7 +101,7 @@ player.playMedia = function (div, resumeFlag) {
             new_width = wrapper_width;
             new_height = ratio*new_width;
           } 
-          $('#player_wrapper img', thisref.jqelem)
+          $('#player_wrapper img', player.jqelem)
             .css({ 'height': new_height,'width': new_width });
         }
 
@@ -127,12 +126,11 @@ player.loadVolume = function () {
 }
 
 player.init = function (jqelem) {
-  var thisref = this;
-  thisref.jqelem = jqelem;
-  thisref.action = 'play';
-  $('#album_artwork', thisref.jqelem).attr('src', '/images/nothumb.png');
+  player.jqelem = jqelem;
+  player.action = 'play';
+  $('#album_artwork', player.jqelem).attr('src', '/images/nothumb.png');
 
-  $('#play', thisref.jqelem)
+  $('#play', player.jqelem)
     .hover(
       function () {
         $('img', this)
@@ -145,13 +143,13 @@ player.init = function (jqelem) {
     )
     .click(function () {
       if(player.action == 'play'){
-        thisref.playMedia(currentPlaying, true);
+        player.playMedia(currentPlaying, true);
       } else {
-        thisref.pauseMedia();
+        player.pauseMedia();
       } 
     });
 
-  $('#prev', thisref.jqelem)
+  $('#prev', player.jqelem)
     .hover(
       function (){
         $('img', this).attr('src', '/images/previous_hover.png');
@@ -161,10 +159,10 @@ player.init = function (jqelem) {
       }
     )
     .click(function (){
-      thisref.prevSong(); 
+      player.prevSong(); 
     });
 
-  $('#next', thisref.jqelem)
+  $('#next', player.jqelem)
     .hover(
       function (){
         $('img', this).attr('src', '/images/next_hover.png');
@@ -174,10 +172,10 @@ player.init = function (jqelem) {
       }
     )
     .click(function (){
-      thisref.nextSong(); 
+      player.nextSong(); 
     });
 
-  $('#player', thisref.jqelem)
+  $('#player', player.jqelem)
     .bind('play', function () {
       player.action = 'pause';
       $('img', '#play').attr('src', '/images/pause.png');
@@ -188,13 +186,13 @@ player.init = function (jqelem) {
       $('img', '#play').attr('src', '/images/play.png');
     });
 
-  $('#player_volume', thisref.jqelem).slider({
+  $('#player_volume', player.jqelem).slider({
     'range' : 'min',
-    'value' : thisref.loadVolume(),
+    'value' : player.loadVolume(),
     'min' : 0.0,
     'max' : 100,
     'slide' : function (e, ui){
-      $('#player', thisref.jqelem).get(0).volume = (ui.value)/100;
+      $('#player', player.jqelem).get(0).volume = (ui.value)/100;
     }
   });
 };
