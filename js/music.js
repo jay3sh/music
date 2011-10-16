@@ -12,7 +12,7 @@ function skin_init(){
   var playerColumnWidth = $('#player_column').width()/3.2;
   $('#song_info').children().css('width', playerColumnWidth);
   $('.title').css('width', playerColumnWidth-55);
-
+ 
   $.app.canvas = $('#seeker').get(0);
   $.app.ctx = $.app.canvas.getContext('2d');
   google.search.Search.getBranding('google_branding');
@@ -55,11 +55,11 @@ function loadMusic(files) {
 
 
 $(document).ready(function () {
-  skin_init();
   $.app.player.init($('#player_column'));
   $.app.Storage.load();
   $.app.Playlist.loadPlaylist();
   $.app.Cache.init();
+  skin_init();
 
   $('#addmusic').click(function () {
     $('input[name=actual_addmusic]').click();
@@ -77,6 +77,8 @@ $(document).ready(function () {
     _(results).each(function (muFile) {
       divResults.append($.app.utils.getSongEntryHTML(muFile, true));
     });
+
+    $.app.utils.setEntryWidth();
 
     divResults.find('.entry_action')
       .click(function () {

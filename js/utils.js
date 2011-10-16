@@ -70,6 +70,16 @@
     return name.replace(/\.\w+$/,'');
   };
 
+  utils.setEntryWidth = function () {
+    var songNameWidth = ($('.entry_list').width()/2.2).toFixed();
+    var albumNameWidth = songNameWidth/2;
+    var artistNameWidth = albumNameWidth-40;
+
+    $('.song_name', '.entry_list').css('width', songNameWidth);
+    $('.album_name', '.entry_list').css('width', albumNameWidth);
+    $('.artist_name', '.entry_list').css('width', artistNameWidth);
+  };
+
   utils.getSongEntryHTML = function (muFile, asSearchResult) { 
     var name = this.getPrettySongName(muFile);
     var album = muFile.album;
