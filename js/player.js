@@ -114,12 +114,22 @@ player.playMedia = function (div, resumeFlag) {
   
 }
 
+player.saveVolume = function () {
+  window.localStorage.setItem('__volume__', $('#player').get(0).volume); 
+}
+
+player.loadVolume = function () {
+  var localVolume = window.localStorage.getItem('__volume__');
+  localVolume = localVolume == null ? 0.3 : JSON.parse(localVolume); 
+  $('#player').get(0).volume = localVolume;
+  return localVolume*100; 
+}
+
 player.init = function (jqelem) {
   var thisref = this;
   thisref.jqelem = jqelem;
   thisref.action = 'play';
   thisref.currentPlaying = null;
-  $('#player', thisref.jqelem).get(0).volume = 0.1;
   $('#album_artwork', thisref.jqelem).attr('src', '/images/nothumb.png');
 
   $('#play', thisref.jqelem)
@@ -180,7 +190,7 @@ player.init = function (jqelem) {
 
   $('#player_volume', thisref.jqelem).slider({
     'range' : 'min',
-    'value' : 10,
+    'value' : thisref.loadVolume(),
     'min' : 0.0,
     'max' : 100,
     'slide' : function (e, ui){
