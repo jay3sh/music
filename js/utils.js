@@ -4,14 +4,14 @@
   function utils(){};
 
   utils.getYoutubeSearchURL = function (muFile) {
-    var name = this.getPrettySongName(muFile);
+    var name = utils.getPrettySongName(muFile);
     return 'http://www.youtube.com/results?search_query='+
       name.split(/\s+/).join('+')+'+'+
       muFile.artist.split(/\s+/).join('+');
   };
 
   utils.getLyricsSearchURL = function (muFile) {
-    var name = this.getPrettySongName(muFile);
+    var name = utils.getPrettySongName(muFile);
     return 'http://www.google.com/search?q='+
       name.split(/\s+/).join('+')+'+'+
       muFile.artist.split(/\s+/).join('+')+'+lyrics';
@@ -81,7 +81,7 @@
   };
 
   utils.getSongEntryHTML = function (muFile, asSearchResult) { 
-    var name = this.getPrettySongName(muFile);
+    var name = utils.getPrettySongName(muFile);
     var album = muFile.album;
     var artist = muFile.artist;
 
