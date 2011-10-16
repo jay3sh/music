@@ -17,6 +17,9 @@ function skin_init(){
   $.app.canvas = $('#seeker').get(0);
   $.app.ctx = $.app.canvas.getContext('2d');
   google.search.Search.getBranding('google_branding');
+  $('.gsc-branding-text', '#google_branding')
+    .text('Artworks powered by ')
+    .css({'font-size' : '11px', 'text-align' : 'right'});
 }
 
 function loadMusic(files) {
