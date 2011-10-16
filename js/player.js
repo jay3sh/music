@@ -1,6 +1,7 @@
 (function ($){
 var app = $.app;
 var prevDegree = 0;
+var currentPlaying = null;
 
 function player () {}
 
@@ -42,17 +43,17 @@ function animateSeeker() {
 }
 
 player.prevSong = function () {
-  var prevDiv = this.currentPlaying.prev();
+  var prevDiv = currentPlaying.prev();
   if(prevDiv.length == 0) {
-    prevDiv = this.currentPlaying.parent().children().last();
+    prevDiv = currentPlaying.parent().children().last();
   }
   this.playMedia(prevDiv);
 }
 
 player.nextSong = function () {
-  var nextDiv = this.currentPlaying.next();
+  var nextDiv = currentPlaying.next();
   if(nextDiv.length == 0) {
-    nextDiv = this.currentPlaying.parent().children().first();
+    nextDiv = currentPlaying.parent().children().first();
   }
   this.playMedia(nextDiv);
 }
@@ -82,9 +83,9 @@ player.playMedia = function (div, resumeFlag) {
       var wrapper_width = $('#player_wrapper').width()-30;
 
       $('#player', thisref.jqelem).get(0).play();
-      thisref.currentPlaying = div;
-      thisref.currentPlaying.parent().children().removeClass('active_entry');
-      thisref.currentPlaying.addClass('active_entry');
+      currentPlaying = div;
+      currentPlaying.parent().children().removeClass('active_entry');
+      currentPlaying.addClass('active_entry');
       app.utils.searchImage(muFile.album+' '+muFile.artist,function (tbUrl) {
         $('#album_artwork', thisref.jqelem).attr('src',tbUrl);
         var height = $('#album_artwork', thisref.jqelem).height();
@@ -129,7 +130,6 @@ player.init = function (jqelem) {
   var thisref = this;
   thisref.jqelem = jqelem;
   thisref.action = 'play';
-  thisref.currentPlaying = null;
   $('#album_artwork', thisref.jqelem).attr('src', '/images/nothumb.png');
 
   $('#play', thisref.jqelem)
@@ -145,7 +145,7 @@ player.init = function (jqelem) {
     )
     .click(function () {
       if(player.action == 'play'){
-        thisref.playMedia(thisref.currentPlaying, true);
+        thisref.playMedia(currentPlaying, true);
       } else {
         thisref.pauseMedia();
       } 
