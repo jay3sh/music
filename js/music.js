@@ -8,8 +8,9 @@ function skin_init(){
   var playlistHeight = 
     $('#search_column').height() - $('#player_wrapper').height();
   $('#playlist_wrapper').css('height', playlistHeight);
-
-  var playerColumnWidth = $('#player_column').width()/3.2;
+  
+  var playerColumnWidth = $('#player_column').width()-
+    ($('#player_skin').width()+$('#player_wrapper').width()+50);
   $('#song_info').children().css('width', playerColumnWidth);
   $('.title').css('width', playerColumnWidth-55);
  
