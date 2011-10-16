@@ -78,7 +78,6 @@ $(document).ready(function () {
       divResults.append($.app.utils.getSongEntryHTML(muFile, true));
     });
 
-    $.app.utils.setEntryWidth();
 
     divResults.find('.entry_action')
       .click(function () {

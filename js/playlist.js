@@ -34,7 +34,6 @@
       app.Playlist.add(player_entry);
     });
 
-    $.app.utils.setEntryWidth();
   }
 
   Playlist.attachEntryControls = function (entry) {

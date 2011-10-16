@@ -70,44 +70,44 @@
     return name.replace(/\.\w+$/,'');
   };
 
-  utils.setEntryWidth = function () {
-    var songNameWidth = ($('.entry_list').width()/2.2).toFixed();
-    var albumNameWidth = songNameWidth/2;
-    var artistNameWidth = albumNameWidth-40;
-
-    $('.song_name', '.entry_list').css('width', songNameWidth);
-    $('.album_name', '.entry_list').css('width', albumNameWidth);
-    $('.artist_name', '.entry_list').css('width', artistNameWidth);
-  };
-
   utils.getSongEntryHTML = function (muFile, asSearchResult) { 
     var name = utils.getPrettySongName(muFile);
     var album = muFile.album;
     var artist = muFile.artist;
+    var songNameWidth = ($('.entry_list').width()/2.2).toFixed();
+    var albumNameWidth = songNameWidth/2;
+    var artistNameWidth = albumNameWidth-40;
 
-    var entryHTML = '<div class="entry">'+
-      '&nbsp;&nbsp;'+
-      '<div class="song_name" title="'+name+'">'+name+'</div>'+
-      '&nbsp;&nbsp;'+
-      '<div class="album_name" title="'+album+'">'+album+'</div>'+
-      '&nbsp;&nbsp;'+
-      '<div class="artist_name" title="'+artist+'">'+artist+'</div>'+
-      '&nbsp;&nbsp;'+
-      (asSearchResult ?
+    var entryHTML = $('<div class="entry"></div>');
+    var songName = $('<div class="song_name"></div>')
+      .attr('title', name)
+      .html(name)
+      .width(songNameWidth);
+    var albumName = $('<div class="album_name"></div>')
+      .attr('title', album)
+      .html(album)
+      .width(albumNameWidth);
+    var artistName = $('<div class="artist_name"></div>')
+      .attr('title', artist)
+      .html(artist)
+      .width(artistNameWidth);
+    entryHTML.append(songName)
+      .append(albumName)
+      .append(artistName)
+      .append(asSearchResult ?
         '<div class="entry_action">+</div>' :
         '<div class="remove_action">-</div>'+
-        '<div class="entry_action" style="font-size:14px;">&nbsp;&nbsp;&#9654;</div>')+
-    '</div>';
-    var entry = $(entryHTML);
+        '<div class="entry_action" style="font-size:14px;">&#9654;</div>');
+
     
-    entry
+    entryHTML
       .hover(
         function () { $(this).addClass('focused_entry'); },
         function () { $(this).removeClass('focused_entry'); }
       )
       .find('.entry_action').data('muFile',muFile);
 
-    return entry;
+    return entryHTML;
   };
 
   app.utils = utils;
