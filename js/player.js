@@ -19,8 +19,9 @@ function updateSongInfo(muFile){
 
 function animateSeeker() {
   var player = $('#player').get(0);
-
   var degree = (player.currentTime/player.duration)*360;
+
+  if(player.currentTime == 0){ prevDegree = 0; }
 
   if((degree-prevDegree)>1){
     $.app.ctx.beginPath();  
@@ -42,7 +43,6 @@ function animateSeeker() {
 
 player.prevSong = function () {
   var prevDiv = this.currentPlaying.prev();
-  prevDegree = 0;
   if(prevDiv.length == 0) {
     prevDiv = this.currentPlaying.parent().children().last();
   }
@@ -51,7 +51,6 @@ player.prevSong = function () {
 
 player.nextSong = function () {
   var nextDiv = this.currentPlaying.next();
-  prevDegree = 0;
   if(nextDiv.length == 0) {
     nextDiv = this.currentPlaying.parent().children().first();
   }
