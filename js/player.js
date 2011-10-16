@@ -10,10 +10,11 @@ function updateSongInfo(muFile){
   var wiki = '<a href='+app.utils.getArtistWikipediaURL(muFile)+' target="blank"><img src="/images/wikipedia.ico" /></a>';
   var amzn = '<a href='+app.utils.getAmazonLink(muFile)+' target="blank"><img src="/images/amazon.png" /></a>';
   var lyrics = '<a href='+app.utils.getLyricsSearchURL(muFile)+' target="blank"><img src="/images/metro.png" /><a/>';
-  $('#title', songInfo).text(muFile.title).attr('title', muFile.title);
-  $('#artist', songInfo).text(muFile.artist).attr('title', muFile.artist);
-  $('#album', songInfo).text(muFile.album).attr('title', muFile.album);
-  $('#extern', songInfo).html(yt+wiki+amzn+lyrics);
+  $('#title_info .title', songInfo).text(muFile.title).attr('title', muFile.title);
+  $('#artist_info .title', songInfo).text(muFile.artist).attr('title', muFile.artist);
+  $('#album_info .title', songInfo).text(muFile.album).attr('title', muFile.album);
+  $('#title_info .extern', songInfo).html(yt+lyrics);
+  $('#artist_info .extern', songInfo).html(wiki+amzn);
 }
 
 function animateSeeker() {

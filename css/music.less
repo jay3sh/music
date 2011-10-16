@@ -151,18 +151,23 @@ input[type="text"]{
 
     #song_info { 
 
-      * {
-        width : 180px;
-        white-space : nowrap;
-        overflow : hidden;
-      }
-      #extern {
-        margin-top : 10px;
-        a { margin: 5px; }
-        img {
-          height : 16px;
-          width : 16px;
-          border-radius : 2px;
+      div {
+        width : 195px;
+
+        .title { 
+          width : 140px; 
+          white-space : nowrap;
+          overflow : hidden;
+          display : inline-block;
+        }
+        .extern {
+          a { margin: 5px; }
+          img {
+            height : 16px;
+            vertical-align : middle;
+            width : 16px;
+            border-radius : 2px;
+          }
         }
       }
     }
