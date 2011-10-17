@@ -47,13 +47,13 @@ function MuFile(file, doneCallback) {
     thisref.artist = pMuFile.artist;
     thisref.album = pMuFile.album;
     thisref.genre = pMuFile.genre;
-    doneCallback();
+    doneCallback(this);
   } else {
     app.parseTags(file, function (tags) {
-      thisref.title = tags.title ? tags.title : '';
-      thisref.artist = tags.artist ? tags.artist : '';
-      thisref.album = tags.album ? tags.album : '';
-      thisref.genre = tags.genre ? tags.genre : '';
+      thisref.title = tags.title ? tags.title.trim() : '';
+      thisref.artist = tags.artist ? tags.artist.trim() : '';
+      thisref.album = tags.album ? tags.album.trim() : '';
+      thisref.genre = tags.genre ? tags.genre.trim() : '';
 
       app.Storage.write({
         path : thisref.path,
@@ -64,7 +64,7 @@ function MuFile(file, doneCallback) {
         album : thisref.album,
         genre : thisref.genre
       });
-      doneCallback();
+      doneCallback(thisref);
     });
   }
 }

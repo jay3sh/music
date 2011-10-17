@@ -34,9 +34,21 @@ function loadMusic(files) {
       (/\.m4a$/.test(lpath))
   });
 
+  var artworkHints = [];
   var total = musicFiles.length, progress = 0;
 
-  function incProgress() {
+  function onCreate(muFile) {
+    
+    // Add unique artwork hint
+    if(muFile.album && muFile.album.length > 0 && 
+      muFile.artist && muFile.artist.length > 0)
+    {
+      artworkHint = muFile.album + ' ' + muFile.artist;
+      var found = _(artworkHints).any(
+        function (ah) { return ah == artworkHint; });
+      if(!found) { artworkHints.push(artworkHint); }
+    }
+
     progress++;
     $('#addmusic').html(progress+' / '+total);
     if(progress == total) {
@@ -51,7 +63,7 @@ function loadMusic(files) {
 
   function newMuFile(f) {
     $.app.liveFiles[f.webkitRelativePath] = f;
-    var muFile = new $.app.MuFile(f, incProgress);
+    new $.app.MuFile(f, onCreate);
   }
 
   newMuFile(musicFiles[progress]);
