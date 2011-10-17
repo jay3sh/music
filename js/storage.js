@@ -7,6 +7,7 @@ function Storage() {}
 Storage.titleIndex = {};
 Storage.artistIndex = {};
 Storage.nameIndex = {};
+Storage.albumIndex = {};
 
 Storage.updateIndex = function (muFile) {
   var hash = $.MD5(muFile.path);
@@ -28,6 +29,15 @@ Storage.updateIndex = function (muFile) {
     }
   }
 
+  if(muFile.album && muFile.album.length > 0) {
+    var key = muFile.album.toLowerCase();
+    if(Storage.albumIndex[key]) {
+      Storage.albumIndex[key].push(hash);
+    } else {
+      Storage.albumIndex[key] = [hash];
+    }
+  }
+
   if(muFile.name && muFile.name.length > 0) {
     var key = muFile.name.toLowerCase().replace(/\.\w+$/,'');
     if(Storage.nameIndex[key]) {
@@ -43,9 +53,11 @@ Storage.load = function () {
   Storage.titleIndex = s ? JSON.parse(s) : {};
   s = window.localStorage.getItem('__artist_index__')
   Storage.artistIndex = s ? JSON.parse(s) : {};
-  var s = window.localStorage.getItem('__name_index__')
+  s = window.localStorage.getItem('__name_index__')
   Storage.nameIndex = s ? JSON.parse(s) : {};
-}
+  s = window.localStorage.getItem('__album_index__')
+  Storage.albumIndex = s ? JSON.parse(s) : {};
+};
 
 Storage.read = function (hash) {
   var s = window.localStorage.getItem(hash);
@@ -65,6 +77,8 @@ Storage.save = function () {
     JSON.stringify(Storage.artistIndex));
   window.localStorage.setItem('__name_index__',
     JSON.stringify(Storage.nameIndex));
+  window.localStorage.setItem('__album_index__',
+    JSON.stringify(Storage.albumIndex));
 };
 
 Storage.search = function (keyword) {
@@ -81,6 +95,7 @@ Storage.search = function (keyword) {
   searchIndex(Storage.titleIndex);
   searchIndex(Storage.artistIndex);
   searchIndex(Storage.nameIndex);
+  searchIndex(Storage.albumIndex);
   return _(results).chain().uniq().map(Storage.read).value();
 };
 
