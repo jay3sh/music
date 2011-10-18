@@ -23,6 +23,7 @@
   
   Playlist.loadPlaylist = function () {
     var playlist = JSON.parse(window.localStorage.getItem('__playlist__'));
+    if(playlist == null) { return; } 
     var muFile, player_entry;
     var thisref = this;
     $.event.props.push('dataTransfer');
