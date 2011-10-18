@@ -24,6 +24,7 @@ function skin_init(){
 
 
 $(document).ready(function () {
+  $.app.mainColumn.init();
   $.app.player.init($('#player_column'));
   $.app.Storage.load();
   $.app.Playlist.loadPlaylist();
