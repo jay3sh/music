@@ -25,6 +25,7 @@
     var playlist = JSON.parse(window.localStorage.getItem('__playlist__'));
     var muFile, player_entry;
     var thisref = this;
+    $.event.props.push('dataTransfer');
     window.localStorage.removeItem('__playlist__');
 
     _.each(playlist, function (hash){

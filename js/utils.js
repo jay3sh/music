@@ -78,7 +78,7 @@
     var albumNameWidth = songNameWidth/2;
     var artistNameWidth = albumNameWidth-40;
 
-    var entryHTML = $('<div class="entry"></div>');
+    var entryHTML = $('<div class="entry" draggable="true"></div>');
     var songName = $('<div class="song_name"></div>')
       .attr('title', name)
       .html(name)
@@ -97,15 +97,48 @@
       .append(asSearchResult ?
         '<div class="entry_action">+</div>' :
         '<div class="remove_action">-</div>'+
-        '<div class="entry_action" style="font-size:14px;">&#9654;</div>');
-
-    
+        '<div class="entry_action" style="font-size:14px;">&#9654;</div>'); 
     entryHTML
       .hover(
         function () { $(this).addClass('focused_entry'); },
         function () { $(this).removeClass('focused_entry'); }
       )
       .find('.entry_action').data('muFile',muFile);
+
+    entryHTML
+      .bind('dragstart', function (e) {
+        app.Playlist.dragSelection = $(this);
+        app.Playlist.dragSelectionData = 
+          $(this).find('.entry_action').data('muFile');
+        e.dataTransfer.setData('text/plain', $(this).html());
+      })
+      .bind('dragover', function (e) {
+        if(e.preventDefault) { e.preventDefault(); }
+        return false;
+      })
+      .bind('dragenter', function (e) {
+        if(e.preventDefault) { e.preventDefault(); }
+        return false;
+      })
+      .bind('drop', function (e) {
+        var tempHTML = $(this).html();
+        var tempData = $(this).find('.entry_action').data('muFile');
+
+        if (e.preventDefault) e.preventDefault();
+
+        $(this).html(app.Playlist.dragSelection.html());
+        app.Playlist.dragSelection.html(tempHTML)
+          .removeClass('focused_entry');
+        $(this).find('.entry_action')
+          .data('muFile', app.Playlist.dragSelectionData);
+        app.Playlist.dragSelection.find('.entry_action')
+          .data('muFile', tempData);
+        console.log(app.Playlist.dragSelectionData);
+
+        return false;
+      })
+      .bind('dragend', function () {
+      });
 
     return entryHTML;
   };
