@@ -34,6 +34,15 @@
             return (ah.artist == artworkHint.artist) && 
               (ah.album == artworkHint.album);
           });
+        if(!found) {
+          app.utils.searchImage(
+            artworkHint.album + ' ' + artworkHint.artist, 
+            function (url){
+              //console.log(url); 
+            }
+          );
+          artworkHints.push(artworkHint); 
+        }
       }
 
       progress++;
