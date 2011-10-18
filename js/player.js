@@ -176,6 +176,9 @@ player.init = function (jqelem) {
     });
 
   $('#player', player.jqelem)
+    .bind('ended', function (e){
+      $.app.player.nextSong(); 
+    })
     .bind('play', function () {
       player.action = 'pause';
       $('img', '#play').attr('src', '/images/pause.png');
