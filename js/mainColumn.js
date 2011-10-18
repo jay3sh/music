@@ -25,10 +25,15 @@
       if(muFile.album && muFile.album.length > 0 && 
         muFile.artist && muFile.artist.length > 0)
       {
-        artworkHint = muFile.album + ' ' + muFile.artist;
+        artworkHint = {
+          album : muFile.album,
+          artist : muFile.artist
+        };
         var found = _(artworkHints).any(
-          function (ah) { return ah == artworkHint; });
-        if(!found) { artworkHints.push(artworkHint); }
+          function (ah) { 
+            return (ah.artist == artworkHint.artist) && 
+              (ah.album == artworkHint.album);
+          });
       }
 
       progress++;
