@@ -52,7 +52,8 @@
   }
   
   function init() {
-     
+    if(_.isNull(window.localStorage.getItem('__name_index__'))){} 
+    else { } 
   }
 
   app.mainColumn = mainColumn;
