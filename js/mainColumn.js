@@ -18,6 +18,9 @@
 
     var artworkHints = [];
     var total = musicFiles.length, progress = 0;
+    var shelf = $('#shelf', '#search_column');
+    var artworkNum = Math.floor(shelf.width()/125);
+    var margin = (shelf.width()-(artworkNum*125))/(artworkNum*2);
 
     function onCreate(muFile) {
       
@@ -38,7 +41,11 @@
           app.utils.searchImage(
             artworkHint.album + ' ' + artworkHint.artist, 
             function (url){
-              //console.log(url); 
+              var artwork = $('<img></img>')
+                .attr('src', url)
+                .css('margin', margin)
+                .fadeIn();
+              $('#shelf', '#search_column').append(artwork);
             }
           );
           artworkHints.push(artworkHint); 
