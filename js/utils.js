@@ -107,13 +107,15 @@
 
     entryHTML
       .bind('dragstart', function (e) {
-        app.Playlist.dragSelection = $(this);
-        app.Playlist.dragSelectionData = 
-          $(this).find('.entry_action').data('muFile');
-        e.dataTransfer.setData('text/plain', $(this).html());
-        e.dataTransfer.effectAllowed = 'move';
-        e.dataTransfer.dropEffect = 'move';
-        $(this).css({ 'opacity' : '0.7' });
+        if($(this).parent().attr('id') == 'playlist'){
+          app.Playlist.dragSelection = $(this);
+          app.Playlist.dragSelectionData = 
+            $(this).find('.entry_action').data('muFile');
+          e.dataTransfer.setData('text/plain', $(this).html());
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.dropEffect = 'move';
+          $(this).css({ 'opacity' : '0.7' });
+        } else { return; }
       })
       .bind('dragover', function (e) {
         if(e.preventDefault) { e.preventDefault(); }
