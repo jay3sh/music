@@ -55,9 +55,6 @@ function MuFile(file, doneCallback) {
       thisref.album = tags.album ? tags.album.trim() : '';
       thisref.genre = tags.genre ? tags.genre.trim() : '';
 
-      console.log(thisref.album);
-      console.log(thisref.artist);
-
       app.Storage.write({
         path : thisref.path,
         name : thisref.name,
