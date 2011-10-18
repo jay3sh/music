@@ -111,6 +111,9 @@
         app.Playlist.dragSelectionData = 
           $(this).find('.entry_action').data('muFile');
         e.dataTransfer.setData('text/plain', $(this).html());
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.dropEffect = 'move';
+        $(this).css({ 'opacity' : '0.7' });
       })
       .bind('dragover', function (e) {
         if(e.preventDefault) { e.preventDefault(); }
@@ -133,11 +136,11 @@
           .data('muFile', app.Playlist.dragSelectionData);
         app.Playlist.dragSelection.find('.entry_action')
           .data('muFile', tempData);
-        console.log(app.Playlist.dragSelectionData);
 
         return false;
       })
       .bind('dragend', function () {
+        $(this).css({ 'opacity' : '1.0' });
       });
 
     return entryHTML;
