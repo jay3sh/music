@@ -19,7 +19,9 @@
   function init() {
     /*if(_.isNull(window.localStorage.getItem('__name_index__'))){} 
     else { } */ 
+    app.artworks = {};
     showShelf();
+    loadArtworkMap();
     $('input[name=search]').keyup(function (e) {
 
       var divResults = $('#search_results');
@@ -55,7 +57,18 @@
     }); 
   }
 
+  function storeArtworkMap() {
+    window.localStorage.setItem(
+      '__artwork_map__', JSON.stringify(app.artworks));
+  }
+
+  function loadArtworkMap() {
+    app.artworks = JSON.parse(window.localStorage.getItem('__artwork_map__'));
+  }
+
   app.mainColumn = mainColumn;
   app.mainColumn.init = init;
+  app.mainColumn.storeArtworkMap = storeArtworkMap;
+  app.mainColumn.loadArtworkMap = loadArtworkMap;
 
 })(jQuery);

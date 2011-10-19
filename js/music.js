@@ -40,5 +40,6 @@ $(document).ready(function () {
 window.onbeforeunload =  function () {
   $.app.Playlist.storePlaylist();
   $.app.player.saveVolume();
+  $.app.mainColumn.storeArtworkMap();
 }
 
