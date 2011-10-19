@@ -41,7 +41,7 @@
             function (url, artist, album) { 
               if(!app.artworks[url]){ 
                 app.mainColumn.populateShelf(url, artist, album);
-              } else { console.log('repeated'); }
+              }
             }
           );
           artworkHints.push(artworkHint); 
