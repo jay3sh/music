@@ -41,16 +41,18 @@
           app.utils.searchImage(
             artworkHint.album, artworkHint.artist, 
             function (url, artist, album) {
-              var artwork = $('<img></img>')
-                .attr('src', url)
-                .data('meta', { album : album, artist : artist })
-                .css('margin', margin)
-                .fadeIn()
-                .click(function () {
-                  console.log($(this).data('meta'));
-                });
-              $('#shelf', '#search_column').append(artwork);
-              app.artworks[url] = album;
+              if(!app.artworks[url]){
+                var artwork = $('<img></img>')
+                  .attr('src', url)
+                  .data('meta', { album : album, artist : artist })
+                  .css('margin', margin)
+                  .fadeIn()
+                  .click(function () {
+                    console.log($(this).data('meta'));
+                  });
+                $('#shelf', '#search_column').append(artwork);
+                app.artworks[url] = album;
+              } else {  }
             }
           );
           artworkHints.push(artworkHint); 
