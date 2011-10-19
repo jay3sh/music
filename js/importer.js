@@ -15,6 +15,7 @@
         (/\.m4a$/.test(lpath))
     });
 
+    $('#shelf', '#search_column').empty();
     var artworkHints = [];
     var total = musicFiles.length, progress = 0;
     app.artworks = {};
