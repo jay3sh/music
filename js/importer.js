@@ -38,7 +38,11 @@
         if(!found) {
           app.utils.searchImage(
             artworkHint.album, artworkHint.artist, 
-            app.mainColumn.populateShelf
+            function (url, artist, album) { 
+              if(!app.artworks[url]){ 
+                app.mainColumn.populateShelf(url, artist, album);
+              } else { console.log('repeated'); }
+            }
           );
           artworkHints.push(artworkHint); 
         }

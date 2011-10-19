@@ -19,18 +19,16 @@
     var shelf = $('#shelf', '#search_column');
     var artworkNum = Math.floor(shelf.width()/125);
     var margin = (shelf.width()-(artworkNum*125))/(artworkNum*2);
-    if(!app.artworks[url]){
-      var artwork = $('<img></img>')
-        .attr('src', url)
-        .data('meta', { album : album, artist : artist })
-        .css('margin', margin)
-        .fadeIn()
-        .click(function () {
-          console.log($(this).data('meta'));
-        });
-      $('#shelf', '#search_column').append(artwork);
-      app.artworks[url] = { album : album, artist : artist };
-    } else { console.log('repeated'); }
+    var artwork = $('<img></img>')
+      .attr('src', url)
+      .data('meta', { album : album, artist : artist })
+      .css('margin', margin)
+      .fadeIn()
+      .click(function () {
+        console.log($(this).data('meta'));
+      });
+    $('#shelf', '#search_column').append(artwork);
+    app.artworks[url] = { album : album, artist : artist };
   }
 
   function init() {
