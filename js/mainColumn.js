@@ -15,7 +15,24 @@
     $('#search_results', '#search_column').hide();
   }
   
-  
+  function setShelf(url, artist, album){ 
+    var shelf = $('#shelf', '#search_column');
+    var artworkNum = Math.floor(shelf.width()/125);
+    var margin = (shelf.width()-(artworkNum*125))/(artworkNum*2);
+    if(!app.artworks[url]){
+      var artwork = $('<img></img>')
+        .attr('src', url)
+        .data('meta', { album : album, artist : artist })
+        .css('margin', margin)
+        .fadeIn()
+        .click(function () {
+          console.log($(this).data('meta'));
+        });
+      $('#shelf', '#search_column').append(artwork);
+      app.artworks[url] = { album : album, artist : artist };
+    } else { console.log('repeated'); }
+  }
+
   function init() {
     /*if(_.isNull(window.localStorage.getItem('__name_index__'))){} 
     else { } */ 
@@ -70,5 +87,6 @@
   app.mainColumn.init = init;
   app.mainColumn.storeArtworkMap = storeArtworkMap;
   app.mainColumn.loadArtworkMap = loadArtworkMap;
+  app.mainColumn.setShelf = setShelf;
 
 })(jQuery);
