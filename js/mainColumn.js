@@ -1,6 +1,7 @@
 
 (function ($){
   var app = $.app;
+  var IMG_WIDTH = 100;
 
   function mainColumn () {}
 
@@ -17,8 +18,8 @@
   
   function populateShelf(url, artist, album){ 
     var shelf = $('#shelf', '#search_column');
-    var artworkNum = Math.floor(shelf.width()/125);
-    var margin = (shelf.width()-(artworkNum*125))/(artworkNum*2);
+    var artworkNum = Math.floor(shelf.width()/IMG_WIDTH);
+    var margin = (shelf.width()-(artworkNum*IMG_WIDTH))/(artworkNum*2);
     var artwork = $('<img></img>')
       .attr('src', url)
       .data('meta', { album : album, artist : artist })
