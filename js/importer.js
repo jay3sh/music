@@ -15,6 +15,7 @@
         (/\.m4a$/.test(lpath))
     });
 
+    app.artworks = {};
     var artworkHints = [];
     var total = musicFiles.length, progress = 0;
     var shelf = $('#shelf', '#search_column');
@@ -27,7 +28,7 @@
       if(muFile.album && muFile.album.length > 0 && 
         muFile.artist && muFile.artist.length > 0)
       {
-        artworkHint = {
+        var artworkHint = {
           album : muFile.album,
           artist : muFile.artist
         };
@@ -38,13 +39,18 @@
           });
         if(!found) {
           app.utils.searchImage(
-            artworkHint.album + ' ' + artworkHint.artist, 
-            function (url){
+            artworkHint.album, artworkHint.artist, 
+            function (url, artist, album) {
               var artwork = $('<img></img>')
                 .attr('src', url)
+                .data('meta', { album : album, artist : artist })
                 .css('margin', margin)
-                .fadeIn();
+                .fadeIn()
+                .click(function () {
+                  console.log($(this).data('meta'));
+                });
               $('#shelf', '#search_column').append(artwork);
+              app.artworks[url] = album;
             }
           );
           artworkHints.push(artworkHint); 

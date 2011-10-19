@@ -51,17 +51,17 @@
     });
   };
 
-  utils.searchImage = function (query, callback) {
-    function onComplete() {
+  utils.searchImage = function (album, artist, callback) {
+    function onComplete(artist, album) {
       if (imageSearch.results && imageSearch.results.length > 0) {
         var results = imageSearch.results;
-        callback(results[0].tbUrl);
+        callback(results[0].tbUrl, artist, album);
       }
     }
 
     var imageSearch = new google.search.ImageSearch();
-    imageSearch.setSearchCompleteCallback(this, onComplete, null);
-    imageSearch.execute(query);
+    imageSearch.setSearchCompleteCallback(this, onComplete, [artist, album]);
+    imageSearch.execute(album + ' ' + artist);
   };
 
   utils.getPrettySongName = function (muFile) {
