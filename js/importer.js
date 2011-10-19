@@ -36,7 +36,8 @@
           });
         if(!found) {
           app.utils.searchImage(
-            artworkHint.album,artworkHint.artist,app.mainColumn.setShelf
+            artworkHint.album, artworkHint.artist, 
+            app.mainColumn.populateShelf
           );
           artworkHints.push(artworkHint); 
         }

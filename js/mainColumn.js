@@ -15,7 +15,7 @@
     $('#search_results', '#search_column').hide();
   }
   
-  function setShelf(url, artist, album){ 
+  function populateShelf(url, artist, album){ 
     var shelf = $('#shelf', '#search_column');
     var artworkNum = Math.floor(shelf.width()/125);
     var margin = (shelf.width()-(artworkNum*125))/(artworkNum*2);
@@ -87,6 +87,6 @@
   app.mainColumn.init = init;
   app.mainColumn.storeArtworkMap = storeArtworkMap;
   app.mainColumn.loadArtworkMap = loadArtworkMap;
-  app.mainColumn.setShelf = setShelf;
+  app.mainColumn.populateShelf = populateShelf;
 
 })(jQuery);
