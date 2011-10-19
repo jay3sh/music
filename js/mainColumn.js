@@ -37,6 +37,9 @@
     app.artworks = {};
     showShelf();
     loadArtworkMap();
+    _.each(app.artworks, function (artwork, key){
+      populateShelf(key, artwork.artist, artwork.album);
+    })
     $('input[name=search]').keyup(function (e) {
 
       var divResults = $('#search_results');
