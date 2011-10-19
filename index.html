@@ -27,6 +27,7 @@ $.app = {};
 <script type="text/javascript" src="js/playlist.js"></script>
 <script type="text/javascript" src="js/utils.js"></script>
 <script type="text/javascript" src="js/mainColumn.js"></script>
+<script type="text/javascript" src="js/importer.js"></script>
 <script type="text/javascript" src="js/music.js"></script>
 
 </head>
@@ -81,7 +82,7 @@ $.app = {};
 <div id="inputcontainer">
 <input id="actual_addmusic" name="actual_addmusic" type="file"
   webkitdirectory directory multiple mozdirectory 
-  onchange="$.app.mainColumn.loadMusic(this.files)">
+  onchange="$.app.Importer.loadMusic(this.files)">
 </div>
 
 <div id="footer">
