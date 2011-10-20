@@ -33,7 +33,6 @@
         $('input[name=search]').val($(this).data('meta').album);
       });
     $('#shelf', '#search_column').append(artwork);
-    app.artworks[url] = { album : album, artist : artist };
   }
 
   function populateSearchResults(query) {
@@ -56,10 +55,9 @@
   function init() {
     /*if(_.isNull(window.localStorage.getItem('__name_index__'))){} 
     else { } */ 
-    app.artworks = {};
+    app.localArtworks = loadArtworkMap();
     showShelf();
-    loadArtworkMap();
-    _.each(app.artworks, function (artwork, key){
+    _.each(app.localArtworks, function (artwork, key){
       populateShelf(key, artwork.artist, artwork.album);
     });
 
@@ -102,11 +100,13 @@
 
   function storeArtworkMap() {
     window.localStorage.setItem(
-      '__artwork_map__', JSON.stringify(app.artworks));
+      '__artwork_map__', JSON.stringify(app.localArtworks));
   }
 
   function loadArtworkMap() {
-    app.artworks = JSON.parse(window.localStorage.getItem('__artwork_map__'));
+    var artworks = 
+      JSON.parse(window.localStorage.getItem('__artwork_map__'));
+    return (_.isNull(artworks) ? {} : artworks);
   }
 
   app.mainColumn = mainColumn;

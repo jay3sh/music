@@ -15,13 +15,10 @@
         (/\.m4a$/.test(lpath))
     });
 
-    $('#shelf', '#search_column').empty();
     $('input[name=search]', '#search_column').val('Search...');
     app.mainColumn.showShelf();
     var artworkHints = [];
     var total = musicFiles.length, progress = 0;
-    app.artworks = {};
-
     function onCreate(muFile) {
       
       // Add unique artwork hint
@@ -38,14 +35,26 @@
               (ah.album == artworkHint.album);
           });
         if(!found) {
-          app.utils.searchImage(
-            artworkHint.album, artworkHint.artist, 
-            function (url, artist, album) { 
-              if(!app.artworks[url]){ 
-                app.mainColumn.populateShelf(url, artist, album);
+          var detect = 
+            _.detect(app.localArtworks, function (artwork){
+              return (artwork.album == artworkHint.album 
+                && artwork.artist == artworkHint.artist);
+            });
+          if(!detect){    
+            app.utils.searchImage(
+              artworkHint.album, artworkHint.artist, 
+              function (url, artist, album) { 
+                if(_.isEmpty(app.localArtworks[url])){ 
+                  app.mainColumn.populateShelf(url, artist, album);
+                  app.localArtworks[url] = { 
+                    album : album, 
+                    artist : artist 
+                  };
+                }
               }
-            }
-          );
+            );
+          } 
+
           artworkHints.push(artworkHint); 
         }
       }
@@ -68,6 +77,7 @@
     }
 
     newMuFile(musicFiles[progress]);
+    app.mainColumn.storeArtworkMap();
   }
   
   app.Importer = Importer;
