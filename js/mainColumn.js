@@ -7,7 +7,7 @@
 
   function showSearchResults() {
     $('#shelf', '#search_column').hide();
-    $('search_results', '#search_column').empty();
+    $('#search_results', '#search_column').empty();
     $('#search_results', '#search_column').show();
   }
 
