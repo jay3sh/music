@@ -32,6 +32,23 @@
     app.artworks[url] = { album : album, artist : artist };
   }
 
+  function populateSearchResults(query) {
+    var results = $.app.Storage.search(query);
+    _(results).each(function (muFile) {
+      $('#search_results', '#search_column')
+        .append($.app.utils.getSongEntryHTML(muFile, true));
+    });
+
+
+    $('#search_results', '#search_column').find('.entry_action')
+      .click(function () {
+        var muFile = $(this).data('muFile');
+        var player_entry = $.app.utils.getSongEntryHTML(muFile, false);
+        $.app.Playlist.attachEntryControls(player_entry);
+        $.app.Playlist.add(player_entry)
+      });
+  }
+
   function init() {
     /*if(_.isNull(window.localStorage.getItem('__name_index__'))){} 
     else { } */ 
@@ -40,28 +57,15 @@
     loadArtworkMap();
     _.each(app.artworks, function (artwork, key){
       populateShelf(key, artwork.artist, artwork.album);
-    })
+    });
+
     $('input[name=search]').keyup(function (e) {
 
-      var divResults = $('#search_results');
-      divResults.empty();
       var text = $(this).val();
 
       if(!text || (text && text.length < 4)) { return; }
-
-      var results = $.app.Storage.search($(this).val());
-      _(results).each(function (muFile) {
-        divResults.append($.app.utils.getSongEntryHTML(muFile, true));
-      });
-
-
-      divResults.find('.entry_action')
-        .click(function () {
-          var muFile = $(this).data('muFile');
-          var player_entry = $.app.utils.getSongEntryHTML(muFile, false);
-          $.app.Playlist.attachEntryControls(player_entry);
-          $.app.Playlist.add(player_entry)
-        });
+      showSearchResults();
+      populateSearchResults(text);
 
     })
     .focus(function (e){
