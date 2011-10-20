@@ -140,6 +140,7 @@
           .data('muFile', tempData);
 
         app.Playlist.attachEntryControls($(this));
+        app.Playlist.attachEntryControls($(app.Playlist.dragSelection));
 
         return false;
       })
