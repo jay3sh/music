@@ -75,6 +75,9 @@
       populateSearchResults(text);
 
     })
+    .focusin(function (e){
+      if($(this).val() == 'Search...'){ $(this).val(''); }
+    })
     .focusout(function (e){
       if($(this).val() == ''){
         $(this).val('Search...');
