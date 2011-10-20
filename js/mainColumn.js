@@ -93,6 +93,11 @@
         $.app.Playlist.add(player_entry);
       });
     });
+
+    $('#clear_search', '#search_column').click(function (){
+      $('input[name=search]').focus().val('');
+      showShelf();
+    });
   }
 
   function storeArtworkMap() {
