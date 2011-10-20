@@ -23,7 +23,7 @@
     var artwork = $('<img></img>')
       .attr('src', url)
       .data('meta', { album : album, artist : artist })
-      .css('margin', margin)
+      .css('margin', Math.floor(margin)-1)
       .fadeIn()
       .click(function () {
         console.log($(this).data('meta'));
