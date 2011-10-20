@@ -26,7 +26,9 @@
       .css('margin', Math.floor(margin)-1)
       .fadeIn()
       .click(function () {
-        console.log($(this).data('meta'));
+        showSearchResults();
+        populateSearchResults($(this).data('meta').album);
+        $('input[name=search]').val($(this).data('meta').album);
       });
     $('#shelf', '#search_column').append(artwork);
     app.artworks[url] = { album : album, artist : artist };
