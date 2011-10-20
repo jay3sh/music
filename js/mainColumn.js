@@ -109,5 +109,7 @@
   app.mainColumn.storeArtworkMap = storeArtworkMap;
   app.mainColumn.loadArtworkMap = loadArtworkMap;
   app.mainColumn.populateShelf = populateShelf;
+  app.mainColumn.showShelf = showShelf;
+  app.mainColumn.showSearchResults = showSearchResults;
 
 })(jQuery);
