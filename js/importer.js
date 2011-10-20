@@ -16,6 +16,7 @@
     });
 
     $('#shelf', '#search_column').empty();
+    $('input[name=search]', '#search_column').val('Search...');
     app.mainColumn.showShelf();
     var artworkHints = [];
     var total = musicFiles.length, progress = 0;
