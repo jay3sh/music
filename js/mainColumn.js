@@ -84,6 +84,15 @@
         showShelf();
       }
     }); 
+
+    $('#addall', '#search_column').click(function () {
+      $('#search_results .entry', '#search_column').each(function () { 
+        var muFile = $(this).find('.entry_action').data('muFile');
+        var player_entry = $.app.utils.getSongEntryHTML(muFile, false);
+        $.app.Playlist.attachEntryControls(player_entry);
+        $.app.Playlist.add(player_entry);
+      });
+    });
   }
 
   function storeArtworkMap() {
