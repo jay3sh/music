@@ -139,6 +139,8 @@
         app.Playlist.dragSelection.find('.entry_action')
           .data('muFile', tempData);
 
+        app.Playlist.attachEntryControls($(this));
+
         return false;
       })
       .bind('dragend', function () {
