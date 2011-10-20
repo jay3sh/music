@@ -65,14 +65,13 @@
 
       var text = $(this).val();
 
-      if(!text || (text && text.length < 4)) { return; }
+      if(!text || (text && text.length < 4)) { 
+        showShelf();
+        return; 
+      }
       showSearchResults();
       populateSearchResults(text);
 
-    })
-    .focus(function (e){
-      $(this).val('');
-      showSearchResults();
     })
     .focusout(function (e){
       if($(this).val() == ''){
