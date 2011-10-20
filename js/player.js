@@ -85,7 +85,7 @@ player.playMedia = function (div, resumeFlag) {
       currentPlaying = div;
       currentPlaying.parent().children().removeClass('active_entry');
       currentPlaying.addClass('active_entry');
-      app.utils.searchImage(muFile.album+' '+muFile.artist,function (tbUrl) {
+      app.utils.searchImage(muFile.album,muFile.artist,function (tbUrl) {
         $('#album_artwork', player.jqelem).attr('src',tbUrl);
         var height = $('#album_artwork', player.jqelem).height();
         var width = $('#album_artwork', player.jqelem).width();
