@@ -321,6 +321,14 @@ input[type="text"]{
   margin : 20px 20px 5px 10px;
   text-align : left;
 
+  #addMusic { .button(110%, 22px, 100px); }
+  #addall { 
+    .button(15px, 15px, 80px); 
+    .boxShadow(0px, 0px, 5px, #666);
+    border-bottom-right-radius : 0px;
+    border-bottom-left-radius : 0px;
+    margin-top : -46px;
+  } 
   #search_results {
     .searchColumnChildren();
     .entry { cursor : default; }
@@ -339,6 +347,7 @@ input[type="text"]{
       &:hover { .boxShadow(0px, 0px, 8px, #060606); }
     }
   }
+
 }
 
 #playlist_wrapper {

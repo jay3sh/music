@@ -9,11 +9,13 @@
     $('#shelf', '#search_column').hide();
     $('#search_results', '#search_column').empty();
     $('#search_results', '#search_column').show();
+    $('#addall', '#search_column').slideDown();
   }
 
   function showShelf() {
     $('#shelf', '#search_column').show();
     $('#search_results', '#search_column').hide();
+    $('#addall', '#search_column').slideUp();
   }
   
   function populateShelf(url, artist, album){ 
