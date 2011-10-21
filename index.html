@@ -25,6 +25,7 @@ $.app = {};
 <script type="text/javascript" src="js/utils.js"></script>
 <script type="text/javascript" src="js/mainColumn.js"></script>
 <script type="text/javascript" src="js/importer.js"></script>
+<script type="text/javascript" src="js/skin.js"></script>
 <script type="text/javascript" src="js/music.js"></script>
 
 </head>
@@ -38,66 +39,67 @@ $.app = {};
     Choose folder that has all your Music.
   </div>
 </div>
-<div id="player_column">
-  <div id="player_wrapper">
-    <img id="album_artwork"/><br/>
+<div id="player_container">
+  <div id="player_column">
+    <div id="player_wrapper">
+      <img id="album_artwork"/><br/>
+    </div>
+
+    <div id="player_controls">
+      <div id="song_info">
+        <div id="title_info">
+          <span class="title">Title</span>
+          <span class="extern"></span>
+        </div>
+        <div id="album_info">
+          <span class="title">Album</span>
+        </div>
+        <div id="artist_info">
+          <span class="title">Artist</span>
+          <span class="extern"></span>
+        </div>
+      </div>
+      <div id="player_skin">
+        <span id="prev"><img src="images/previous.png" /></span>
+        <span id="play"><img src="images/play.png" /></span>
+        <canvas id="seeker"></canvas>
+        <span id="next"><img src="images/next.png" /></span>
+        <audio controls id="player">
+      </div>
+      <div id="player_volume"></div>
+    </div>
+
   </div>
 
-  <div id="player_controls">
-    <div id="song_info">
-      <div id="title_info">
-        <span class="title">Title</span>
-        <span class="extern"></span>
-      </div>
-      <div id="album_info">
-        <span class="title">Album</span>
-      </div>
-      <div id="artist_info">
-        <span class="title">Artist</span>
-        <span class="extern"></span>
-      </div>
-    </div>
-    <div id="player_skin">
-      <span id="prev"><img src="images/previous.png" /></span>
-      <span id="play"><img src="images/play.png" /></span>
-      <canvas id="seeker"></canvas>
-      <span id="next"><img src="images/next.png" /></span>
-      <audio controls id="player">
-    </div>
-    <div id="player_volume"></div>
+  <div id="search_column">
+    <span id="search_bar">
+      <input name="search" value="Search..." type="text"></input>
+      <img id="clear_search"src="/images/Button Delete.png" />
+    </span>
+    <span id="addall">+ All</span>
+    <br/>
+    <div id="shelf"></div>
+    <div class="entry_list" id="search_results"></div>
   </div>
 
+  <div id="playlist_wrapper">
+    <div class="entry_list" id="playlist"></div>
+  </div>
+
+  <div id="footer">
+    <span id="sponsor">Sponsored by 
+      <a href="http://www.3dtin.com"><img src="/images/3DTin.png" /></a>
+    </span>
+    <span id="google_branding"></span>
+  </div>
 </div>
-
-<div id="search_column">
-  <span id="search_bar">
-    <input name="search" value="Search..." type="text"></input>
-    <img id="clear_search"src="/images/Button Delete.png" />
-  </span>
-  <span id="addall">+ Add All</span>
-  <br/>
-  <div id="shelf"></div>
-  <div class="entry_list" id="search_results"></div>
-</div>
-
-<div id="playlist_wrapper">
-  <div class="entry_list" id="playlist"></div>
-</div>
-
-
 
 <div id="inputcontainer">
-<input id="actual_addmusic" name="actual_addmusic" type="file"
-  webkitdirectory directory multiple mozdirectory 
-  onchange="$.app.Importer.loadMusic(this.files)">
+  <input id="actual_addmusic" name="actual_addmusic" type="file"
+    webkitdirectory directory multiple mozdirectory 
+    onchange="$.app.Importer.loadMusic(this.files)">
 </div>
 
-<div id="footer">
-  <span id="sponsor">Sponsored by 
-    <a href="http://www.3dtin.com"><img src="/images/3DTin.png" /></a>
-  </span>
-  <span id="google_branding"></span>
-</div>
 
 </body>
 </html>

@@ -4,6 +4,7 @@
   function Importer() {  }
   
   function loadMusic(files) {
+    app.Skin.showPlayerScreen();
     var musicFiles = _(files).select(function (file) {
       var path = file.webkitRelativePath || file.mozFullPath;
       var fileName = file.fileName;
