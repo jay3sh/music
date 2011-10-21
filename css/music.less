@@ -112,7 +112,7 @@ body {
   .searchColumnChildren();  
 
   .entry {
-    padding : 2px 10px;
+    padding : 2px 5px;
     border-radius : 2px;
     cursor : ns-resize;
 
@@ -138,6 +138,7 @@ body {
       font-size : 60%;
       color : #aaa;
       width : 90px;
+      text-align : center;
     }
     .entry_action, .remove_action {
       font-weight : bold;
@@ -339,11 +340,11 @@ input[type="text"]{
   #search_results {
     .searchColumnChildren();
     .entry { cursor : default; }
+    display : none;
   }
   
   #shelf {
     .searchColumnChildren();
-    display : none;
     img {
       width : 100px;
       height : 100px;

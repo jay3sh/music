@@ -54,7 +54,6 @@
     /*if(_.isNull(window.localStorage.getItem('__name_index__'))){} 
     else { } */ 
     app.localArtworks = loadArtworkMap();
-    showShelf();
     _.each(app.localArtworks, function (artwork, key){
       populateShelf(key, artwork.artist, artwork.album);
     });
