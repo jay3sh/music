@@ -342,19 +342,38 @@ input[type="text"]{
   margin : 20px 20px 5px 10px;
   text-align : left;
 
-  #search_bar {
+  #searchbar {
+    display : none;
     input { padding-right : 24px; }
-    img {
+    #clear_search {
       margin-left : -28px;
       margin-bottom : -3px;
       opacity : 0.6;
       cursor : pointer;
     }
+    #addall { 
+      .button(110%, 22px, 50px); 
+      margin-left : 5px;
+    }
   }
 
-  #addall { 
-    .button(110%, 22px, 50px); 
-    margin-left : 5px;
+  #progressbar {
+    display : block; 
+    height : 24px;
+    top : 10px;
+    position : relative;
+    margin: 0px 10px;
+    border : 1px solid #8a8a8a;
+    background-color : #666;
+    border-radius : 5px;
+    box-shadow : inset 0px 0px 10px #444;
+    -webkit-box-shadow : 0px 0px 10px #444;
+    -moz-box-shadow : 0px 0px 10px #444; 
+
+    #complete_progress {
+      display : inline-block;
+      height : 24px;
+    }
   }
 
   #search_results {

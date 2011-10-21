@@ -62,12 +62,14 @@
       }
 
       progress++;
-      $('#addmusic').html(progress+' / '+total);
       if(progress == total) {
-        $.app.Storage.save();
-        $.app.printParseReport();
+        app.Storage.save();
+        app.printParseReport();
+        $('#progressbar', '#search_column').hide();
+        $('#searchbar', '#search_column').fadeIn();
       } else {
         newMuFile(musicFiles[progress]);
+        app.mainColumn.makeProgress(total, progress);
       }
     }
 

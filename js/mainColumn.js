@@ -4,6 +4,11 @@
   var IMG_WIDTH = 100;
 
   function mainColumn () {}
+  
+  function makeProgress(total, progress) {
+    var cent = (progress/total)*100;
+    $('#complete_progress', '#search_column').width(cent+'%');
+  }
 
   function showSearchResults() {
     $('#shelf', '#search_column').hide();
@@ -111,5 +116,6 @@
   app.mainColumn.populateShelf = populateShelf;
   app.mainColumn.showShelf = showShelf;
   app.mainColumn.showSearchResults = showSearchResults;
+  app.mainColumn.makeProgress = makeProgress;
 
 })(jQuery);
