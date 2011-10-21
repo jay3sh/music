@@ -202,4 +202,4 @@ player.init = function (jqelem) {
 
 app.player = player;  
 
-})(jQuery)
+})(jQuery);
