@@ -50,6 +50,7 @@
                     album : album, 
                     artist : artist 
                   };
+                  app.mainColumn.storeArtworkMap();
                 }
               }
             );
@@ -77,7 +78,6 @@
     }
 
     newMuFile(musicFiles[progress]);
-    app.mainColumn.storeArtworkMap();
   }
   
   app.Importer = Importer;
