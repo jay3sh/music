@@ -30,6 +30,14 @@ $.app = {};
 </head>
 
 <body>
+<div id="home_screen">
+  <img src="/images/mu-sic.png" /> 
+  <span id="addmusic">Add Music</span>
+  <br /><br />
+  <div id="suggestion">
+    Choose folder that has all your Music.
+  </div>
+</div>
 <div id="player_column">
   <div id="player_wrapper">
     <img id="album_artwork"/><br/>
@@ -62,12 +70,11 @@ $.app = {};
 </div>
 
 <div id="search_column">
-  <span id="addmusic">Add Music</span>
   <span id="search_bar">
     <input name="search" value="Search..." type="text"></input>
     <img id="clear_search"src="/images/Button Delete.png" />
   </span>
-  <span id="addall">+ ADD ALL</span>
+  <span id="addall">+ Add All</span>
   <br/>
   <div id="shelf"></div>
   <div class="entry_list" id="search_results"></div>

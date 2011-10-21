@@ -205,6 +205,24 @@ input[type="text"]{
   }
 }
 
+#home_screen { 
+  #addmusic { 
+    .button(140%, 28px, 120px); 
+    display : block;
+    margin : auto;
+    .boxShadow(0px, 0px, 8px, #666);
+  } 
+
+  #suggestion {
+    display : inline;
+    paddin : 5px;
+    border-radius : 5px;
+    font-family : Verdana;
+    font-size : 12px;
+    text-shadow : 0px 1px 0px #fff;
+  }
+}
+
 #player_column {
   .mainColumn(left, 0px, 150px, 48%);
   .skin;
@@ -323,8 +341,6 @@ input[type="text"]{
   margin : 20px 20px 5px 10px;
   text-align : left;
 
-  #addMusic { .button(110%, 22px, 100px); }
-
   #search_bar {
     input { padding-right : 24px; }
     img {
@@ -334,9 +350,12 @@ input[type="text"]{
       cursor : pointer;
     }
   }
+
   #addall { 
-    .button(15px, 15px, 80px); 
-  } 
+    .button(110%, 22px, 80px); 
+    margin-left : 5px;
+  }
+
   #search_results {
     .searchColumnChildren();
     .entry { cursor : default; }
@@ -379,7 +398,7 @@ input[type="text"]{
 #footer {
   position : absolute;
   bottom : 5px;
-  font-size : 70%;
+  font-family : Verdana;
 
   #sponsor {
     float : left;

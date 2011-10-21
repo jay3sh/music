@@ -24,16 +24,25 @@ function skin_init(){
 
 
 $(document).ready(function () {
-  $.app.player.init($('#player_column'));
-  $.app.Storage.load();
-  $.app.Playlist.loadPlaylist();
-  $.app.mainColumn.init();
-  $.app.Cache.init();
-  skin_init();
-
-  $('#addmusic').click(function () {
-    $('input[name=actual_addmusic]').click();
-  });
+  if(_.isNull(window.localStorage.getItem('__name_index__'))){
+    console.log('Home Screen');
+    $('#player_column').hide();
+    $('#search_column').hide();
+    $('#playlist_wrapper').hide();
+    $('#footer').hide();
+    skin_init();
+    $('#addmusic').click(function () {
+      $('input[name=actual_addmusic]').click();
+    });
+    return;
+  } 
+  else {  
+    $.app.player.init($('#player_column'));
+    $.app.Storage.load();
+    $.app.Playlist.loadPlaylist();
+    $.app.mainColumn.init();
+    $.app.Cache.init();
+  }
 
 });
 
