@@ -4,7 +4,6 @@
   function Importer() {  }
   
   function loadMusic(files) {
-    app.Skin.showPlayerScreen();
     var musicFiles = _(files).select(function (file) {
       var path = file.webkitRelativePath || file.mozFullPath;
       var fileName = file.fileName;
@@ -17,6 +16,9 @@
     });
 
     $('input[name=search]', '#search_column').val('Search...');
+    $('#progressbar', '#search_column').show();
+    $('#searchbar', '#search_column').hide();
+    app.Skin.showPlayerScreen();
     app.mainColumn.showShelf();
     var artworkHints = [];
     var total = musicFiles.length, progress = 0;
@@ -66,7 +68,7 @@
         app.Storage.save();
         app.printParseReport();
         $('#progressbar', '#search_column').hide();
-        $('#searchbar', '#search_column').fadeIn();
+        $('#searchbar', '#search_column').slideDown();
       } else {
         newMuFile(musicFiles[progress]);
         app.mainColumn.makeProgress(total, progress);
