@@ -8,8 +8,6 @@ function skin_init(){
   var playlistHeight = 
     $('#search_column').height() - $('#player_wrapper').height();
   $('#playlist_wrapper').css('height', playlistHeight);
-  $('#addall', '#search_column').css(
-    'margin-left', ($('#search_column').width()/2)-50);
   
   var playerColumnWidth = $('#player_column').width()-
     ($('#player_skin').width()+$('#player_wrapper').width()+50);
