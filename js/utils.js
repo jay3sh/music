@@ -65,9 +65,11 @@
   };
 
   utils.getPrettySongName = function (muFile) {
-    var pname = muFile.title.trim().length > muFile.name.trim().length ?
-      muFile.title.trim() : muFile.name.trim();
-    return pname.replace(/\.\w+$/,'');
+    if(muFile.title.trim().length > 0) {
+      return muFile.title.trim();
+    } else {
+      return muFile.name.trim().replace(/\.\w+$/,'');
+    }
   };
 
   utils.getSongEntryHTML = function (muFile, asSearchResult) { 
