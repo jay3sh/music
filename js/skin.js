@@ -33,12 +33,12 @@
 
   function showHomeScreen(){
     $('#player_container').hide();
-    $('#home_screen').show();
+    $('#home_screen').fadeIn();
   }
 
   function showPlayerScreen(){ 
-    $('#player_container').show();
     $('#home_screen').hide();
+    $('#player_container').fadeIn();
     $.app.player.init($('#player_column'));
     $.app.Storage.load();
     $.app.Playlist.loadPlaylist();
