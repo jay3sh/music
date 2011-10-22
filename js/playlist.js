@@ -46,6 +46,13 @@
       $.app.Playlist.remove($(this).parent());
     }); 
   }
+
+  Playlist.init = function () {
+    $('#clear_playlist', '#playlist_wrapper').click(function (){
+      $('#playlist', '#playlist_wrapper').empty();
+    }); 
+    Playlist.loadPlaylist();
+  }
  
  app.Playlist = Playlist;
 })(jQuery);

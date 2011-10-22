@@ -47,7 +47,7 @@
     $('#player_container').fadeIn();
     $.app.player.init($('#player_column'));
     $.app.Storage.load();
-    $.app.Playlist.loadPlaylist();
+    $.app.Playlist.init();
     $.app.mainColumn.init();
     $.app.Cache.init();
   }
