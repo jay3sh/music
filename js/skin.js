@@ -35,6 +35,19 @@
     $('#addmusic').click(function () {
       $('input[name=actual_addmusic]').click();
     });
+
+    $('#reloadmusic').click(function () {
+      $('input[name=actual_addmusic]').click();
+    });
+
+  }
+
+  function showCurtain(){
+    $('#curtain').fadeIn(); 
+  }
+
+  function hideCurtain(){
+    $('#curtain').fadeOut(); 
   }
 
   function showHomeScreen(){
@@ -56,5 +69,7 @@
   app.Skin.init = init;
   app.Skin.showHomeScreen = showHomeScreen;
   app.Skin.showPlayerScreen = showPlayerScreen;
+  app.Skin.showCurtain = showCurtain;
+  app.Skin.hideCurtain = hideCurtain;
 
 })(jQuery);

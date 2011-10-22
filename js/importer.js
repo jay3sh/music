@@ -16,7 +16,8 @@
     });
 
     $('input[name=search]', '#search_column').val('Search...');
-    app.Skin.showPlayerScreen();
+    if($('#curtain').is(':visible')) { app.Skin.hideCurtain(); }
+    if(!$('#player_container').is(':visible')) { app.Skin.showPlayerScreen(); }
     app.mainColumn.startProgress();
     app.mainColumn.showShelf();
     var artworkHints = [];

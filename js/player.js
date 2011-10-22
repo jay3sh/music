@@ -108,7 +108,7 @@ player.playMedia = function (div, resumeFlag) {
       });
       updateSongInfo(muFile);
     } else {
-      alert('Add music again');
+      app.Skin.showCurtain();
     }
   });
   
