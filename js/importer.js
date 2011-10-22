@@ -16,9 +16,8 @@
     });
 
     $('input[name=search]', '#search_column').val('Search...');
-    $('#progressbar', '#search_column').show();
-    $('#searchbar', '#search_column').hide();
     app.Skin.showPlayerScreen();
+    app.mainColumn.startProgress();
     app.mainColumn.showShelf();
     var artworkHints = [];
     var total = musicFiles.length, progress = 0;
@@ -67,8 +66,7 @@
       if(progress == total) {
         app.Storage.save();
         app.printParseReport();
-        $('#progressbar', '#search_column').hide();
-        $('#searchbar', '#search_column').slideDown();
+        app.mainColumn.completeProgress();
       } else {
         newMuFile(musicFiles[progress]);
         app.mainColumn.makeProgress(total, progress);

@@ -21,6 +21,12 @@
    
     $.app.canvas = $('#seeker').get(0);
     $.app.ctx = $.app.canvas.getContext('2d');
+
+    $('#progressbar').width($('#shelf', '#search_column').width());
+    $('#progressbar').height($('#shelf', '#search_column').height()+10);
+    $.app.progress_canvas = $('#complete_progress').get(0);
+    $.app.progress_ctx = $.app.progress_canvas.getContext('2d');
+
     google.search.Search.getBranding('google_branding');
     $('.gsc-branding-text', '#google_branding')
       .text('Artworks powered by ')

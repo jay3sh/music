@@ -358,20 +358,18 @@ input[type="text"]{
 
   #progressbar {
     display : none;
-    height : 24px;
-    top : 10px;
-    position : relative;
-    margin: 0px 10px;
-    border : 1px solid #8a8a8a;
-    background-color : #666;
+    position : absolute;
+    background-color : rgba(0, 0, 0, 0.55);
     border-radius : 5px;
-    box-shadow : inset 0px 0px 10px #444;
-    -webkit-box-shadow : 0px 0px 10px #444;
-    -moz-box-shadow : 0px 0px 10px #444; 
+    margin : 10px;
+    z-index : 50;
 
     #complete_progress {
-      display : inline-block;
-      height : 24px;
+      margin-top : 50%;
+      bottom : 120px;
+      margin-left : 50%;
+      right : 75px;
+      position : relative;
     }
   }
 
