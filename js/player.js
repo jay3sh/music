@@ -63,7 +63,11 @@ player.pauseMedia = function () {
 }
 
 player.playMedia = function (div, resumeFlag) {
-
+  if(app.Playlist.shuffle){
+    var index = Math.floor(
+      Math.random()*$('#playlist').children().length) + 1;
+    div = $('#playlist .entry:nth-child('+index+')');
+  }
   if(!div){
     if($('#playlist', '#playlist_wrapper').is(':empty')){
       alert('No selction made.');

@@ -51,6 +51,9 @@
     $('#clear_playlist', '#playlist_wrapper').click(function (){
       $('#playlist', '#playlist_wrapper').empty();
     }); 
+    $('#shuffle_playlist', '#playlist_wrapper').click(function () {
+      app.Playlist.shuffle = true;
+    });
     Playlist.loadPlaylist();
   }
  
