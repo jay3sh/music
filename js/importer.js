@@ -46,13 +46,14 @@
         muFile.artist && muFile.artist.length > 0)
       {
         var artworkHint = {
-          album : muFile.album.toLowerCase(),
-          artist : muFile.artist.toLowerCase(),
+          album : muFile.album,
+          artist : muFile.artist,
         };
         var found = _(artworkHints).any(
           function (ah) {
-            return (ah.artist == artworkHint.artist) && 
-              (ah.album == artworkHint.album);
+            return 
+            (ah.artist.toLowerCase() == artworkHint.artist.toLowerCase()) && 
+            (ah.album.toLowerCase() == artworkHint.album.toLowerCase());
           }
         );
         if(!found) {
