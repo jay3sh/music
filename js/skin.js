@@ -65,11 +65,27 @@
     $.app.Cache.init();
   }
 
+  function showNotification(msg, autocancel) {
+    var msgElement = $('<span></span>').text(msg);
+    if(autocancel) {
+      setTimeout(function () {
+        $('#notification').fadeOut();
+      }, 5000);
+    } else {
+      msgElement.append('&nbsp;<a href="#" id="cancel">X</a>&nbsp;');
+      msgElement.find('#cancel').click(function () {
+        $('#notification').fadeOut();
+      });
+    }
+    $('#notification').html(msgElement).fadeIn();
+  }
+
   app.Skin = Skin;
   app.Skin.init = init;
   app.Skin.showHomeScreen = showHomeScreen;
   app.Skin.showPlayerScreen = showPlayerScreen;
   app.Skin.showCurtain = showCurtain;
   app.Skin.hideCurtain = hideCurtain;
+  app.Skin.showNotification = showNotification;
 
 })(jQuery);
