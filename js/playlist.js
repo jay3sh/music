@@ -52,7 +52,14 @@
       $('#playlist', '#playlist_wrapper').empty();
     }); 
     $('#shuffle_playlist', '#playlist_wrapper').click(function () {
-      app.Playlist.shuffle = true;
+      if(app.Playlist.shuffle) { 
+        app.Playlist.shuffle = false; 
+        $(this).css('opacity', '0.5');
+      }
+      else { 
+        app.Playlist.shuffle = true;
+        $(this).css('opacity', '1.0');
+      }
     });
     Playlist.loadPlaylist();
   }
