@@ -8,7 +8,7 @@
     $('body').css('width', width);
 
     var playlistHeight = 
-      $('#search_column').height() - $('#player_wrapper').height() + 10;
+      $('#search_column').height() - $('#player_wrapper').height();
     $('#playlist_wrapper').css('height', playlistHeight);
     
     var playerColumnWidth = $('#player_column').width()-
@@ -23,7 +23,7 @@
     $.app.ctx = $.app.canvas.getContext('2d');
 
     $('#progressbar').width($('#shelf', '#search_column').width());
-    $('#progressbar').height($('#shelf', '#search_column').height()+10);
+    $('#progressbar').height($('#shelf', '#search_column').height());
     $.app.progress_canvas = $('#complete_progress').get(0);
     $.app.progress_ctx = $.app.progress_canvas.getContext('2d');
 
