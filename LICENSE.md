@@ -1,5 +1,7 @@
 Copyright (c) 2011,
-Jayesh Salvi <jayesh AT 3dtin DOT com>, Nihar Sawant <nihar AT 3dtin DOT com>
+
+Jayesh Salvi < jayesh AT 3dtin DOT com >, Nihar Sawant < nihar AT 3dtin DOT com >
+
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
