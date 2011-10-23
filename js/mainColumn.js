@@ -14,7 +14,22 @@
     var degree = (progress/total)*360;
     app.progress_ctx.beginPath();  
     app.progress_ctx.clearRect(0,0,$.app.progress_canvas.width,$.app.progress_canvas.height);
-    app.progress_ctx.strokeStyle = 'rgba(60, 60, 60, 1.0)';
+
+    app.progress_ctx.strokeStyle = 'rgba(190, 190, 190, 0.4)';
+    app.progress_ctx.lineWidth = 1;
+    app.progress_ctx.arc(75,75,50,Math.PI*(270/180),Math.PI*(360+270)/180);
+    app.progress_ctx.stroke();
+    app.progress_ctx.closePath();
+
+    app.progress_ctx.beginPath();  
+    app.progress_ctx.strokeStyle = 'rgba(190, 190, 190, 0.4)';
+    app.progress_ctx.lineWidth = 1;
+    app.progress_ctx.arc(75,75,70,Math.PI*(270/180),Math.PI*(360+270)/180);
+    app.progress_ctx.stroke();
+    app.progress_ctx.closePath();
+
+    app.progress_ctx.beginPath();  
+    app.progress_ctx.strokeStyle = 'rgba(210, 210, 210, 0.9)';
     app.progress_ctx.lineWidth = 18;
     app.progress_ctx.arc(75,75,60,Math.PI*(270/180),Math.PI*(degree+270)/180);
 
@@ -22,6 +37,7 @@
     app.progress_ctx.shadowOffsetY = 0;
     app.progress_ctx.shadowBlur = 5;
     app.progress_ctx.shadowColor = 'rgba(160,160,160,0.7)';
+
     app.progress_ctx.stroke();
 
     app.progress_ctx.closePath();
