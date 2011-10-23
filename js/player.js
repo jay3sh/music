@@ -58,16 +58,27 @@ player.nextSong = function () {
   player.playMedia(nextDiv);
 }
 
+player.shuffleSong = function () {
+  var index = Math.floor(
+    Math.random()*$('#playlist').children().length) + 1;
+  var div = $('#playlist .entry:nth-child('+index+')');
+  if(currentPlaying!=null) {
+    if(_.isEqual(
+      div.find('.entry_action').data('muFile'),
+      currentPlaying.find('.entry_action').data('muFile')
+    )) {
+      console.log('duplicate found');
+      div = player.shuffleSong();
+    }
+  }
+  return div;
+}
+
 player.pauseMedia = function () {
   $('#player').get(0).pause();
 }
 
 player.playMedia = function (div, resumeFlag) {
-  if(app.Playlist.shuffle){
-    var index = Math.floor(
-      Math.random()*$('#playlist').children().length) + 1;
-    div = $('#playlist .entry:nth-child('+index+')');
-  }
   if(!div){
     if($('#playlist', '#playlist_wrapper').is(':empty')){
       alert('No selction made.');
@@ -76,6 +87,9 @@ player.playMedia = function (div, resumeFlag) {
       div = $('.entry', '#playlist').first();
       resumeFlag = false;
     }
+  }
+  if(app.Playlist.shuffle && !resumeFlag){
+    div = player.shuffleSong();
   }
   var muFile = div.find('.entry_action').data('muFile');
   app.utils.getPlayableURL(muFile.path, function (url) {
