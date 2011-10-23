@@ -66,7 +66,7 @@
   }
 
   function showNotification(msg, autocancel) {
-    var msgElement = $('<span></span>').text(msg);
+    var msgElement = $('<span></span>').html(msg);
     if(autocancel) {
       setTimeout(function () {
         $('#notification').fadeOut();

@@ -153,5 +153,54 @@
     return entryHTML;
   };
 
+  utils.checkSupport = function () {
+    var support = {}
+    var a = document.createElement('audio');
+    support.audioOk = !!(a && a.canPlayType)
+    support.mpegOk = !!(a.canPlayType('audio/mpeg').replace(/no/, ''));
+    support.oggOk = 
+      !!(a.canPlayType('audio/ogg; codecs="vorbis"').replace(/no/, ''));
+
+    var f = document.createElement('input');
+    f.type = 'file';
+
+    support.multipleFilesOk = ('multiple' in f);
+    support.dirSelectionOk = ('webkitdirectory' in f);
+    
+    support.objURLOk =
+      window.createObjectURL ||
+      window.createBlobURL ||
+      (window.URL && window.URL.createObjectURL) ||
+      (window.webkitURL && window.webkitURL.createObjectURL);
+
+    utils.support = support;
+
+    // If mandatory support is missing show error
+    if(!support.audioOk) {
+      $.app.Skin.showNotification(
+        'Missing support for audio element. '+
+        '&mu;sic won\'t work');
+      return;
+    }
+    if(!support.multipleFilesOk) {
+      $.app.Skin.showNotification(
+        'Missing support for selecting multiple files. '+
+        '&mu;sic won\'t work');
+      return;
+    }
+    if(!support.dirSelectionOk) {
+      $.app.Skin.showNotification(
+        'Missing support for directory selection. '+
+        '&mu;sic won\'t work');
+      return;
+    }
+    if(!support.objURLOk) {
+      $.app.Skin.showNotification(
+        'Missing support for creating Object URLs. '+
+        '&mu;sic won\'t work');
+      return;
+    }
+  };
+
   app.utils = utils;
 })(jQuery);
