@@ -1,14 +1,7 @@
 
 (function ($) {
 var app = $.app;
-
-function getPath(file) {
-  return file.webkitRelativePath;
-}
-
-function getName(file) {
-  return file.fileName || file.name;
-}
+var compat = app.utils.compat;
 
 function getSubPaths(path) {
   var subpaths = [];
@@ -18,10 +11,6 @@ function getSubPaths(path) {
   }
   subpaths.push(path);
   return subpaths;
-}
-
-function getSize(file) {
-  return file.fileSize;
 }
 
 function MuFile(file, doneCallback) {
@@ -37,10 +26,10 @@ function MuFile(file, doneCallback) {
     }
   }
 
-  this.path = getPath(file);
+  this.path = compat.getPath(file);
   this.subpaths = getSubPaths(this.path);
-  this.name = getName(file);
-  this.size = getSize(file);
+  this.name = compat.getName(file);
+  this.size = compat.getSize(file);
 
   if(pMuFile = findInStorage(this.subpaths)) {
     thisref.title = pMuFile.title;

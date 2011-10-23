@@ -11,6 +11,8 @@ $(document).ready(function () {
     $.app.Skin.showPlayerScreen();
   }
 
+  $.app.utils.checkSupport();
+
 });
 
 window.onbeforeunload =  function () {

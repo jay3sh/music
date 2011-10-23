@@ -153,5 +153,101 @@
     return entryHTML;
   };
 
+  utils.checkSupport = function () {
+    var support = {}
+    var a = document.createElement('audio');
+    support.audioOk = !!(a && a.canPlayType)
+    support.mpegOk = !!(a.canPlayType('audio/mpeg').replace(/no/, ''));
+    support.m4aOk = !!(a.canPlayType('audio/x-m4a').replace(/no/, ''));
+    support.oggOk = 
+      !!(a.canPlayType('audio/ogg; codecs="vorbis"').replace(/no/, ''));
+
+    var f = document.createElement('input');
+    f.type = 'file';
+
+    support.multipleFilesOk = ('multiple' in f);
+    support.dirSelectionOk = ('webkitdirectory' in f);
+    
+    support.objURLOk =
+      window.createObjectURL ||
+      window.createBlobURL ||
+      (window.URL && window.URL.createObjectURL) ||
+      (window.webkitURL && window.webkitURL.createObjectURL);
+
+    utils.support = support;
+
+    // If mandatory support is missing show error
+    if(!support.audioOk) {
+      $.app.Skin.showNotification(
+        'Missing support for audio element. '+
+        '&mu;sic won\'t work');
+      return;
+    }
+    if(!support.multipleFilesOk) {
+      $.app.Skin.showNotification(
+        'Missing support for selecting multiple files. '+
+        '&mu;sic won\'t work');
+      return;
+    }
+    if(!support.dirSelectionOk) {
+      $.app.Skin.showNotification(
+        'Missing support for directory selection. '+
+        '&mu;sic won\'t work');
+      return;
+    }
+    if(!support.objURLOk) {
+      $.app.Skin.showNotification(
+        'Missing support for creating Object URLs. '+
+        '&mu;sic won\'t work');
+      return;
+    }
+  };
+
+  utils.compat = {
+    getPath : function (file) {
+      if(typeof file.webkitRelativePath == 'string') {
+        return file.webkitRelativePath;
+      } else if(typeof file.mozFullPath == 'string') {
+        return file.mozFullPath;
+      } else {
+        throw new Exception('Path not defined');
+      }
+    },
+
+    getName : function (file) {
+      if(typeof file.name == 'string') {
+        return file.name;
+      } else if(typeof file.fileName == 'string') {
+        return file.fileName;
+      } else {
+        throw new Exception('Name not defined');
+      }
+    },
+
+    getSize : function (file) {
+      if(typeof file.size == 'number') {
+        return file.size;
+      } else if(typeof file.fileSize == 'number') {
+        return file.fileSize;
+      } else {
+        throw new Exception('File size not defined');
+      }
+    },
+
+    getObjectURL : function (file) {
+      if(window.createObjectURL) {
+        return window.createObjectURL(file);
+      } else if(window.createBlobURL) {
+        return window.createBlobURL(file);
+      } else if(window.URL && window.URL.createObjectURL) {
+        return window.URL.createObjectURL(file);
+      } else if(window.webkitURL && window.webkitURL.createObjectURL) {
+        return window.webkitURL.createObjectURL(file);
+      } else {
+        throw new Exception('Missing support for Object URL creation');
+      }
+    },
+  };
+
   app.utils = utils;
 })(jQuery);
