@@ -3,14 +3,26 @@
 
   function Playlist(){}
 
-  Playlist.storePlaylist = function () {
+  function savePlaylist(name) {
+    var playlist_entries = [];
+    var hash;
+    var playlist = {};
+    $('.entry', '#playlist').each(function(){
+      hash = $.MD5($('.entry_action', this).data('muFile').path); 
+      playlist_entries.push(hash); 
+    }); 
+    playlist[name] = playlist_entries;
+    window.localStorage.setItem('__fav_playlist__', JSON.stringify(playlist));
+  }
+
+  Playlist.storeCurrentPlaylist = function () {
     var playlist_entries = [];
     var hash;
     $('.entry', '#playlist').each(function(){
       hash = $.MD5($('.entry_action', this).data('muFile').path); 
       playlist_entries.push(hash); 
     }); 
-    window.localStorage.setItem('__playlist__', JSON.stringify(playlist_entries));
+    window.localStorage.setItem('__current_playlist__', JSON.stringify(playlist_entries));
   };
   
   Playlist.add = function (entry) {
@@ -21,13 +33,13 @@
     entry.remove();
   }
   
-  Playlist.loadPlaylist = function () {
-    var playlist = JSON.parse(window.localStorage.getItem('__playlist__'));
+  Playlist.loadCurrentPlaylist = function () {
+    var playlist = JSON.parse(window.localStorage.getItem('__current_playlist__'));
     if(_.isNull(playlist)) { return; } 
     var muFile, player_entry;
     var thisref = this;
     $.event.props.push('dataTransfer');
-    window.localStorage.removeItem('__playlist__');
+    window.localStorage.removeItem('__current_playlist__');
 
     _.each(playlist, function (hash){
       muFile = JSON.parse(window.localStorage.getItem(hash));
@@ -61,7 +73,15 @@
         $(this).css('opacity', '1.0');
       }
     });
-    Playlist.loadPlaylist();
+    $('#save_playlist', '#playlist_wrapper').click(function () {
+      $('#save_box').slideToggle(); 
+      $('input[name=save_playlist_text]', '#playlist_wrapper').focus();
+    });
+    $('#save_playlist_button').click(function () {
+      $('#save_box').slideToggle(); 
+      savePlaylist($('input[name=save_playlist_text]').val());
+    });
+    Playlist.loadCurrentPlaylist();
   }
  
  app.Playlist = Playlist;

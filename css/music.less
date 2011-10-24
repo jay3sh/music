@@ -407,8 +407,27 @@ input[type="text"]{
   display : inline-table;
   text-align : left;
 
+  #save_box {
+    display : none;
+    position : absolute;
+    width : 300px;
+    margin-left : 265px;
+    background-color : #222;
+    padding : 8px;
+    border-bottom-left-radius : 5px;
+    border-bottom-right-radius : 5px;
+    .boxShadow(0px, 0px, 5px, #666);
+
+    input { font-size : 12px; }
+    #save_playlist_button {
+      .button(80%, 14px, 50px);
+      display : inline;
+    } 
+  }
+
   #playlist_controls{
     text-align : right;
+    padding : 2px;
 
     #shuffle_playlist {
       opacity : 0.5;
@@ -420,6 +439,8 @@ input[type="text"]{
 
      }
   }
+
+  #playlist { margin : 0px 10px; }
 }
 
 #inputcontainer {

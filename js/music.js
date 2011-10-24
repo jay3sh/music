@@ -16,7 +16,7 @@ $(document).ready(function () {
 });
 
 window.onbeforeunload =  function () {
-  $.app.Playlist.storePlaylist();
+  $.app.Playlist.storeCurrentPlaylist();
   $.app.player.saveVolume();
 }
 
