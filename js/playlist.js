@@ -106,9 +106,9 @@
     $('#save_playlist', '#playlist_wrapper').click(function () {
       $('#save_box').slideToggle(); 
       $('input[name=save_playlist_text]', '#playlist_wrapper').focus();
-    });
-    $('#save_playlist_button').click(function () {
       $('input[name=save_playlist_text]').val('');
+    });
+    $('#submit_playlist').click(function () {
       $('#save_box').slideToggle(); 
       saveFavPlaylist($('input[name="save_playlist_text"]').val());
     });
