@@ -65,6 +65,7 @@
     var margin = (shelf.width()-(artworkNum*IMG_WIDTH))/(artworkNum*2);
     var artwork = $('<img></img>')
       .attr('src', url)
+      .attr('title', album+'\n'+artist)
       .data('meta', { album : album, artist : artist })
       .css('margin', Math.floor(margin)-1)
       .fadeIn()
