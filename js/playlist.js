@@ -38,6 +38,9 @@
   }
 
   function populatePlaylistDropdown() {
+    $('#playlist_dropdown').empty();
+    $('#playlist_dropdown').append(
+      '<option value="no selection">--Select Playlist--</option>');
     _.each(app.Playlist.favPlaylists, function (playlist, key){
       var option = $('<option></option>').text(key).attr('value', key);
       $('#playlist_dropdown').append(option);
