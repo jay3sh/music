@@ -72,6 +72,35 @@ Cache.add = function (hash, f) {
   );
 };
 
+Cache.list = function (dirname) {
+  window.requestFileSystem(window.PERSISTENT, CACHE_SIZE,
+    function onSuccess(fs) {
+      fs.root.getDirectory(dirname, {},
+        function (dirEntry) {
+          var dirReader = dirEntry.createReader();
+          var entries = [];
+          function toArray(list) {
+            return Array.prototype.slice.call(list || [], 0);
+          }
+          (function readEntries() {
+            dirReader.readEntries(function (results) {
+              if(!results.length) {
+                console.log(entries);
+              } else {
+                entries = entries.concat(toArray(results));
+                readEntries();
+              }
+            },
+            function (e) {console.error('readEntries '+parseError(e));});
+          })();
+        },
+        function (e) { console.error('getDir: '+parseError(e)); }
+      );
+    },
+    function (e) { console.log('reqfs: '+parseError(e)); }
+  );
+}
+
 Cache.init = function () {
   window.requestFileSystem(window.PERSISTENT, CACHE_SIZE,
     function onSuccess(fs) {
@@ -79,7 +108,7 @@ Cache.init = function () {
     },
     function (e) { console.log('reqfs: '+parseError(e)); }
   );
-}
+};
 
 app.Cache = Cache;
 })(jQuery);
