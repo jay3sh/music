@@ -3,16 +3,27 @@
 
   function Playlist(){}
 
-  function savePlaylist(name) {
+  function savePlaylist(name){
     var playlist_entries = [];
     var hash;
-    var playlist = {};
+
     $('.entry', '#playlist').each(function(){
       hash = $.MD5($('.entry_action', this).data('muFile').path); 
       playlist_entries.push(hash); 
     }); 
-    playlist[name] = playlist_entries;
-    window.localStorage.setItem('__fav_playlist__', JSON.stringify(playlist));
+    app.Playlist.favPlaylists[name] = playlist_entries;
+    window.localStorage.setItem('__fav_playlist__', 
+      JSON.stringify(app.Playlist.favPlaylists));
+  }
+
+  function loadPlaylist(){
+    var favPlaylists = 
+      JSON.parse(window.localStorage.getItem('__fav_playlist__')); 
+    return favPlaylists;
+  }
+
+  function populatePlaylistDropdown() {
+  
   }
 
   Playlist.storeCurrentPlaylist = function () {
@@ -60,6 +71,7 @@
   }
 
   Playlist.init = function () {
+    app.Playlist.favPlaylists = loadPlaylist();
     $('#clear_playlist', '#playlist_wrapper').click(function (){
       $('#playlist', '#playlist_wrapper').empty();
     }); 
