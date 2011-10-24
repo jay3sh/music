@@ -114,6 +114,7 @@
     $('#submit_playlist').click(function () {
       $('#save_box').slideToggle(); 
       saveFavPlaylist($('input[name="save_playlist_text"]').val());
+      populatePlaylistDropdown(); 
     });
     $('select', '#playlist_controls').change(function () {
       var div = $('select option:selected').each(function () {
