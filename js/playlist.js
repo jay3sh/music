@@ -3,10 +3,25 @@
 
   function Playlist(){}
 
-  function savePlaylist(name){
+  function populatePlaylist(key){
+    var favPlaylists = 
+      JSON.parse(window.localStorage.getItem('__fav_playlist__')); 
+    var hashes = favPlaylists[key];
+    $('#playlist').empty();
+    _.each(hashes, function (hash){
+      muFile = JSON.parse(window.localStorage.getItem(hash));
+      player_entry = app.utils.getSongEntryHTML(muFile);
+      Playlist.attachEntryControls(player_entry); 
+      app.Playlist.add(player_entry);
+    });
+  }
+
+  function saveFavPlaylist(name){
     var playlist_entries = [];
     var hash;
-
+    if(!_.isUndefined(Playlist.favPlaylists[name])){
+      if(!confirm('There is already a playlist with this name. Do you want to replace it?')) { return; }
+    }
     $('.entry', '#playlist').each(function(){
       hash = $.MD5($('.entry_action', this).data('muFile').path); 
       playlist_entries.push(hash); 
@@ -16,7 +31,7 @@
       JSON.stringify(app.Playlist.favPlaylists));
   }
 
-  function loadPlaylist(){
+  function loadFavPlaylist(){
     var favPlaylists = 
       JSON.parse(window.localStorage.getItem('__fav_playlist__')); 
     return favPlaylists;
@@ -25,7 +40,6 @@
   function populatePlaylistDropdown() {
     _.each(app.Playlist.favPlaylists, function (playlist, key){
       var option = $('<option></option>').text(key).attr('value', key);
-      console.log(option);
       $('#playlist_dropdown').append(option);
     }); 
   }
@@ -53,7 +67,6 @@
     if(_.isNull(playlist)) { return; } 
     var muFile, player_entry;
     var thisref = this;
-    $.event.props.push('dataTransfer');
     window.localStorage.removeItem('__current_playlist__');
 
     _.each(playlist, function (hash){
@@ -75,8 +88,8 @@
   }
 
   Playlist.init = function () {
-    app.Playlist.favPlaylists = loadPlaylist();
-    populatePlaylistDropdown();
+    $.event.props.push('dataTransfer');
+
     $('#clear_playlist', '#playlist_wrapper').click(function (){
       $('#playlist', '#playlist_wrapper').empty();
     }); 
@@ -95,9 +108,18 @@
       $('input[name=save_playlist_text]', '#playlist_wrapper').focus();
     });
     $('#save_playlist_button').click(function () {
+      $('input[name=save_playlist_text]').val('');
       $('#save_box').slideToggle(); 
-      savePlaylist($('input[name=save_playlist_text]').val());
+      saveFavPlaylist($('input[name="save_playlist_text"]').val());
     });
+    $('select', '#playlist_controls').change(function () {
+      var div = $('select option:selected').each(function () {
+        populatePlaylist($(this).val());
+      });
+    });
+
+    Playlist.favPlaylists = loadFavPlaylist();
+    populatePlaylistDropdown();
     Playlist.loadCurrentPlaylist();
   }
  
