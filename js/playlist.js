@@ -23,7 +23,11 @@
   }
 
   function populatePlaylistDropdown() {
-  
+    _.each(app.Playlist.favPlaylists, function (playlist, key){
+      var option = $('<option></option>').text(key).attr('value', key);
+      console.log(option);
+      $('#playlist_dropdown').append(option);
+    }); 
   }
 
   Playlist.storeCurrentPlaylist = function () {
@@ -72,6 +76,7 @@
 
   Playlist.init = function () {
     app.Playlist.favPlaylists = loadPlaylist();
+    populatePlaylistDropdown();
     $('#clear_playlist', '#playlist_wrapper').click(function (){
       $('#playlist', '#playlist_wrapper').empty();
     }); 
