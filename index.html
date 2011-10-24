@@ -31,6 +31,18 @@ $.app = {};
 </head>
 
 <body>
+
+<div id="fb-root"></div>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=138546242913820";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <div id="home_screen">
   <img src="/images/mu-sic.png" /> 
   <span id="addmusic">Add Music</span>
@@ -120,6 +132,15 @@ $.app = {};
 </div>
 
 <div id="notification">
+</div>
+
+<div id="share_bar">
+  <div class="fb-like" data-href="http://mu-sic.me" data-send="false" data-layout="button_count" data-width="50" data-show-faces="false"></div>
+  <div id="twitter_button">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-text="&mu;sic - HTML5 music player for your local music library" data-count="none" data-related="3dtin:People behind μsic">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+  </div>
+  <div id="amazon_shop"><a href="http://www.amazon.com/?_encoding=UTF8&tag=mu-sic-support-20&linkCode=ur2&camp=1789&creative=9325" target="_blank"><img title="Shop at Amazon via this link to support us" src="/images/amazon_shop_transparent.png"/></a></div>
+  <div id="github_link"><a href="http://github.com/jayesh3/music" target="_blank"><img width="50px" height="20px" src="/images/github.png"/></a></div>
 </div>
 
 </body>
