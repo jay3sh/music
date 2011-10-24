@@ -170,10 +170,10 @@ player.init = function (jqelem) {
   $('#prev', player.jqelem)
     .hover(
       function (){
-        $('img', this).attr('src', '/images/previous_hover.png');
+        $('img', this).attr('src', '/images/previous_hover-1.png');
       }, 
       function (){
-        $('img', this).attr('src', '/images/previous.png');
+        $('img', this).attr('src', '/images/previous-1.png');
       }
     )
     .click(function (){
@@ -183,10 +183,10 @@ player.init = function (jqelem) {
   $('#next', player.jqelem)
     .hover(
       function (){
-        $('img', this).attr('src', '/images/next_hover.png');
+        $('img', this).attr('src', '/images/next_hover-1.png');
       }, 
       function (){
-        $('img', this).attr('src', '/images/next.png');
+        $('img', this).attr('src', '/images/next-1.png');
       }
     )
     .click(function (){
