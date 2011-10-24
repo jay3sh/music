@@ -34,7 +34,7 @@
   function loadFavPlaylist(){
     var favPlaylists = 
       JSON.parse(window.localStorage.getItem('__fav_playlist__')); 
-    return favPlaylists;
+    return (_.isNull(favPlaylists) ? {} : favPlaylists);
   }
 
   function populatePlaylistDropdown() {
