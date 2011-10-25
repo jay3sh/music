@@ -78,7 +78,7 @@
   .customScroll;
   overflow-x : hidden;
   overflow-y : auto;
-  height : 90%;
+  height : 85%;
   border-radius : 5px;
   margin : 10px;
 
@@ -228,11 +228,10 @@ input[type="text"]{
     text-shadow : 0px 1px 0px #fff;
   }
 }
-
 #player_column {
-  .mainColumn(0px, 150px, 820px);
+  .mainColumn(0px, 150px, 800px);
   .skin;
-  margin : 20px 10px 5px 20px;
+  margin : 10px;
 
   > * {
     display : table-cell;
@@ -350,11 +349,17 @@ input[type="text"]{
 
 }
 
+#tabs_wrapper {
+  width : 800px;
+  display : inline-block;
+  margin : auto;
+}
 #search_column {
-  .mainColumn(12px, 70%, 800px);
+  .mainColumn(12px, 70%, 750px);
   .skin;
-  margin : 20px 20px 5px 10px;
+  margin : 10px;
   text-align : left;
+  padding : 10px 5px;
 
   #searchbar {
     input { padding-right : 24px; }
@@ -395,12 +400,14 @@ input[type="text"]{
   
   #shelf {
     .searchColumnChildren();
+    padding : 5px;
     img {
-      width : 100px;
-      height : 100px;
+      width : 110px;
+      height : 110px;
       border-radius : 3px;
       .boxShadow(0px, 0px, 8px, #222);
       cursor : pointer;
+      margin : 4px;
 
       &:hover { .boxShadow(0px, 0px, 8px, #060606); }
     }
@@ -409,9 +416,9 @@ input[type="text"]{
 }
 
 #playlist_wrapper {
-  .mainColumn(10px, 70%, 800px);
+  .mainColumn(10px, 70%, 750px);
   .skin;
-  margin : 10px 10px 5px 20px;
+  margin : 10px;
   text-align : left;
 
   #save_box {
