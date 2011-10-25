@@ -87,41 +87,49 @@ $.app = {};
     </div>
 
   </div>
-
-  <div id="search_column">
-    <span id="searchbar">
-      <input name="search" value="Search..." type="text"></input>
-      <img id="clear_search"src="/images/Button Delete.png" />
-      <span id="addall">+ All</span>
-    </span>
-    <div id="progressbar">
-      <canvas id="complete_progress"></canvas>
+  <div id="tabs_wrapper">
+    <div id="tabs">
+      <ul>
+        <li><a href="#playlist_wrapper">Playlist</a></li>
+        <li><a href="#search_column">Search</a></li>
+      </ul>
     </div>
-    <br/>
-    <div id="shelf"></div>
-    <div class="entry_list" id="search_results"></div>
+
+    <div id="playlist_wrapper">
+      <div id="playlist_controls">
+        <select id="playlist_dropdown"></select>
+        <span id="shuffle_playlist">
+          <img src="/images/Button Shuffle.png" title="Toggle Shuffle" />
+        </span>
+        <span id="save_playlist">
+          <img src="/images/Save.png" title="Save Playlist" />
+        </span>
+        <span id="clear_playlist">
+          <img src="/images/Bin.png" title="Clear Playlist" />
+        </span>
+      </div>
+      <div id="save_box">
+        <input type="text" name="save_playlist_text" />
+        <span id="submit_playlist">Save</span>
+      </div>
+      <div class="entry_list" id="playlist"></div>
+    </div>
+
+    <div id="search_column">
+      <span id="searchbar">
+        <input name="search" value="Search..." type="text"></input>
+        <img id="clear_search"src="/images/Button Delete.png" />
+        <span id="addall">+ All</span>
+      </span>
+      <div id="progressbar">
+        <canvas id="complete_progress"></canvas>
+      </div>
+      <br/>
+      <div id="shelf"></div>
+      <div class="entry_list" id="search_results"></div>
+    </div>
+
   </div>
-
-  <div id="playlist_wrapper">
-    <div id="playlist_controls">
-      <select id="playlist_dropdown"></select>
-      <span id="shuffle_playlist">
-        <img src="/images/Button Shuffle.png" title="Toggle Shuffle" />
-      </span>
-      <span id="save_playlist">
-        <img src="/images/Save.png" title="Save Playlist" />
-      </span>
-      <span id="clear_playlist">
-        <img src="/images/Bin.png" title="Clear Playlist" />
-      </span>
-    </div>
-    <div id="save_box">
-      <input type="text" name="save_playlist_text" />
-      <span id="submit_playlist">Save</span>
-    </div>
-    <div class="entry_list" id="playlist"></div>
-  </div>
-
   <div id="footer">
     <span id="sponsor">Sponsored by 
       <a href="http://www.3dtin.com"><img src="/images/3DTin.png" /></a>

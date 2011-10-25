@@ -1,7 +1,6 @@
 
-.mainColumn(@float, @padding, @height:0, @width:0){
-  float : @float;  
-  display : table-cell;
+.mainColumn(@padding, @height:0, @width:0){
+  display : inline-block;
   width : @width;
   height : @height;
   padding : @padding;
@@ -231,7 +230,7 @@ input[type="text"]{
 }
 
 #player_column {
-  .mainColumn(left, 0px, 150px, 48%);
+  .mainColumn(0px, 150px, 820px);
   .skin;
   margin : 20px 10px 5px 20px;
 
@@ -268,7 +267,7 @@ input[type="text"]{
     #song_info { 
 
       div {
-        width : 195px;
+        width : 380px;
         margin : 4px 0px;
 
         .title { 
@@ -352,7 +351,7 @@ input[type="text"]{
 }
 
 #search_column {
-  .mainColumn(right, 12px, 88%, 45%);
+  .mainColumn(12px, 70%, 800px);
   .skin;
   margin : 20px 20px 5px 10px;
   text-align : left;
@@ -410,10 +409,9 @@ input[type="text"]{
 }
 
 #playlist_wrapper {
-  .mainColumn(left, 10px, 55%, 48%);
+  .mainColumn(10px, 70%, 800px);
   .skin;
   margin : 10px 10px 5px 20px;
-  display : inline-table;
   text-align : left;
 
   #save_box {
