@@ -35,7 +35,7 @@ function parseError(e) {
 }
 
 Cache.getPlayableURL = function (hash, callback) {
-  window.requestFileSystem(window.PERSISTENT, CACHE_SIZE,
+  window.requestFileSystem(window.TEMPORARY, CACHE_SIZE,
     function onSuccess(fs) {
       fs.root.getDirectory('songs', { create:true }, function (dirEntry) {
           dirEntry.getFile(hash, { create:false },
@@ -52,7 +52,7 @@ Cache.getPlayableURL = function (hash, callback) {
 };
 
 Cache.add = function (hash, f) {
-  window.requestFileSystem(window.PERSISTENT, CACHE_SIZE,
+  window.requestFileSystem(window.TEMPORARY, CACHE_SIZE,
     function onSuccess(fs) {
       fs.root.getDirectory('songs', {},
         function (dirEntry) {
@@ -73,7 +73,7 @@ Cache.add = function (hash, f) {
 };
 
 Cache.list = function (dirname) {
-  window.requestFileSystem(window.PERSISTENT, CACHE_SIZE,
+  window.requestFileSystem(window.TEMPORARY, CACHE_SIZE,
     function onSuccess(fs) {
       fs.root.getDirectory(dirname, {},
         function (dirEntry) {
@@ -99,10 +99,13 @@ Cache.list = function (dirname) {
     },
     function (e) { console.log('reqfs: '+parseError(e)); }
   );
-}
+};
+
+Cache.empty = function () {
+};
 
 Cache.init = function () {
-  window.requestFileSystem(window.PERSISTENT, CACHE_SIZE,
+  window.requestFileSystem(window.TEMPORARY, CACHE_SIZE,
     function onSuccess(fs) {
       fs.root.getDirectory('songs', { create:true }, function (dirEntry) {});
     },
