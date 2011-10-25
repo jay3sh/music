@@ -538,12 +538,16 @@ input[type="text"]{
 
 #share_bar {
   display : none;
-}
-#share_bar > *{
-  float : left; 
+
+  #amazon_shop {
+    img {
+      width : 50px;
+      height : 20px;
+    }
+  }
+  .fb_edge_widget_with_comment span.fb_edge_comment_widget iframe.fb_ltr {
+    display: none !important;
+  }
+  > * { float : left; } 
 }
 
-#amazon_shop img {
-  width : 50px;
-  height : 20px;
-}
