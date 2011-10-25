@@ -15,6 +15,7 @@
 
 (function ($) {
 var app = $.app;
+var compat = app.utils.compat;
 
 var ID3_2_GENRES = {
   "0": "Blues",
@@ -144,12 +145,6 @@ var ID3_2_GENRES = {
   "124": "Euro-House",
   "125": "Dance Hall"
 };
-
-function fileSlice(file, start, length){
-  if(file.mozSlice) return file.mozSlice(start, start + length);
-  if(file.webkitSlice) return file.webkitSlice(start, start + length);
-  if(file.slice) return file.slice(start, length);
-}
 
 function cleanText(str){
   return str.replace(
@@ -311,7 +306,7 @@ var unknownTagCount = 0;
 
 app.parseTags = function (file, callback) {
   var reader = new FileReader();
-  if(/\.mp3$/.test(file.webkitRelativePath.toLowerCase())) {
+  if(/\.mp3$/.test(compat.getPath(file).toLowerCase())) {
 
     reader.onload = function (e) {
       var view = new jDataView(this.result);
@@ -328,30 +323,30 @@ app.parseTags = function (file, callback) {
             id3v1Count++;
           } else {
             callback({});
-            console.log('Unknown tags: '+file.webkitRelativePath.toLowerCase());
             unknownTagCount++;
           }
         }
-        reader.readAsArrayBuffer(fileSlice(file, file.fileSize-128, 128));
+        reader.readAsArrayBuffer(
+          compat.fileSlice(file, file.fileSize-128, 128));
       }
     };
-    reader.readAsArrayBuffer(fileSlice(file, 0, 128*1024));
+    reader.readAsArrayBuffer(compat.fileSlice(file, 0, 128*1024));
 
-  } else if(/\.m4a$/.test(file.webkitRelativePath.toLowerCase())) {
+  } else if(/\.m4a$/.test(compat.getPath(file).toLowerCase())) {
     reader.onload = function (e) {
       var view = new jDataView(this.result);
       if(view.getString(4,4) == 'ftyp') {
         parseMpeg4(view, callback);
         m4aCount++;
       } else {
-        console.log('Unknown Tags: '+file.webkitRelativePath.toLowerCase());
+        console.log('Unknown Tags: '+compat.getPath(file).toLowerCase());
         callback({});
         unknownTagCount++;
       }
     };
     reader.readAsArrayBuffer(file);
   } else {
-    console.log(file.webkitRelativePath.toLowerCase());
+    console.log(compat.getPath(file).toLowerCase());
     unknownTagCount++;
   }
 };

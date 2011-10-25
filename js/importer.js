@@ -1,13 +1,14 @@
 (function ($){
   var app = $.app;
+  var compat = app.utils.compat;
 
   function Importer() {  }
   
   function loadMusic(files) {
     var musicFiles = _(files).select(function (file) {
-      var path = file.webkitRelativePath || file.mozFullPath;
-      var fileName = file.fileName;
-      var size = file.fileSize;
+      var path = compat.getPath(file);
+      var fileName = compat.getName(file);
+      var size = compat.getSize(file);
       var lpath = path.toLowerCase();
       return !/\.$/.test(lpath) &&
         (/\.mp3$/.test(lpath)) || 
@@ -95,7 +96,7 @@
     $.app.liveFiles = {};
 
     function newMuFile(f) {
-      $.app.liveFiles[f.webkitRelativePath] = f;
+      $.app.liveFiles[compat.getPath(f)] = f;
       new $.app.MuFile(f, onCreate);
     }
 

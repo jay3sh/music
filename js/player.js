@@ -1,5 +1,6 @@
 (function ($){
 var app = $.app;
+var compat = app.utils.compat;
 var prevDegree = 0;
 var currentPlaying = null;
 
@@ -39,7 +40,7 @@ function animateSeeker() {
     $.app.ctx.closePath();
     prevDegree = degree;
   }
-  window.webkitRequestAnimationFrame(animateSeeker);
+  compat.requestAnimationFrame(animateSeeker);
 }
 
 player.prevSong = function () {

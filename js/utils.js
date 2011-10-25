@@ -247,6 +247,23 @@
         throw new Exception('Missing support for Object URL creation');
       }
     },
+
+    requestAnimationFrame : function () {
+      return window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback, element) {
+          window.setTimeout( callback, 1000 / 60 );
+        };
+    },
+
+    fileSlice : function (file, start, length) {
+      if(file.mozSlice) return file.mozSlice(start, start + length);
+      if(file.webkitSlice) return file.webkitSlice(start, start + length);
+      if(file.slice) return file.slice(start, length);
+      throw new Exception('Missing support for fileSlice');
+    }
   };
 
   app.utils = utils;
