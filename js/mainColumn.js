@@ -56,7 +56,12 @@
   }
 
   function showShelf() {
-    $('#shelf', '#search_column').show();
+    var shelf = $('#shelf', '#search_column').show();
+    var scTop = shelf.data('scrollTop');
+    if(scTop) {
+      shelf.scrollTop(scTop);
+      shelf.removeData('scrollTop');
+    }
     $('#search_results', '#search_column').hide();
   }
   
@@ -71,6 +76,8 @@
       .css('margin', Math.floor(margin)-1)
       .fadeIn()
       .click(function () {
+        var shelf = $(this).parent();
+        shelf.data('scrollTop', shelf.scrollTop());
         showSearchResults();
         var query = 'al:'+$(this).data('meta').album;
         populateSearchResults(query);
