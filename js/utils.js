@@ -104,8 +104,10 @@
       .hover(
         function () { $(this).addClass('focused_entry'); },
         function () { $(this).removeClass('focused_entry'); }
-      )
-      .find('.entry_action').data('muFile',muFile);
+      );
+    entryHTML.find('.entry_action').data('muFile',muFile);
+    entryHTML.find('.album_name').data('muFile',muFile);
+    entryHTML.find('.artist_name').data('muFile',muFile);
 
     entryHTML
       .bind('dragstart', function (e) {

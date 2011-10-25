@@ -13,7 +13,8 @@
   function makeProgress(total, progress) {
     var degree = (progress/total)*360;
     app.progress_ctx.beginPath();  
-    app.progress_ctx.clearRect(0,0,$.app.progress_canvas.width,$.app.progress_canvas.height);
+    app.progress_ctx.clearRect(
+      0,0,$.app.progress_canvas.width,$.app.progress_canvas.height);
 
     app.progress_ctx.strokeStyle = 'rgba(190, 190, 190, 0.4)';
     app.progress_ctx.lineWidth = 1;
@@ -84,13 +85,26 @@
         .append($.app.utils.getSongEntryHTML(muFile, true));
     });
 
-
     $('#search_results', '#search_column').find('.entry_action')
       .click(function () {
         var muFile = $(this).data('muFile');
         var player_entry = $.app.utils.getSongEntryHTML(muFile, false);
         $.app.Playlist.attachEntryControls(player_entry);
         $.app.Playlist.add(player_entry)
+      });
+    $('#search_column #search_results').find('.album_name')
+      .click(function () {
+        var muFile = $(this).data('muFile');
+        showSearchResults();
+        populateSearchResults(muFile.album);
+        $('input[name=search]').val(muFile.album);
+      });
+    $('#search_column #search_results').find('.artist_name')
+      .click(function () {
+        var muFile = $(this).data('muFile');
+        showSearchResults();
+        populateSearchResults(muFile.artist);
+        $('input[name=search]').val(muFile.artist);
       });
   }
 
