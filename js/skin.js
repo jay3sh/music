@@ -5,10 +5,10 @@
   
   function init() {
     var playlistHeight = 
-      $(document).height() - $('#player_column').height() - $('#footer').height() - 60;
+      $(window).height() - $('#player_column').height() - $('#footer').height() - 100;
     $('#playlist_wrapper').height(playlistHeight);
-    
-    $('#tabs').tabs();
+    $('#search_column').height(playlistHeight);
+    $('#tabs_wrapper').tabs();
     /*var playerColumnWidth = $('#player_column').width()-
       ($('#player_skin').width()+$('#player_wrapper').width()+50);
     $('#song_info').children().css('width', playerColumnWidth);
