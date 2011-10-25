@@ -81,21 +81,49 @@ Storage.save = function () {
     JSON.stringify(Storage.albumIndex));
 };
 
-Storage.search = function (keyword) {
-  keyword = keyword.toLowerCase();
+Storage.search = function (kwd) {
+  var keywords = kwd.toLowerCase().split(',');
   var results = [];
-  function searchIndex(index) {
+  function searchIndex(query, index, exact) {
     for (key in index) {
-      if(key.indexOf(keyword) >= 0) {
+      var match;
+      if(exact) {
+        match = (key == query)
+      } else {
+        match = (key.indexOf(query) >= 0);
+      }
+      if(match) {
         var hashes = index[key];
         results = results.concat(hashes);
       }
     }
   }
-  searchIndex(Storage.titleIndex);
-  searchIndex(Storage.artistIndex);
-  searchIndex(Storage.nameIndex);
-  searchIndex(Storage.albumIndex);
+  _(keywords).each(function (query) {
+    if(query.indexOf(':') > 0) { // scoped query
+      var matches = /(\w+):(.+)/.exec(query); 
+      if(!matches) { return []; }
+      var scope = matches[1];
+      var queryStr = matches[2].trim();
+      if(scope.indexOf('al') == 0 && queryStr.length > 1) {
+        searchIndex(queryStr, Storage.albumIndex, true);
+      } else if(scope.indexOf('ar') == 0 && queryStr.length > 1) {
+        searchIndex(queryStr, Storage.artistIndex, true);
+      } else if(scope.indexOf('ti') == 0 && queryStr.length > 1) {
+        searchIndex(queryStr, Storage.titleIndex, true);
+        searchIndex(query, Storage.nameIndex, true);
+      } else {
+        searchIndex(query, Storage.titleIndex);
+        searchIndex(query, Storage.artistIndex);
+        searchIndex(query, Storage.nameIndex);
+        searchIndex(query, Storage.albumIndex);
+      }
+    } else {
+      searchIndex(query, Storage.titleIndex);
+      searchIndex(query, Storage.artistIndex);
+      searchIndex(query, Storage.nameIndex);
+      searchIndex(query, Storage.albumIndex);
+    }
+  });
   return _(results).chain().uniq().map(Storage.read).value();
 };
 

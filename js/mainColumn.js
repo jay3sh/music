@@ -72,8 +72,9 @@
       .fadeIn()
       .click(function () {
         showSearchResults();
-        populateSearchResults($(this).data('meta').album);
-        $('input[name=search]').val($(this).data('meta').album);
+        var query = 'al:'+$(this).data('meta').album;
+        populateSearchResults(query);
+        $('input[name=search]').val(query);
       });
     $('#shelf', '#search_column').append(artwork);
   }
@@ -96,15 +97,17 @@
       .click(function () {
         var muFile = $(this).data('muFile');
         showSearchResults();
-        populateSearchResults(muFile.album);
-        $('input[name=search]').val(muFile.album);
+        var query = 'al:'+muFile.album;
+        populateSearchResults(query);
+        $('input[name=search]').val(query);
       });
     $('#search_column #search_results').find('.artist_name')
       .click(function () {
         var muFile = $(this).data('muFile');
         showSearchResults();
-        populateSearchResults(muFile.artist);
-        $('input[name=search]').val(muFile.artist);
+        var query = 'ar:'+muFile.artist
+        populateSearchResults(query);
+        $('input[name=search]').val(query);
       });
   }
 
