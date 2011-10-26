@@ -129,6 +129,16 @@
       });
   }
 
+  function populateSettings() {
+    $('#settings_playlist').empty();
+    $('#settings_playlist').append(
+      '<option value="no selection">--Select Playlist--</option>');
+    _.each(app.Playlist.favPlaylists, function (playlist, key){
+      var option = $('<option></option>').text(key).attr('value', key);
+      $('#settings_playlist').append(option);
+    }); 
+  }
+
   function init() {
     app.localArtworks = loadArtworkMap();
     _.each(app.localArtworks, function (artwork, key){
@@ -173,6 +183,7 @@
 
     $('#settings_button', '#search_column').click(function () {
       showSettings();
+      populateSettings();
     });
 
     $('#settings #settings_done', '#search_column').click(function () {
@@ -185,6 +196,18 @@
         window.localStorage.clear();
         window.location.reload();
       } 
+    });
+
+    $('#settings #del_all_playlist', '#search_column').click(function (){
+      app.Playlist.favPlaylists = {};
+      window.localStorage.setItem('__fav_playlist__', 
+        JSON.stringify(app.Playlist.favPlaylists));
+      $('#settings_playlist')
+        .empty()
+        .append('<option value="no selection">--Select Playlist--</option>');
+      $('#playlist_dropdown')
+        .empty()
+        .append('<option value="no selection">--Select Playlist--</option>');
     });
   }
 
