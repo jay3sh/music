@@ -49,8 +49,15 @@
     $('input[name=search]').attr('disabled', '');
   }
 
+  function showSettings() {
+    $('#shelf', '#search_column').hide(); 
+    $('#search_results', '#search_column').hide();
+    $('#settings', '#search_column').show();
+  }
+
   function showSearchResults() {
     $('#shelf', '#search_column').hide();
+    $('#settings', '#search_column').hide();
     $('#search_results', '#search_column').empty();
     $('#search_results', '#search_column').show();
   }
@@ -63,6 +70,7 @@
       shelf.removeData('scrollTop');
     }
     $('#search_results', '#search_column').hide();
+    $('#settings', '#search_column').hide();
   }
   
   function populateShelf(url, artist, album){ 
@@ -157,6 +165,14 @@
 
     $('#clear_search', '#search_column').click(function (){
       $('input[name=search]').focus().val('');
+      showShelf();
+    });
+
+    $('#settings_button', '#search_column').click(function () {
+      showSettings();
+    });
+
+    $('#settings #settings_done', '#search_column').click(function () {
       showShelf();
     });
   }
