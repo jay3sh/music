@@ -175,6 +175,14 @@
     $('#settings #settings_done', '#search_column').click(function () {
       showShelf();
     });
+
+    $('#search_column #reset_db').click(function () {
+      if(confirm('Are you sure you want to reset the database?')){
+        $('#playlist').empty();
+        window.localStorage.clear();
+        window.location.reload();
+      } 
+    });
   }
 
   function storeArtworkMap() {
