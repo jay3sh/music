@@ -250,14 +250,20 @@
       }
     },
 
-    requestAnimationFrame : function () {
-      return window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        window.oRequestAnimationFrame ||
-        window.msRequestAnimationFrame ||
-        function(callback, element) {
-          window.setTimeout( callback, 1000 / 60 );
-        };
+    requestAnimationFrame : function (callback){
+      if(window.requestAnimationFrame){
+        return window.requestAnimationFrame(callback)
+      } else if(window.webkitRequestAnimationFrame) { 
+        return window.webkitRequestAnimationFrame(callback);
+      } else if(window.mozRequestAnimationFrame) { 
+        window.mozRequestAnimationFrame(callback); 
+      } else if(window.oRequestAnimationFrame) { 
+        window.oRequestAnimationFrame(callback); 
+      } else if(window.msRequestAnimationFrame) {
+        window.msRequestAnimationFrame(callback); 
+      } else { 
+        window.setTimeout(callback, 1000 / 60);
+      }
     },
 
     fileSlice : function (file, start, length) {
