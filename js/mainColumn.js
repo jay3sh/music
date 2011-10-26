@@ -129,7 +129,7 @@
       });
   }
 
-  function populateSettings() {
+  function populatePlaylistSettings() {
     $('#settings_playlist').empty();
     $('#settings_playlist').append(
       '<option value="no selection">--Select Playlist--</option>');
@@ -183,7 +183,7 @@
 
     $('#settings_button', '#search_column').click(function () {
       showSettings();
-      populateSettings();
+      populatePlaylistSettings();
     });
 
     $('#settings #settings_done', '#search_column').click(function () {
@@ -202,12 +202,8 @@
       app.Playlist.favPlaylists = {};
       window.localStorage.setItem('__fav_playlist__', 
         JSON.stringify(app.Playlist.favPlaylists));
-      $('#settings_playlist')
-        .empty()
-        .append('<option value="no selection">--Select Playlist--</option>');
-      $('#playlist_dropdown')
-        .empty()
-        .append('<option value="no selection">--Select Playlist--</option>');
+      populatePlaylistSettings();
+      app.Playlist.populatePlaylistDropdown();
     });
   }
 
@@ -232,5 +228,6 @@
   app.mainColumn.startProgress = startProgress;
   app.mainColumn.makeProgress = makeProgress;
   app.mainColumn.completeProgress = completeProgress;
+  app.mainColumn.populatePlaylistSettings = populatePlaylistSettings;
 
 })(jQuery);

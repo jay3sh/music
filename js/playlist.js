@@ -37,7 +37,7 @@
     return (_.isNull(favPlaylists) ? {} : favPlaylists);
   }
 
-  function populatePlaylistDropdown() {
+  Playlist.populatePlaylistDropdown = function () {
     $('#playlist_dropdown').empty();
     $('#playlist_dropdown').append(
       '<option value="no selection">--Select Playlist--</option>');
@@ -126,7 +126,7 @@
     });
 
     Playlist.favPlaylists = loadFavPlaylist();
-    populatePlaylistDropdown();
+    Playlist.populatePlaylistDropdown();
     Playlist.loadCurrentPlaylist();
   }
  
