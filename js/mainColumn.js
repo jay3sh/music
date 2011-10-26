@@ -51,6 +51,7 @@
 
   function showSettings() {
     $('#shelf', '#search_column').hide(); 
+    $('#search_column #searchbar').css('visibility', 'hidden');
     $('#search_results', '#search_column').hide();
     $('#settings', '#search_column').show();
   }
@@ -58,6 +59,7 @@
   function showSearchResults() {
     $('#shelf', '#search_column').hide();
     $('#settings', '#search_column').hide();
+    $('#search_column #searchbar').css('visibility', 'visible');
     $('#search_results', '#search_column').empty();
     $('#search_results', '#search_column').show();
   }
@@ -69,6 +71,7 @@
       shelf.scrollTop(scTop);
       shelf.removeData('scrollTop');
     }
+    $('#search_column #searchbar').css('visibility', 'visible');
     $('#search_results', '#search_column').hide();
     $('#settings', '#search_column').hide();
   }
