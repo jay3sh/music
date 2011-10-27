@@ -205,6 +205,22 @@
       populatePlaylistSettings();
       app.Playlist.populatePlaylistDropdown();
     });
+
+    $('#settings #del_playlist', '#search_column').click(function () {
+      var templist = app.Playlist.favPlaylists;
+      var selection = $('#settings_playlist').val();
+      app.Playlist.favPlaylists = {};
+      _.each(templist, function (value, key){
+        console.log(key, selection);
+        if(selection != key){
+          app.Playlist.favPlaylists[key] = value;
+        }
+      });
+      window.localStorage.setItem('__fav_playlist__', 
+        JSON.stringify(app.Playlist.favPlaylists));
+      app.Playlist.populatePlaylistDropdown();
+      populatePlaylistSettings();
+    });
   }
 
   function storeArtworkMap() {
