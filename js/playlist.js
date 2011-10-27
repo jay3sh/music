@@ -121,6 +121,9 @@
         populatePlaylist($(this).val());
       });
     });
+    $('#save_box img').click(function () {
+      $('#save_box').slideToggle(); 
+    });
 
     Playlist.favPlaylists = loadFavPlaylist();
     populatePlaylistDropdown();

@@ -49,8 +49,17 @@
     $('input[name=search]').attr('disabled', '');
   }
 
+  function showSettings() {
+    $('#shelf', '#search_column').hide(); 
+    $('#search_column #searchbar').css('visibility', 'hidden');
+    $('#search_results', '#search_column').hide();
+    $('#settings', '#search_column').show();
+  }
+
   function showSearchResults() {
     $('#search_column #shelf').hide();
+    $('#search_column #settings').hide();
+    $('#search_column #searchbar').css('visibility', 'visible');
     $('#search_column #search_results').empty();
     $('#search_column #search_results').show();
     $('#search_column #ytshelf').hide();
@@ -63,7 +72,9 @@
       shelf.scrollTop(scTop);
       shelf.removeData('scrollTop');
     }
+    $('#search_column #searchbar').css('visibility', 'visible');
     $('#search_column #search_results').hide();
+    $('#search_column #settings').hide();
     $('#search_column #ytshelf').hide();
   }
   
@@ -160,6 +171,22 @@
     $('#clear_search', '#search_column').click(function (){
       $('input[name=search]').focus().val('');
       showShelf();
+    });
+
+    $('#settings_button', '#search_column').click(function () {
+      showSettings();
+    });
+
+    $('#settings #settings_done', '#search_column').click(function () {
+      showShelf();
+    });
+
+    $('#search_column #reset_db').click(function () {
+      if(confirm('Are you sure you want to reset the database?')){
+        $('#playlist').empty();
+        window.localStorage.clear();
+        window.location.reload();
+      } 
     });
   }
 

@@ -79,7 +79,7 @@
   .customScroll;
   overflow-x : hidden;
   overflow-y : auto;
-  height : 90%;
+  height : 85%;
   border-radius : 5px;
   margin : 10px;
 
@@ -427,6 +427,34 @@ input[type="text"]{
     }
   }
 
+  #settings {
+    .searchColumnChildren();
+    display : none;
+
+    #settings_controls {
+      height : 90%;
+      margin : 5px;
+
+      #reset_db{
+        margin : 5px;
+        .button(14px, 16px, 100px);
+      }
+    }
+
+    #settings_done {
+      .button(14px, 16px, 50px);
+      float : right;
+      margin-right : 10px;
+      
+    }
+  }
+
+  #settings_button {
+    .button(110%, 20px, 100px);
+    float : right;
+    img { vertical-align : sub; }
+  }
+
 }
 
 #playlist_wrapper {
@@ -439,19 +467,28 @@ input[type="text"]{
   #save_box {
     display : none;
     position : absolute;
-    width : 300px;
-    margin-left : 265px;
+    width : 330px;
+    margin-left : 235px;
+    margin-top : 1px;
     background-color : #222;
     padding : 8px;
     border-bottom-left-radius : 5px;
     border-bottom-right-radius : 5px;
     .boxShadow(0px, 0px, 5px, #666);
 
-    input { font-size : 12px; }
+    input { 
+      font-size : 12px;
+      width : 250px;
+    }
     #submit_playlist {
       .button(80%, 14px, 50px);
+      padding : 5px;
       display : inline;
     } 
+    img {
+      vertical-align : middle;
+      cursor : pointer;
+    }
   }
 
   #playlist_controls{
@@ -551,13 +588,18 @@ input[type="text"]{
 
 #share_bar {
   display : none;
-}
-#share_bar > *{
-  float : left; 
-}
 
-#amazon_shop img {
-  width : 50px;
-  height : 20px;
+  #amazon_shop {
+    img {
+      width : 50px;
+      height : 20px;
+    }
+  }
+  
+  .fb_edge_widget_with_comment span.fb_edge_comment_widget iframe.fb_ltr {
+    display: none !important;
+  }
+
+  > * { float : left; } 
 }
 
