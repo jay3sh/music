@@ -72,7 +72,8 @@
         $('#notification').fadeOut();
       }, 5000);
     } else {
-      msgElement.append('&nbsp;<a href="#" id="cancel">X</a>&nbsp;');
+      msgElement.append(
+        '&nbsp;<a href="#" id="cancel"><img src="images/Button Delete.png"></a>&nbsp;');
       msgElement.find('#cancel').click(function () {
         $('#notification').fadeOut();
       });
