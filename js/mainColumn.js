@@ -201,6 +201,12 @@
       } 
     });
 
+    $('#search_column #reset_cache').click(function () {
+      if(confirm('Are you sure you want to reset the cache?')){
+        $.app.Cache.empty();
+      } 
+    });
+
     $('#settings #del_all_playlist', '#search_column').click(function (){
       app.Playlist.favPlaylists = {};
       window.localStorage.setItem('__fav_playlist__', 
