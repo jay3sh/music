@@ -8,15 +8,27 @@ function player () {}
 
 function updateSongInfo(muFile){
   var songInfo = $('#player_column #player_controls #song_info');
-  var yt = '<a href='+app.utils.getYoutubeSearchURL(muFile)+' target="blank"><img src="/images/youtube.ico" /></a>';
-  var wiki = '<a href='+app.utils.getArtistWikipediaURL(muFile)+' target="blank"><img src="/images/wikipedia.ico" /></a>';
-  var amzn = '<a href='+app.utils.getAmazonLink(muFile)+' target="blank"><img src="/images/amazon.png" /></a>';
-  var lyrics = '<a href='+app.utils.getLyricsSearchURL(muFile)+' target="blank"><img src="/images/metro.png" /><a/>';
-  $('#title_info .title', songInfo).text(muFile.title).attr('title', muFile.title);
-  $('#artist_info .title', songInfo).text(muFile.artist).attr('title', muFile.artist);
-  $('#album_info .title', songInfo).text(muFile.album).attr('title', muFile.album);
+  //var yt = '<a href='+app.utils.getYoutubeSearchURL(muFile)+' target="blank"><img src="/images/youtube.ico" /></a>';
+  var yt = '<a href=# id="ytsearch"><img src="/images/youtube.ico" /></a>';
+  var wiki = '<a href='+app.utils.getArtistWikipediaURL(muFile)+
+    ' target="blank"><img src="/images/wikipedia.ico" /></a>';
+  var amzn = '<a href='+app.utils.getAmazonLink(muFile)+
+    ' target="blank"><img src="/images/amazon.png" /></a>';
+  var lyrics = '<a href='+app.utils.getLyricsSearchURL(muFile)+
+    ' target="blank"><img src="/images/metro.png" /><a/>';
+  $('#title_info .title', songInfo)
+    .text(muFile.title).attr('title', muFile.title);
+  $('#artist_info .title', songInfo)
+    .text(muFile.artist).attr('title', muFile.artist);
+  $('#album_info .title', songInfo)
+    .text(muFile.album).attr('title', muFile.album);
   $('#title_info .extern', songInfo).html(yt+lyrics);
   $('#artist_info .extern', songInfo).html(wiki+amzn);
+  songInfo.data('muFile', muFile);
+  songInfo.find('#ytsearch').click(function () {
+    var muFile = songInfo.data('muFile');
+    app.youtube.search(muFile);
+  });
 }
 
 function animateSeeker() {

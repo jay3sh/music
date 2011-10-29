@@ -45,7 +45,7 @@
   }
   
   function completeProgress() {
-    $('#progressbar', '#search_column').fadeOut();
+    $('#search_column #progressbar').fadeOut();
     $('input[name=search]').attr('disabled', '');
   }
 
@@ -57,27 +57,29 @@
   }
 
   function showSearchResults() {
-    $('#shelf', '#search_column').hide();
-    $('#settings', '#search_column').hide();
+    $('#search_column #shelf').hide();
+    $('#search_column #settings').hide();
     $('#search_column #searchbar').css('visibility', 'visible');
-    $('#search_results', '#search_column').empty();
-    $('#search_results', '#search_column').show();
+    $('#search_column #search_results').empty();
+    $('#search_column #search_results').show();
+    $('#search_column #ytshelf').hide();
   }
 
   function showShelf() {
-    var shelf = $('#shelf', '#search_column').show();
+    var shelf = $('#search_column #shelf').show();
     var scTop = shelf.data('scrollTop');
     if(scTop) {
       shelf.scrollTop(scTop);
       shelf.removeData('scrollTop');
     }
     $('#search_column #searchbar').css('visibility', 'visible');
-    $('#search_results', '#search_column').hide();
-    $('#settings', '#search_column').hide();
+    $('#search_column #search_results').hide();
+    $('#search_column #settings').hide();
+    $('#search_column #ytshelf').hide();
   }
   
   function populateShelf(url, artist, album){ 
-    var shelf = $('#shelf', '#search_column');
+    var shelf = $('#search_column #shelf');
     var artworkNum = Math.floor(shelf.width()/IMG_WIDTH);
     var margin = (shelf.width()-(artworkNum*IMG_WIDTH))/(artworkNum*2);
     var artwork = $('<img></img>')
@@ -94,7 +96,7 @@
         populateSearchResults(query);
         $('input[name=search]').val(query);
       });
-    $('#shelf', '#search_column').append(artwork);
+    shelf.append(artwork);
   }
 
   function populateSearchResults(query) {

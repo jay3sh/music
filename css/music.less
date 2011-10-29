@@ -89,10 +89,11 @@
 }
 
 body {
-  font-family : 'Salsa', sans-serif;
+  font-family : 'Actor', sans-serif;
   text-align : center;
   margin : auto;
   background-image : url('/images/bg.jpg');
+  overflow : hidden;
 }
 
 .focused_entry{
@@ -416,6 +417,19 @@ input[type="text"]{
     }
   }
 
+  #ytshelf {
+    .searchColumnChildren();
+    .ytentry {
+      margin-top : 5px;
+      margin-bottom : 5px;
+      img {
+        width : 100px;
+        height : 100px;
+        cursor : pointer;
+      }
+    }
+  }
+
   #settings {
     .searchColumnChildren();
     display : none;
@@ -592,7 +606,6 @@ input[type="text"]{
 }
 
 #share_bar {
-  display : none;
 
   #amazon_shop {
     img {
