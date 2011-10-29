@@ -51,6 +51,7 @@
 
   function showSettings() {
     $('#shelf', '#search_column').hide(); 
+    $('#ytshelf', '#search_column').hide(); 
     $('#search_column #searchbar').css('visibility', 'hidden');
     $('#search_results', '#search_column').hide();
     $('#settings', '#search_column').show();
