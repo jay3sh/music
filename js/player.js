@@ -79,7 +79,7 @@ player.pauseMedia = function () {
   $('#player').get(0).pause();
 }
 
-player.playMedia = function (div, resumeFlag) {
+player.playMedia = function (div, resumeFlag, forceStop) {
   if(!div){
     if($('#playlist', '#playlist_wrapper').is(':empty')){
       alert('No selction made.');
@@ -89,7 +89,7 @@ player.playMedia = function (div, resumeFlag) {
       resumeFlag = false;
     }
   }
-  if(app.Playlist.shuffle && !resumeFlag){
+  if(app.Playlist.shuffle && !resumeFlag && !forceStop){
     div = player.shuffleSong();
   }
   var muFile = div.find('.entry_action').data('muFile');
