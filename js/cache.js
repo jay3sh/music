@@ -72,7 +72,7 @@ Cache.add = function (hash, f) {
   );
 };
 
-Cache.list = function (dirname) {
+Cache.list = function (dirname, callback) {
   window.requestFileSystem(window.TEMPORARY, CACHE_SIZE,
     function onSuccess(fs) {
       fs.root.getDirectory(dirname, {},
@@ -85,7 +85,7 @@ Cache.list = function (dirname) {
           (function readEntries() {
             dirReader.readEntries(function (results) {
               if(!results.length) {
-                console.log(entries);
+                if(callback) { callback(entries); }
               } else {
                 entries = entries.concat(toArray(results));
                 readEntries();
@@ -102,6 +102,13 @@ Cache.list = function (dirname) {
 };
 
 Cache.empty = function () {
+  Cache.list('songs', function (entries) {
+    _(entries).each(function (fentry) {
+      fentry.remove(function () {}, function (e) {
+        console.error('file delete', parseError(e));
+      });
+    });
+  })
 };
 
 Cache.init = function () {
