@@ -17,7 +17,7 @@
     $('.title').css('width', playerColumnWidth-55);
 
     $('input[name=search]')
-      .width($('#search_column').width()-$('#addall').width()-40);
+      .width($('#search_column').width()-$('#addall').width()-50);
    
     $.app.canvas = $('#seeker').get(0);
     $.app.ctx = $.app.canvas.getContext('2d');
