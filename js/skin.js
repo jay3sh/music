@@ -10,6 +10,13 @@
     var playlistHeight = 
       $('#search_column').height() - $('#player_wrapper').height();
     $('#playlist_wrapper').css('height', playlistHeight);
+    $('#playlist').height(playlistHeight-55);
+
+    var shelfHeight = $('#search_column').height() - 85;
+    $('#shelf').height(shelfHeight);
+    $('#settings').height(shelfHeight);
+    $('#ytshelf').height(shelfHeight);
+    $('#search_results').height(shelfHeight);
     
     var playerColumnWidth = $('#player_column').width()-
       ($('#player_skin').width()+$('#player_wrapper').width()+50);
