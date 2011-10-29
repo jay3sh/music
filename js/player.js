@@ -159,7 +159,7 @@ player.loadVolume = function () {
 player.init = function (jqelem) {
   player.jqelem = jqelem;
   player.action = 'play';
-  $('#album_artwork', player.jqelem).attr('src', '/images/nothumb.png');
+  $('#album_artwork', player.jqelem).attr('src', '/images/nothumb-1.png');
 
   $('#play', player.jqelem)
     .hover(
