@@ -86,7 +86,7 @@
       }, 5000);
     } else {
       msgElement.append(
-        '&nbsp;<a href="#" id="cancel"><img src="images/Button Delete.png"></a>&nbsp;');
+        '&nbsp;<a href="#" id="cancel"><img src="images/Delete.png"></a>&nbsp;');
       msgElement.find('#cancel').click(function () {
         $('#notification').fadeOut();
       });
