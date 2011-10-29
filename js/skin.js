@@ -47,6 +47,12 @@
       $('input[name=actual_addmusic]').click();
     });
 
+    var share_text = "&mu;sic-HTML5 Music Player to play local songs. http://www.mu-sic.me";
+    $('#twit_share').attr('href',
+      'http://twitter.com/home?status='+encodeURI(share_text));
+    $('#fb_share').attr('href',
+      'http://www.facebook.com/share.php?u=http://www.mu-sic.me');
+
   }
 
   function showCurtain(){
