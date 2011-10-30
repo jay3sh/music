@@ -91,7 +91,7 @@ player.pauseMedia = function () {
   $('#player').get(0).pause();
 }
 
-player.playMedia = function (div, resumeFlag) {
+player.playMedia = function (div, resumeFlag, forceStop) {
   if(!div){
     if($('#playlist', '#playlist_wrapper').is(':empty')){
       alert('No selction made.');
@@ -101,7 +101,7 @@ player.playMedia = function (div, resumeFlag) {
       resumeFlag = false;
     }
   }
-  if(app.Playlist.shuffle && !resumeFlag){
+  if(app.Playlist.shuffle && !resumeFlag && !forceStop){
     div = player.shuffleSong();
   }
   var muFile = div.find('.entry_action').data('muFile');
@@ -159,7 +159,7 @@ player.loadVolume = function () {
 player.init = function (jqelem) {
   player.jqelem = jqelem;
   player.action = 'play';
-  $('#album_artwork', player.jqelem).attr('src', '/images/nothumb.png');
+  $('#album_artwork', player.jqelem).attr('src', '/images/nothumb-1.png');
 
   $('#play', player.jqelem)
     .hover(

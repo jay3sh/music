@@ -83,7 +83,7 @@
 
   Playlist.attachEntryControls = function (entry) {
     entry.find('.entry_action').click(function () {
-      $.app.player.playMedia($(this).parent());
+      $.app.player.playMedia($(this).parent(), false, true);
     });
     entry.find('.remove_action').click(function () {
       $.app.Playlist.remove($(this).parent());

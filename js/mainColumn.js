@@ -51,6 +51,7 @@
 
   function showSettings() {
     $('#shelf', '#search_column').hide(); 
+    $('#ytshelf', '#search_column').hide(); 
     $('#search_column #searchbar').css('visibility', 'hidden');
     $('#search_results', '#search_column').hide();
     $('#settings', '#search_column').show();
@@ -197,6 +198,12 @@
         $('#playlist').empty();
         window.localStorage.clear();
         window.location.reload();
+      } 
+    });
+
+    $('#search_column #reset_cache').click(function () {
+      if(confirm('Are you sure you want to reset the cache?')){
+        $.app.Cache.empty();
       } 
     });
 

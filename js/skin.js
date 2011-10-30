@@ -10,6 +10,13 @@
     var playlistHeight = 
       $('#search_column').height() - $('#player_wrapper').height();
     $('#playlist_wrapper').css('height', playlistHeight);
+    $('#playlist').height(playlistHeight-55);
+
+    var shelfHeight = $('#search_column').height() - 85;
+    $('#shelf').height(shelfHeight);
+    $('#settings').height(shelfHeight);
+    $('#ytshelf').height(shelfHeight);
+    $('#search_results').height(shelfHeight);
     
     var playerColumnWidth = $('#player_column').width()-
       ($('#player_skin').width()+$('#player_wrapper').width()+50);
@@ -17,7 +24,7 @@
     $('.title').css('width', playerColumnWidth-55);
 
     $('input[name=search]')
-      .width($('#search_column').width()-$('#addall').width()-40);
+      .width($('#search_column').width()-$('#addall').width()-50);
    
     $.app.canvas = $('#seeker').get(0);
     $.app.ctx = $.app.canvas.getContext('2d');
@@ -39,6 +46,12 @@
     $('#reloadmusic').click(function () {
       $('input[name=actual_addmusic]').click();
     });
+
+    var share_text = "&mu;sic-HTML5 Music Player to play local songs. http://www.mu-sic.me";
+    $('#twit_share').attr('href',
+      'http://twitter.com/home?status='+encodeURI(share_text));
+    $('#fb_share').attr('href',
+      'http://www.facebook.com/share.php?u=http://www.mu-sic.me');
 
   }
 
@@ -73,7 +86,7 @@
       }, 5000);
     } else {
       msgElement.append(
-        '&nbsp;<a href="#" id="cancel"><img src="images/Button Delete.png"></a>&nbsp;');
+        '&nbsp;<a href="#" id="cancel"><img src="images/Delete.png"></a>&nbsp;');
       msgElement.find('#cancel').click(function () {
         $('#notification').fadeOut();
       });

@@ -21,6 +21,8 @@ function getDurationText(seconds) {
 app.youtube.showResults = function (data) {
   $('#search_column #search_results').hide();
   $('#search_column #shelf').hide();
+  $('#search_column #settings').hide();
+ 
   var ytshelf = $('#search_column #ytshelf').empty();
   var feed = data.feed;
   var entries = feed.entry || [];

@@ -79,7 +79,6 @@
   .customScroll;
   overflow-x : hidden;
   overflow-y : auto;
-  height : 85%;
   border-radius : 5px;
   margin : 10px;
 
@@ -126,19 +125,16 @@ body {
 
     .song_name {
       font-size : 12px;
-      width : 260px;
     }
     
     .album_name {
       font-size : 60%;
       color : #ccc;
-      width : 130px;
     }
 
     .artist_name {
       font-size : 60%;
       color : #aaa;
-      width : 90px;
       text-align : center;
     }
     .entry_action, .remove_action {
@@ -191,7 +187,6 @@ input[type="text"]{
   border : none;
   height : 2em;
   width : 80%;
-  margin-left : 10px;
   font-size : 14px;
   padding : 5px;
   text-shadow : 0 1px 0 #dedede;
@@ -232,7 +227,7 @@ input[type="text"]{
 }
 
 #player_column {
-  .mainColumn(left, 0px, 150px, 48%);
+  .mainColumn(left, 0px, 160px, 48%);
   .skin;
   margin : 20px 10px 5px 20px;
 
@@ -244,7 +239,7 @@ input[type="text"]{
 
   #player_wrapper {
     width : 140px;
-    height : 150px;
+    height : 160px;
     
     img {
       border-radius : 5px;
@@ -295,6 +290,7 @@ input[type="text"]{
       * { 
         display : inline-block; 
         vertical-align : middle;
+        margin-top : 10px;
       }
       #play { 
         .controls(100px, 100px, 50px, #666); 
@@ -310,7 +306,7 @@ input[type="text"]{
         height : 136px;
         position : absolute;
         margin-left : -122px;
-        margin-top : -18px;
+        margin-top : -8px;
       }
       #prev { 
         .controls(50px, 50px, 25px, #666); 
@@ -359,6 +355,7 @@ input[type="text"]{
   text-align : left;
 
   #searchbar {
+    margin : 10px;
     input { padding-right : 24px; }
     #clear_search {
       margin-left : -28px;
@@ -367,8 +364,8 @@ input[type="text"]{
       cursor : pointer;
     }
     #addall { 
-      .button(100%, 16px, 50px); 
-      margin-left : 5px;
+      .button(100%, 14px, 30px); 
+      margin-left : 15px;
       margin-bottom : -5px;
       vertical-align : text-bottom;
     }
@@ -419,6 +416,7 @@ input[type="text"]{
 
   #ytshelf {
     .searchColumnChildren();
+    display : none;
     .ytentry {
       margin-top : 5px;
       margin-bottom : 5px;
@@ -439,7 +437,7 @@ input[type="text"]{
       margin : 5px;
       text-align : center;
 
-      #reset_db{
+      #reset_db, #reset_cache{
         margin : 5px;
         .button(14px, 16px, 100px);
       }
@@ -466,6 +464,7 @@ input[type="text"]{
 
   #settings_button {
     .button(110%, 20px, 30px);
+    margin-right : 10px;
     float : right;
     img { vertical-align : sub; }
   }
@@ -560,6 +559,18 @@ input[type="text"]{
     margin-top : -20px;
     margin-right : 5px;
   }
+
+  #share_bar {
+    display : inline-block;
+    margin-left : -80px;
+    img {
+      height : 24px;
+      width : 24px;
+      padding : 2px;
+      vertical-align : text-bottom;
+    }
+  }
+
 }
 
 #curtain {
@@ -595,29 +606,15 @@ input[type="text"]{
   right : 5px;
   bottom : 5px;
   padding : 5px;
-  border : 2px solid black;
-  background : #fdd;
+  border : 1px solid #aaa;
+  background : #333;
   display : none;
   z-index : 100;
   border-radius : 5px;
-  text-shadow : 0px 1px 0px #fff;
+  color : #fff;
+  text-shadow : 0px 1px 0px #000;
 
-  img { vertical-align : text-top; opacity : 0.9; }
+  img { vertical-align : text-bottom; }
 }
 
-#share_bar {
-
-  #amazon_shop {
-    img {
-      width : 50px;
-      height : 20px;
-    }
-  }
-  
-  .fb_edge_widget_with_comment span.fb_edge_comment_widget iframe.fb_ltr {
-    display: none !important;
-  }
-
-  > * { float : left; } 
-}
 
