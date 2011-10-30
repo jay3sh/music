@@ -421,7 +421,7 @@ input[type="text"]{
 
     #filmstrip {
       .customScroll();
-      height : 120px;
+      height : 125px;
       width : 100%;
       display : inline-block;
       overflow-x : auto;
@@ -432,7 +432,10 @@ input[type="text"]{
         margin-bottom : 5px;
         display : table-cell;
         padding : 5px;
+
         img {
+          .boxShadow(0px, 0px, 5px, #000);
+          border-radius : 5px;
           width : 100px;
           height : 100px;
           cursor : pointer;
@@ -440,7 +443,11 @@ input[type="text"]{
       }
     }
     
-    object { margin : 20px; }
+    object { 
+      margin : 20px; 
+      border-radius : 5px;
+      .boxShadow(0px, 0px, 5px, #000);
+    }
 
   }
 
@@ -499,7 +506,6 @@ input[type="text"]{
     position : absolute;
     width : 330px;
     margin-left : 235px;
-    margin-top : 1px;
     background-color : #222;
     padding : 8px;
     border-bottom-left-radius : 5px;
@@ -508,7 +514,7 @@ input[type="text"]{
 
     input { 
       font-size : 12px;
-      width : 250px;
+      width : 265px;
     }
     #submit_playlist {
       .button(80%, 14px, 50px);
