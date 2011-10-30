@@ -33,17 +33,6 @@ $.app = {};
 
 <body>
 
-<div id="fb-root"></div>
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=138546242913820";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
 <div id="home_screen">
   <img src="/images/mu-sic.png" /> 
   <span id="addmusic">Add Music</span>
@@ -141,8 +130,8 @@ $.app = {};
     </span>
     <span id="google_branding"></span>
     <div id="share_bar">
-      <a id="twit_share" target="_blank"><img src="/images/twitter.png" /></a>
-      <a id="fb_share" target="_blank"><img src="/images/facebook.png" /></a>
+      <a id="twit_share" href="http://twitter.com/home?status=%CE%BCsic%20-%20HTML5%20Music%20Player%20to%20play%20local%20songs.%20http://www.mu-sic.me" target="_blank"><img src="/images/twitter.png" /></a>
+      <a id="fb_share" href="http://www.facebook.com/share.php?u=http://www.mu-sic.me" target="_blank"><img src="/images/facebook.png" /></a>
       <a href="http://www.amazon.com/?_encoding=UTF8&tag=mu-sic-support-20&linkCode=ur2&camp=1789&creative=9325" target="_blank"><img title="Shop at Amazon via this link to support us" src="/images/amazon_share.png"/></a>
       <a href="http://github.com/jayesh3/music" target="_blank"><img
       src="/images/octocat.png"/></a>
