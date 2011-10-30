@@ -75,7 +75,7 @@
     var msgElement = $('<span></span>').html(msg);
     if(autocancel) {
       setTimeout(function () {
-        $('#notification').fadeOut();
+        $('#notification').fadeOut('slow');
       }, 5000);
     } else {
       msgElement.append(

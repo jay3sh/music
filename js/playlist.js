@@ -58,7 +58,14 @@
   };
   
   Playlist.add = function (entry) {
-    $('#playlist', '#playlist_wrapper').append(entry);
+    var detect = _.detect($('#playlist .entry'), function (child){
+      return(_.isEqual($('.entry_action', child).data('muFile'), 
+            $('.entry_action', entry).data('muFile'))); 
+    });
+    if(!detect) { $('#playlist', '#playlist_wrapper').append(entry); }
+    else {
+      app.Skin.showNotification('Song already present in playlist', true);
+    }
   }
 
   Playlist.remove = function (entry) {
