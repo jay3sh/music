@@ -51,7 +51,7 @@
       {
         var artworkHint = {
           album : muFile.album,
-          artist : muFile.artist,
+          artist : muFile.artist
         };
         var found = _(artworkHints).any(
           function (ah) {
@@ -111,4 +111,4 @@
   
   app.Importer = Importer;
   app.Importer.loadMusic = loadMusic;
-})(jQuery)
+})(jQuery);
