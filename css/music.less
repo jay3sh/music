@@ -264,22 +264,23 @@ input[type="text"]{
     #song_info { 
 
       div {
+        white-space : nowrap;
+        overflow : hidden;
         width : 195px;
         margin : 4px 0px;
 
         .title { 
           width : 140px; 
         }
-        .extern {
-          a { margin: 5px; }
-          img {
-            height : 16px;
-            vertical-align : middle;
-            width : 16px;
-            border-radius : 2px;
-          }
+        img {
+          height : 16px;
+          padding-right : 5px;
+          vertical-align : middle;
+          width : 16px;
+          border-radius : 2px;
         }
       }
+      
     }
 
     #player_skin {

@@ -22,8 +22,8 @@ function updateSongInfo(muFile){
     .text(muFile.artist).attr('title', muFile.artist);
   $('#album_info .title', songInfo)
     .text(muFile.album).attr('title', muFile.album);
-  $('#title_info .extern', songInfo).html(yt+lyrics);
-  $('#artist_info .extern', songInfo).html(wiki+amzn);
+  $('#title_extern', songInfo).html(yt+lyrics);
+  $('#artist_extern', songInfo).html(wiki+amzn);
   songInfo.data('muFile', muFile);
   songInfo.find('#ytsearch').click(function () {
     var muFile = songInfo.data('muFile');
