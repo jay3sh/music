@@ -42,7 +42,6 @@
         callback(url);
       } else {
         if(app.liveFiles && app.liveFiles[path]) {
-          console.log('Adding to cache',hash,path);
           app.Cache.add(hash, app.liveFiles[path]);
           callback(window.webkitURL.createObjectURL(app.liveFiles[path]));
         } else {

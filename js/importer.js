@@ -2,6 +2,9 @@
   var app = $.app;
   var compat = app.utils.compat;
 
+  var isearchStarted = 0;
+  var isearchFinished = 0;
+
   function Importer() {  }
   
   function loadMusic(files) {
@@ -48,7 +51,7 @@
       {
         var artworkHint = {
           album : muFile.album,
-          artist : muFile.artist,
+          artist : muFile.artist
         };
         var found = _(artworkHints).any(
           function (ah) {
@@ -64,9 +67,11 @@
                 && artwork.artist == artworkHint.artist);
             });
           if(!detect){
+            isearchStarted++;
             app.utils.searchImage(
               artworkHint.album, artworkHint.artist,
               function (url, artist, album) {
+                isearchFinished++;
                 if(_.isUndefined(app.localArtworks[url])) {
                   app.mainColumn.populateShelf(url, artist, album);
                   app.localArtworks[url] = { 
@@ -87,6 +92,7 @@
         app.Storage.save();
         app.printParseReport();
         app.mainColumn.completeProgress();
+        console.log('Image search success '+isearchFinished+'/'+isearchStarted);
       } else {
         newMuFile(musicFiles[progress]);
         app.mainColumn.makeProgress(total, progress);
@@ -105,4 +111,4 @@
   
   app.Importer = Importer;
   app.Importer.loadMusic = loadMusic;
-})(jQuery)
+})(jQuery);
