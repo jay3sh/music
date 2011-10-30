@@ -15,7 +15,7 @@ function updateSongInfo(muFile){
   var amzn = '<a href='+app.utils.getAmazonLink(muFile)+
     ' target="blank"><img src="/images/amazon.png" /></a>';
   var lyrics = '<a href='+app.utils.getLyricsSearchURL(muFile)+
-    ' target="blank"><img src="/images/metro.png" /><a/>';
+    ' target="blank"><img src="/images/Music-Itunes.png" /><a/>';
   $('#title_info .title', songInfo)
     .text(muFile.title).attr('title', muFile.title);
   $('#artist_info .title', songInfo)
