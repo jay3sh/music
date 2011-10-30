@@ -81,6 +81,7 @@
   overflow-y : auto;
   border-radius : 5px;
   margin : 10px;
+  padding : 2px;
 
   box-shadow : inset 0 0 2px #888;
   -moz-box-shadow : inset 0 0 2px #888;
@@ -421,6 +422,17 @@ input[type="text"]{
     display : none;
     text-align : center;
 
+    #ytclose { 
+      background-image : url('/images/Delete.png'); 
+      width : 16px;
+      height : 16px;
+      float : right;
+      margin-right : 5px;
+      margin-top : 2px;
+      display : inline-block;
+      cursor : pointer;
+    }
+
     #filmstrip {
       .customScroll();
       height : 125px;
@@ -437,6 +449,7 @@ input[type="text"]{
 
         img {
           .boxShadow(0px, 0px, 5px, #000);
+          margin-right : 10px;
           border-radius : 5px;
           width : 100px;
           height : 100px;
@@ -446,7 +459,7 @@ input[type="text"]{
     }
     
     object { 
-      margin : 20px; 
+      margin : 20px 10px 20px 20px; 
       border-radius : 5px;
       .boxShadow(0px, 0px, 5px, #000);
     }

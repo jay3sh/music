@@ -230,6 +230,8 @@
       app.Playlist.populatePlaylistDropdown();
       populatePlaylistSettings();
     });
+
+    $('#ytclose', '#search_column').click(showShelf);
   }
 
   function storeArtworkMap() {
