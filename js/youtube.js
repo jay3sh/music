@@ -23,12 +23,28 @@ app.youtube.showResults = function (data) {
   $('#search_column #shelf').hide();
   $('#search_column #settings').hide();
  
-  var ytshelf = $('#search_column #ytshelf').empty();
+  var ytshelf = $('#search_column #ytshelf').children().empty();
+  var filmStrip = $('#filmstrip');
   var feed = data.feed;
   var entries = feed.entry || [];
   _(entries).each(function (entry) {
-    ytshelf.append($.app.youtube.getEntryHTML(entry));
+    filmStrip.append($.app.youtube.getEntryHTML(entry));
   });
+
+  var atts = { id: "swf" };
+  var videoWidth = $('#shelf').width() - 100;
+  var videoHeight = videoWidth * 3/4;
+
+  var params = { allowScriptAccess: "always" };
+  var atts = { id: "swf" };
+  var match = 
+    /http:\/\/gdata.youtube.com\/feeds\/videos\/(.+)/.exec(entries[0].id.$t);
+  video_id = match[1];
+  swfobject.embedSWF(
+    'http://www.youtube.com/e/'+video_id+
+    '?enablejsapi=1&playerapiid=ytplayer',
+    "ytplayer", videoWidth, videoHeight, "8", null, null, params, atts);
+
   $('#search_column #ytshelf').show();
 };
 
@@ -62,14 +78,15 @@ app.youtube.getEntryHTML = function (entry) {
 
   var e = $('<div></div>').addClass('ytentry');
   e.append($('<img/>').attr('src',thumburl)
-    .attr('title',entry.title.$t).data('entry',entry))
-  e.append(entry.title.$t);
+    .attr('title',entry.title.$t).data('entry',entry));
+  /*e.append(entry.title.$t);
   e.append('<br/>');
   e.append(publishedDate);
   e.append('<br/>');
   e.append('Viewed: '+viewCount);
   e.append('<br/>');
-  e.append(getDurationText(duration));
+  e.append(getDurationText(duration));*/
+
 
   e.find('img').click(function () {
     var entry = $(this).data('entry');
@@ -77,11 +94,11 @@ app.youtube.getEntryHTML = function (entry) {
       /http:\/\/gdata.youtube.com\/feeds\/videos\/(.+)/.exec(entry.id.$t);
     video_id = match[1];
     var ytshelf = $('#search_column #ytshelf');
-    ytshelf.empty();
-    ytshelf.append('<div id="ytplayer"></div>');
+    $('#ytshelf object').remove();
+    $('#ytshelf').prepend('<div id="ytplayer"></div>');
     var params = { allowScriptAccess: "always" };
     var atts = { id: "swf" };
-    var videoWidth = ytshelf.width() - 10;
+    var videoWidth = $('#shelf').width() - 100;
     var videoHeight = videoWidth * 3/4;
     swfobject.embedSWF(
       'http://www.youtube.com/e/'+video_id+

@@ -417,15 +417,31 @@ input[type="text"]{
   #ytshelf {
     .searchColumnChildren();
     display : none;
-    .ytentry {
-      margin-top : 5px;
-      margin-bottom : 5px;
-      img {
-        width : 100px;
-        height : 100px;
-        cursor : pointer;
+    text-align : center;
+
+    #filmstrip {
+      .customScroll();
+      height : 120px;
+      width : 100%;
+      display : inline-block;
+      overflow-x : auto;
+      overflow-y : hidden;
+      
+      .ytentry {
+        margin-top : 5px;
+        margin-bottom : 5px;
+        display : table-cell;
+        padding : 5px;
+        img {
+          width : 100px;
+          height : 100px;
+          cursor : pointer;
+        }
       }
     }
+    
+    object { margin : 20px; }
+
   }
 
   #settings {
