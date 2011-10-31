@@ -627,7 +627,10 @@ input[type="text"]{
 
   #share_bar {
     display : inline-block;
-    margin-left : 20px;
+    position : absolute;
+    left : 50%;
+    margin-left : -52px; /* 2+24+2+24 */
+    bottom : 0px;
     img {
       .boxShadow(0px, 0px, 4px, #666);
       border-radius : 3px;
