@@ -32,8 +32,11 @@ app.youtube.showResults = function (data) {
   });
 
   var atts = { id: "swf" };
-  var videoWidth = $('#shelf').width() - 100;
+  var videoWidth = $('#shelf').width() - 150;
   var videoHeight = videoWidth * 3/4;
+  var title = entries[0].title.$t;
+  var viewCount = entries[0].yt$statistics.viewCount;
+  var duration = getDurationText(entries[0].media$group.yt$duration.seconds);
 
   var params = { allowScriptAccess: "always" };
   var atts = { id: "swf" };
@@ -44,6 +47,17 @@ app.youtube.showResults = function (data) {
     'http://www.youtube.com/e/'+video_id+
     '?enablejsapi=1&playerapiid=ytplayer',
     "ytplayer", videoWidth, videoHeight, "8", null, null, params, atts);
+
+  var yt_title = 
+    $('<div></div>').attr('id','yt_title').text(title);
+  var yt_duration = 
+    $('<div></div>').attr('id','yt_duration').text(duration);
+  var yt_view = 
+    $('<div></div>').attr('id','yt_view').text('Viewed: ' + viewCount);
+
+  $('#ytshelf #ytinfo').append(yt_title)
+    .append(yt_view)
+    .append(yt_duration);
 
   $('#search_column #ytshelf').show();
 };
@@ -90,20 +104,35 @@ app.youtube.getEntryHTML = function (entry) {
 
   e.find('img').click(function () {
     var entry = $(this).data('entry');
+    var title = entry.title.$t;
+    var viewCount = entry.yt$statistics.viewCount;
+    var duration = getDurationText(entry.media$group.yt$duration.seconds);
     var match = 
       /http:\/\/gdata.youtube.com\/feeds\/videos\/(.+)/.exec(entry.id.$t);
     video_id = match[1];
     var ytshelf = $('#search_column #ytshelf');
+    var yt_title = 
+      $('<div></div>').attr('id','yt_title').text(title);
+    var yt_duration = 
+      $('<div></div>').attr('id','yt_duration').text(duration);
+    var yt_view = 
+      $('<div></div>').attr('id','yt_view').text('Viewed: ' + viewCount);
+
     $('#ytshelf object').remove();
+    $('#ytshelf #ytinfo').empty();
     $('#ytshelf').prepend('<div id="ytplayer"></div>');
+
     var params = { allowScriptAccess: "always" };
     var atts = { id: "swf" };
-    var videoWidth = $('#shelf').width() - 100;
+    var videoWidth = $('#shelf').width() - 150;
     var videoHeight = videoWidth * 3/4;
     swfobject.embedSWF(
       'http://www.youtube.com/e/'+video_id+
       '?enablejsapi=1&playerapiid=ytplayer',
       "ytplayer", videoWidth, videoHeight, "8", null, null, params, atts);
+    $('#ytshelf #ytinfo').append(yt_title)
+      .append(yt_view)
+      .append(yt_duration);
   });
   return e;
 };
