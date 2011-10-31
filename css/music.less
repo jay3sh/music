@@ -435,6 +435,7 @@ input[type="text"]{
 
   #ytshelf {
     .searchColumnChildren();
+    overflow-y : hidden;
     display : none;
     text-align : center;
     #ytinfo {
@@ -442,6 +443,8 @@ input[type="text"]{
       margin-top : -10px;
       font-size : 13px;
       font-family : Verdana, serif;
+
+      * { white-space : nowrap; }
     }
     #ytclose { 
       background-image : url('/images/Delete.png'); 
