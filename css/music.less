@@ -1,8 +1,7 @@
 
-.mainColumn(@float, @padding, @height:0, @width:0){
+.mainColumn(@float, @padding, @height:0){
   float : @float;  
   display : table-cell;
-  width : @width;
   height : @height;
   padding : @padding;
 }
@@ -228,7 +227,7 @@ input[type="text"]{
 }
 
 #player_column {
-  .mainColumn(left, 0px, 160px, 48%);
+  .mainColumn(left, 0px, 160px);
   .skin;
   margin : 20px 10px 5px 20px;
 
@@ -352,7 +351,7 @@ input[type="text"]{
 }
 
 #search_column {
-  .mainColumn(right, 12px, 88%, 45%);
+  .mainColumn(right, 12px, 88%);
   .skin;
   margin : 20px 20px 5px 10px;
   text-align : left;
@@ -514,7 +513,7 @@ input[type="text"]{
 }
 
 #playlist_wrapper {
-  .mainColumn(left, 10px, 55%, 48%);
+  .mainColumn(left, 10px, 55%);
   .skin;
   margin : 10px 10px 5px 20px;
   display : inline-table;
@@ -602,7 +601,7 @@ input[type="text"]{
 
   #share_bar {
     display : inline-block;
-    margin-left : -80px;
+    margin-left : -110px;
     img {
       .boxShadow(0px, 0px, 4px, #666);
       border-radius : 3px;
