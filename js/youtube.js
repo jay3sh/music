@@ -78,7 +78,6 @@ app.youtube.search = function (muFile) {
 };
 
 app.youtube.getEntryHTML = function (entry) {
-  console.log(entry);
   var thumburl = entry.media$group.media$thumbnail[0].url;
 
   var published = new Date();
@@ -93,14 +92,6 @@ app.youtube.getEntryHTML = function (entry) {
   var e = $('<div></div>').addClass('ytentry');
   e.append($('<img/>').attr('src',thumburl)
     .attr('title',entry.title.$t).data('entry',entry));
-  /*e.append(entry.title.$t);
-  e.append('<br/>');
-  e.append(publishedDate);
-  e.append('<br/>');
-  e.append('Viewed: '+viewCount);
-  e.append('<br/>');
-  e.append(getDurationText(duration));*/
-
 
   e.find('img').click(function () {
     var entry = $(this).data('entry');
