@@ -97,9 +97,10 @@
       .append(albumName)
       .append(artistName)
       .append(asSearchResult ?
-        '<div class="entry_action">+</div>' :
+        '<div class="entry_action">+</div>'+
+        '<div class="play_action" style="font-size:11px;">&#9654;</div>': 
         '<div class="remove_action">-</div>'+
-        '<div class="entry_action" style="font-size:14px;">&#9654;</div>'); 
+        '<div class="entry_action" style="font-size:12px;">&#9654;</div>'); 
     entryHTML
       .hover(
         function () { $(this).addClass('focused_entry'); },

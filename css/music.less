@@ -412,11 +412,13 @@ input[type="text"]{
     display : none;
   }
 
-  #search_results .album_name {
-    cursor : pointer;
-  }
-  #search_results .artist_name {
-    cursor : pointer;
+    .album_name, .artist_name, .play_action {
+      cursor : pointer;
+    }
+    .play_action {
+      color : #ccc;
+      font-weight : bold;
+    }
   }
   
   #shelf {
