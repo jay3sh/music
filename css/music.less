@@ -131,7 +131,7 @@ a:hover {
   .entry {
     padding : 2px 5px;
     border-radius : 2px;
-    cursor : ns-resize;
+    cursor : move;
 
     *{ 
       display : inline-block; 
@@ -410,17 +410,20 @@ input[type="text"]{
     .searchColumnChildren();
     .entry { cursor : default; }
     display : none;
-  }
 
-  #search_results .album_name {
-    cursor : pointer;
-  }
-  #search_results .artist_name {
-    cursor : pointer;
+    .album_name, .artist_name, .play_action {
+      cursor : pointer;
+    }
+    .play_action {
+      color : #ccc;
+      font-weight : bold;
+    }
   }
   
   #shelf {
     .searchColumnChildren();
+    overflow-y : scroll;
+    padding-left : 5px;
     img {
       width : 100px;
       height : 100px;
@@ -524,10 +527,14 @@ input[type="text"]{
   }
 
   #settings_button {
-    .button(110%, 20px, 30px);
+    .button(110%, 20px, 28px);
+    padding : 5px;
     margin-right : 10px;
     float : right;
-    img { vertical-align : sub; }
+    img { 
+      vertical-align : sub; 
+      margin-top : -2px;
+    }
   }
 
 }
@@ -539,6 +546,7 @@ input[type="text"]{
   display : inline-table;
   text-align : left;
 
+  .song_name { margin-left : 15px; }
   #save_box {
     display : none;
     position : absolute;
@@ -650,6 +658,23 @@ input[type="text"]{
   width : 100%;
   height : 100%;
   z-index : 100;
+
+  a {
+    color: #666;
+    text-decoration: none;
+  }
+  a:link {
+    color: #666;
+    text-decoration: none;
+  }
+  a:visited {
+    color: #666;
+    text-decoration: none;
+  }
+  a:hover {
+    color: #222;
+    text-decoration: none;
+  }
 
   #reloadmusic { 
     .button(140%, 28px, 120px); 

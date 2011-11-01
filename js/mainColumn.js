@@ -82,12 +82,18 @@
   function populateShelf(url, artist, album){ 
     var shelf = $('#search_column #shelf');
     var artworkNum = Math.floor(shelf.width()/IMG_WIDTH);
-    var margin = (shelf.width()-(artworkNum*IMG_WIDTH))/(artworkNum*2);
+    var margin = 
+      Math.floor((shelf.width()-(artworkNum*IMG_WIDTH))/(artworkNum*2))-1;
+    if(margin <= 2){
+      IMG_WIDTH = 95; 
+      margin += 2;
+    }
     var artwork = $('<img></img>')
       .attr('src', url)
       .attr('title', album+'\n'+artist)
       .data('meta', { album : album, artist : artist })
-      .css('margin', Math.floor(margin)-1)
+      .width(IMG_WIDTH)
+      .css('margin', margin)
       .fadeIn()
       .click(function () {
         var shelf = $(this).parent();
@@ -112,7 +118,15 @@
         var muFile = $(this).data('muFile');
         var player_entry = $.app.utils.getSongEntryHTML(muFile, false);
         $.app.Playlist.attachEntryControls(player_entry);
-        $.app.Playlist.add(player_entry)
+        $.app.Playlist.add(player_entry);
+      });
+    $('#search_results', '#search_column').find('.play_action')
+      .click(function (){
+        var muFile = $(this).prev().data('muFile');
+        var player_entry = app.utils.getSongEntryHTML(muFile, false);
+        $.app.Playlist.attachEntryControls(player_entry);
+        $.app.Playlist.add(player_entry);
+        app.player.playMedia(player_entry, false, true);
       });
     $('#search_column #search_results').find('.album_name')
       .click(function () {

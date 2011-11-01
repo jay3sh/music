@@ -17,7 +17,7 @@
     $('#playlist_wrapper').css('height', playlistHeight);
     $('#playlist').height(playlistHeight-60);
 
-    var shelfHeight = $('#search_column').height() - 85;
+    var shelfHeight = $('#search_column').height() - 80;
     $('#shelf').height(shelfHeight);
     $('#settings').height(shelfHeight);
     $('#ytshelf').height(shelfHeight);
