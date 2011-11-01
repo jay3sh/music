@@ -110,48 +110,55 @@
     entryHTML.find('.album_name').data('muFile',muFile);
     entryHTML.find('.artist_name').data('muFile',muFile);
 
+    function dragStart(e, curr){ 
+      if($(curr).parent().attr('id') == 'playlist'){
+        app.Playlist.dragSelection = $(curr);
+        app.Playlist.dragSelectionData = 
+          $(curr).find('.entry_action').data('muFile');
+        e.dataTransfer.setData('text/plain', $(curr).html());
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.dropEffect = 'move';
+        $(curr).css({ 'opacity' : '0.7' });
+      } else { return; }
+    }
+
+    function dragOver(e, curr){ 
+      if(e.preventDefault) { e.preventDefault(); }
+      $(curr).css('border', '1px dotted white');
+      return false;
+    }
+    function dragLeave(e, curr){ 
+      if(e.preventDefault) { e.preventDefault(); }
+      $(curr).css('border', 'none');
+      return false;
+    }
+
+    function drop(e, curr){ 
+      var tempHTML = $(curr).html();
+      var tempData = $(curr).find('.entry_action').data('muFile');
+
+      if (e.preventDefault) e.preventDefault();
+
+      $(curr).after(app.Playlist.dragSelection);
+      app.Playlist.dragSelection.find('.entry_action')
+        .data('muFile', app.Playlist.dragSelectionData);
+
+      app.Playlist.attachEntryControls($(curr).next());
+      $(curr).css('border', 'none');
+      
+      return false;
+    }
+
+    function dragEnd(e, curr){
+      $(curr).css({ 'opacity' : '1.0' });
+    }
+
     entryHTML
-      .bind('dragstart', function (e) {
-        if($(this).parent().attr('id') == 'playlist'){
-          app.Playlist.dragSelection = $(this);
-          app.Playlist.dragSelectionData = 
-            $(this).find('.entry_action').data('muFile');
-          e.dataTransfer.setData('text/plain', $(this).html());
-          e.dataTransfer.effectAllowed = 'move';
-          e.dataTransfer.dropEffect = 'move';
-          $(this).css({ 'opacity' : '0.7' });
-        } else { return; }
-      })
-      .bind('dragover', function (e) {
-        if(e.preventDefault) { e.preventDefault(); }
-        return false;
-      })
-      .bind('dragenter', function (e) {
-        if(e.preventDefault) { e.preventDefault(); }
-        return false;
-      })
-      .bind('drop', function (e) {
-        var tempHTML = $(this).html();
-        var tempData = $(this).find('.entry_action').data('muFile');
-
-        if (e.preventDefault) e.preventDefault();
-
-        $(this).html(app.Playlist.dragSelection.html());
-        app.Playlist.dragSelection.html(tempHTML)
-          .removeClass('focused_entry');
-        $(this).find('.entry_action')
-          .data('muFile', app.Playlist.dragSelectionData);
-        app.Playlist.dragSelection.find('.entry_action')
-          .data('muFile', tempData);
-
-        app.Playlist.attachEntryControls($(this));
-        app.Playlist.attachEntryControls($(app.Playlist.dragSelection));
-
-        return false;
-      })
-      .bind('dragend', function () {
-        $(this).css({ 'opacity' : '1.0' });
-      });
+      .bind('dragstart', function (e) { dragStart(e, this); })
+      .bind('dragover', function (e) { dragOver(e, this); })
+      .bind('dragleave', function (e) { dragLeave(e, this); })
+      .bind('drop', function (e) { drop(e, this); })
+      .bind('dragend', function (e) { dragEnd(e, this); });
 
     return entryHTML;
   };
