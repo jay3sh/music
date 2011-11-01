@@ -7,10 +7,15 @@
     var width = ($(document).width()>1280 ? $(document).width() : 1280);
     $('body').css('width', width);
 
+    var columnWidth = (width-90)/2;
+    $('#player_column').width(columnWidth+20);
+    $('#search_column').width(columnWidth-20);
+    $('#playlist_wrapper').width(columnWidth+20);
+
     var playlistHeight = 
       $('#search_column').height() - $('#player_wrapper').height();
     $('#playlist_wrapper').css('height', playlistHeight);
-    $('#playlist').height(playlistHeight-55);
+    $('#playlist').height(playlistHeight-60);
 
     var shelfHeight = $('#search_column').height() - 85;
     $('#shelf').height(shelfHeight);

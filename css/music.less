@@ -1,8 +1,7 @@
 
-.mainColumn(@float, @padding, @height:0, @width:0){
+.mainColumn(@float, @padding, @height:0){
   float : @float;  
   display : table-cell;
-  width : @width;
   height : @height;
   padding : @padding;
 }
@@ -96,6 +95,23 @@ body {
   overflow : hidden;
 }
 
+a {
+  color: #aaa;
+  text-decoration: none;
+}
+a:link {
+  color: #aaa;
+  text-decoration: none;
+}
+a:visited {
+  color: #aaa;
+  text-decoration: none;
+}
+a:hover {
+  color: gray;
+  text-decoration: none;
+}
+
 .focused_entry{
   background-image: -webkit-linear-gradient(bottom, #666 0%, #888 100%);
   background-image: linear-gradient(bottom, #666 0%, #888 100%);
@@ -136,7 +152,6 @@ body {
     .artist_name {
       font-size : 60%;
       color : #aaa;
-      text-align : center;
     }
     .entry_action, .remove_action {
       font-weight : bold;
@@ -228,7 +243,7 @@ input[type="text"]{
 }
 
 #player_column {
-  .mainColumn(left, 0px, 160px, 48%);
+  .mainColumn(left, 0px, 160px);
   .skin;
   margin : 20px 10px 5px 20px;
 
@@ -352,7 +367,7 @@ input[type="text"]{
 }
 
 #search_column {
-  .mainColumn(right, 12px, 88%, 45%);
+  .mainColumn(right, 12px, 88%);
   .skin;
   margin : 20px 20px 5px 10px;
   text-align : left;
@@ -379,7 +394,7 @@ input[type="text"]{
     position : absolute;
     background-color : rgba(0, 0, 0, 0.55);
     border-radius : 5px;
-    margin : 10px;
+    margin : 12px;
     z-index : 50;
 
     #complete_progress {
@@ -419,12 +434,16 @@ input[type="text"]{
 
   #ytshelf {
     .searchColumnChildren();
+    overflow-y : hidden;
     display : none;
     text-align : center;
     #ytinfo {
       margin-bottom : 5px;
       margin-top : -10px;
       font-size : 13px;
+      font-family : Verdana, serif;
+
+      * { white-space : nowrap; }
     }
     #ytclose { 
       background-image : url('/images/Delete.png'); 
@@ -514,7 +533,7 @@ input[type="text"]{
 }
 
 #playlist_wrapper {
-  .mainColumn(left, 10px, 55%, 48%);
+  .mainColumn(left, 10px, 55%);
   .skin;
   margin : 10px 10px 5px 20px;
   display : inline-table;
@@ -649,6 +668,19 @@ input[type="text"]{
     font-family : Verdana;
     font-size : 12px;
     text-shadow : 0px 1px 0px #fff;
+
+    a {
+      color: #333;
+    }
+    a:link {
+      color: #333;
+    }
+    a:visited {
+      color: #333;
+    }
+    a:hover {
+      color: #bbb;
+    }
   }
 }
 

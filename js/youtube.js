@@ -20,11 +20,13 @@ function getDurationText(seconds) {
 
 function populateYTShelf(entry){
   var atts = { id: "swf" };
-  var videoWidth = $('#shelf').width() - 150;
+  var videoWidth = $('#shelf').width() - 155;
   var videoHeight = videoWidth * 3/4;
   var title = entry.title.$t;
   var viewCount = entry.yt$statistics.viewCount;
   var duration = getDurationText(entry.media$group.yt$duration.seconds);
+  var link = entry.link[0].href;
+  var html = $('<a></a>').attr('href', link).text(title);
 
   var params = { allowScriptAccess: "always" };
   var atts = { id: "swf" };
@@ -42,9 +44,9 @@ function populateYTShelf(entry){
     "ytplayer", videoWidth, videoHeight, "8", null, null, params, atts);
 
   var yt_title = 
-    $('<div></div>').attr('id','yt_title').text(title);
+    $('<div></div>').attr('id','yt_title').html(html);
   var yt_duration = 
-    $('<div></div>').attr('id','yt_duration').text(duration);
+    $('<div></div>').attr('id','yt_duration').text('Duration: ' + duration);
   var yt_view = 
     $('<div></div>').attr('id','yt_view').text('Viewed: ' + viewCount);
 
@@ -95,12 +97,13 @@ app.youtube.getEntryHTML = function (entry) {
     monthText[published.getMonth()]+' '+published.getFullYear();
 
   var viewCount = entry.yt$statistics.viewCount;
-
-  var duration = entry.media$group.yt$duration;
-
+  var duration = getDurationText(entry.media$group.yt$duration.seconds);
+  var info = entry.title.$t + '\n' + 'Duration : '+ duration 
+    + '\n' + 'Viewed : ' + viewCount; 
   var e = $('<div></div>').addClass('ytentry');
+
   e.append($('<img/>').attr('src',thumburl)
-    .attr('title',entry.title.$t).data('entry',entry));
+    .attr('title',info).data('entry',entry));
 
   e.find('img').click(function () {
     var entry = $(this).data('entry');
