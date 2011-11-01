@@ -82,12 +82,18 @@
   function populateShelf(url, artist, album){ 
     var shelf = $('#search_column #shelf');
     var artworkNum = Math.floor(shelf.width()/IMG_WIDTH);
-    var margin = (shelf.width()-(artworkNum*IMG_WIDTH))/(artworkNum*2);
+    var margin = 
+      Math.floor((shelf.width()-(artworkNum*IMG_WIDTH))/(artworkNum*2));
+    if(margin <= 3){
+      IMG_WIDTH = 96; 
+      margin += 2;
+    }
     var artwork = $('<img></img>')
       .attr('src', url)
       .attr('title', album+'\n'+artist)
       .data('meta', { album : album, artist : artist })
-      .css('margin', Math.floor(margin)-1)
+      .width(IMG_WIDTH)
+      .css('margin', margin-1)
       .fadeIn()
       .click(function () {
         var shelf = $(this).parent();
