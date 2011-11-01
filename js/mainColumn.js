@@ -2,6 +2,7 @@
 (function ($){
   var app = $.app;
   var IMG_WIDTH = 100;
+  var IMG_HEIGHT = 100;
 
   function mainColumn() {}
   
@@ -85,14 +86,16 @@
     var margin = 
       Math.floor((shelf.width()-(artworkNum*IMG_WIDTH))/(artworkNum*2))-1;
     if(margin <= 2){
-      IMG_WIDTH = 95; 
-      margin += 2;
+      IMG_WIDTH = 95;
+      IMG_HEIGHT = 95;
+      margin = Math.floor((shelf.width()-(artworkNum*IMG_WIDTH))/(artworkNum*2))-1;
     }
     var artwork = $('<img></img>')
       .attr('src', url)
       .attr('title', album+'\n'+artist)
       .data('meta', { album : album, artist : artist })
       .width(IMG_WIDTH)
+      .height(IMG_HEIGHT)
       .css('margin', margin)
       .fadeIn()
       .click(function () {
