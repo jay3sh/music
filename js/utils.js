@@ -78,7 +78,7 @@
     var artist = muFile.artist;
     var songNameWidth = ($('#playlist').width()/2.2).toFixed();
     var albumNameWidth = songNameWidth/2;
-    var artistNameWidth = albumNameWidth-40;
+    var artistNameWidth = albumNameWidth-60;
 
     var entryHTML = $('<div class="entry" draggable="true"></div>');
     var songName = $('<div class="song_name"></div>')
