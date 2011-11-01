@@ -19,6 +19,11 @@
         (/\.m4a$/.test(lpath))
     });
 
+    if(musicFiles.length <= 0) {
+      app.Skin.showNotification('No mp3/ogg/m4a songs found', true);
+      return;
+    }
+
     $('input[name=search]', '#search_column').val('Search...');
     if($('#curtain').is(':visible')) { app.Skin.hideCurtain(); }
     if(!$('#player_container').is(':visible')) { app.Skin.showPlayerScreen(); }

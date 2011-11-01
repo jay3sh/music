@@ -56,6 +56,10 @@ function animateSeeker() {
 }
 
 player.prevSong = function () {
+  if(!currentPlaying) {
+    app.Skin.showNotification('No current song playing', true);
+    return;
+  }
   var prevDiv = currentPlaying.prev();
   if(prevDiv.length == 0) {
     prevDiv = currentPlaying.parent().children().last();
@@ -64,6 +68,10 @@ player.prevSong = function () {
 }
 
 player.nextSong = function () {
+  if(!currentPlaying) {
+    app.Skin.showNotification('No current song playing', true);
+    return;
+  }
   var nextDiv = currentPlaying.next();
   if(nextDiv.length == 0) {
     nextDiv = currentPlaying.parent().children().first();
@@ -94,7 +102,7 @@ player.pauseMedia = function () {
 player.playMedia = function (div, resumeFlag, forceStop) {
   if(!div){
     if($('#playlist', '#playlist_wrapper').is(':empty')){
-      alert('No selction made.');
+      app.Skin.showNotification('Please select a song', true);
       return;
     } else { 
       div = $('.entry', '#playlist').first();
