@@ -20,8 +20,8 @@ function getDurationText(seconds) {
 
 function populateYTShelf(entry){
   var atts = { id: "swf" };
-  var videoWidth = $('#shelf').width() - 155;
-  var videoHeight = videoWidth * 3/4;
+  var videoHeight = $('#shelf').height()-210;
+  var videoWidth = videoHeight * (4/3);
   var title = entry.title.$t;
   var viewCount = entry.yt$statistics.viewCount;
   var duration = getDurationText(entry.media$group.yt$duration.seconds);
