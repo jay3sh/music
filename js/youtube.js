@@ -23,7 +23,10 @@ function populateYTShelf(entry){
   var videoHeight = $('#shelf').height()-210;
   var videoWidth = videoHeight * (4/3);
   var title = entry.title.$t;
-  var viewCount = entry.yt$statistics.viewCount;
+  var viewCount = null;
+  if(entry.yt$statistics) {
+    viewCount = entry.yt$statistics.viewCount;
+  }
   var duration = getDurationText(entry.media$group.yt$duration.seconds);
   var link = entry.link[0].href;
   var html = $('<a></a>').attr('href', link).text(title);
@@ -45,10 +48,16 @@ function populateYTShelf(entry){
 
   var yt_title = 
     $('<div></div>').attr('id','yt_title').html(html);
-  var yt_duration = 
-    $('<div></div>').attr('id','yt_duration').text('Duration: ' + duration);
-  var yt_view = 
-    $('<div></div>').attr('id','yt_view').text('Viewed: ' + viewCount);
+  var yt_duration = $('<div></div>');
+  if(duration) {
+    yt_duration = $('<div></div>').attr('id','yt_duration')
+      .text('Duration: ' + duration);
+  }
+  var yt_view = $('<div></div>');
+  if(viewCount) {
+    yt_view = $('<div></div>').attr('id','yt_view')
+      .text('Viewed: ' + viewCount);
+  }
 
   $('#ytshelf #ytinfo').append(yt_title)
     .append(yt_view)
