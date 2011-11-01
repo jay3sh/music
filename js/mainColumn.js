@@ -118,7 +118,15 @@
         var muFile = $(this).data('muFile');
         var player_entry = $.app.utils.getSongEntryHTML(muFile, false);
         $.app.Playlist.attachEntryControls(player_entry);
-        $.app.Playlist.add(player_entry)
+        $.app.Playlist.add(player_entry);
+      });
+    $('#search_results', '#search_column').find('.play_action')
+      .click(function (){
+        var muFile = $(this).prev().data('muFile');
+        var player_entry = app.utils.getSongEntryHTML(muFile, false);
+        $.app.Playlist.attachEntryControls(player_entry);
+        $.app.Playlist.add(player_entry);
+        app.player.playMedia(player_entry, false, true);
       });
     $('#search_column #search_results').find('.album_name')
       .click(function () {
