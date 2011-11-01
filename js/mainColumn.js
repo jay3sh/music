@@ -83,9 +83,9 @@
     var shelf = $('#search_column #shelf');
     var artworkNum = Math.floor(shelf.width()/IMG_WIDTH);
     var margin = 
-      Math.floor((shelf.width()-(artworkNum*IMG_WIDTH))/(artworkNum*2));
-    if(margin <= 3){
-      IMG_WIDTH = 96; 
+      Math.floor((shelf.width()-(artworkNum*IMG_WIDTH))/(artworkNum*2))-1;
+    if(margin <= 2){
+      IMG_WIDTH = 95; 
       margin += 2;
     }
     var artwork = $('<img></img>')
@@ -93,7 +93,7 @@
       .attr('title', album+'\n'+artist)
       .data('meta', { album : album, artist : artist })
       .width(IMG_WIDTH)
-      .css('margin', margin-1)
+      .css('margin', margin)
       .fadeIn()
       .click(function () {
         var shelf = $(this).parent();
