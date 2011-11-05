@@ -124,7 +124,7 @@
 
     function dragOver(e, curr){ 
       if(e.preventDefault) { e.preventDefault(); }
-      $(curr).css('border', '1px dotted white');
+      $(curr).css('border-bottom', '1px dotted white');
       return false;
     }
     function dragLeave(e, curr){ 
