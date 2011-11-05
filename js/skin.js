@@ -10,10 +10,10 @@
     var columnWidth = (width-90)/2;
     $('#player_column').width(columnWidth+20);
     $('#search_column').width(columnWidth-20);
-    $('#playlist_wrapper').width(columnWidth+20);
+    $('#playlist_wrapper').width(columnWidth);
 
     var playlistHeight = 
-      $('#search_column').height() - $('#player_wrapper').height();
+      $('#search_column').height() - $('#player_wrapper').height()-20;
     $('#playlist_wrapper').css('height', playlistHeight);
     $('#playlist').height(playlistHeight-60);
 
